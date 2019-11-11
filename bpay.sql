@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2019 at 06:34 PM
+-- Generation Time: Nov 11, 2019 at 07:14 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -41,6 +41,13 @@ CREATE TABLE `billing_addresses` (
   `bla_name` varchar(55) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `billing_addresses`
+--
+
+INSERT INTO `billing_addresses` (`bla_id`, `bla_user_id`, `bla_country_id`, `bla_city`, `bla_region`, `bla_street`, `bla_street_no`, `bla_code`, `bla_surname`, `bla_name`) VALUES
+(1, 2, 6, 'Athens', 'Palia Smyrni', 'Thukididi', '32B', '12367', 'Alkiviadis', 'Papadopoulos');
+
 -- --------------------------------------------------------
 
 --
@@ -72,6 +79,18 @@ CREATE TABLE `countries` (
   `ctr_code` varchar(2) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `countries`
+--
+
+INSERT INTO `countries` (`ctr_id`, `ctr_title`, `ctr_code`) VALUES
+(1, 'Germany', 'DE'),
+(2, 'Russia', 'RU'),
+(3, 'China', 'CN'),
+(4, 'Norway', 'NO'),
+(5, 'Australia', 'AU'),
+(6, 'Greece', 'GR');
+
 -- --------------------------------------------------------
 
 --
@@ -89,7 +108,8 @@ CREATE TABLE `currencies` (
 --
 
 INSERT INTO `currencies` (`cur_id`, `cur_title`, `cur_rate`) VALUES
-(1, 'EUR', '1.00');
+(1, 'EUR', '1.00'),
+(2, 'USD', '1.28');
 
 -- --------------------------------------------------------
 
@@ -103,6 +123,14 @@ CREATE TABLE `custom_products_filters_values` (
   `csp_filter_id` int(10) UNSIGNED NOT NULL,
   `csp_value` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `custom_products_filters_values`
+--
+
+INSERT INTO `custom_products_filters_values` (`csp_id`, `csp_selling_id`, `csp_filter_id`, `csp_value`) VALUES
+(1, 2, 4, '1878'),
+(2, 1, 4, '2011');
 
 -- --------------------------------------------------------
 
@@ -120,17 +148,13 @@ CREATE TABLE `listings` (
   `lis_to` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `migrations`
+-- Dumping data for table `listings`
 --
 
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `listings` (`lis_id`, `lis_selling_id`, `lis_price`, `lis_currency_id`, `lis_fee_eur`, `lis_from`, `lis_to`) VALUES
+(1, 2, '45.00', 1, '1.00', '2019-11-01 00:00:00', '2019-11-27 00:00:00'),
+(2, 3, '1.45', 1, '1.00', '2019-11-01 00:00:00', '2019-11-27 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -143,13 +167,24 @@ CREATE TABLE `orders` (
   `ord_user_id` bigint(10) UNSIGNED NOT NULL,
   `ord_shipaddress_id` bigint(10) UNSIGNED NOT NULL,
   `ord_billaddress_id` bigint(10) UNSIGNED NOT NULL,
+  `ord_paymethod_id` tinyint(3) UNSIGNED NOT NULL,
+  `ord_bank_transaction_id` varchar(45) CHARACTER SET utf8 NOT NULL,
   `ord_total` decimal(10,2) UNSIGNED NOT NULL,
+  `ord_goods_total` decimal(10,2) UNSIGNED NOT NULL,
+  `ord_ship_total` decimal(10,2) UNSIGNED NOT NULL,
   `ord_fee` decimal(5,2) UNSIGNED NOT NULL,
   `ord_rate` decimal(5,2) UNSIGNED NOT NULL,
   `ord_currency_id` tinyint(3) UNSIGNED NOT NULL,
   `ord_created` datetime NOT NULL,
   `ord_success` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`ord_id`, `ord_user_id`, `ord_shipaddress_id`, `ord_billaddress_id`, `ord_paymethod_id`, `ord_bank_transaction_id`, `ord_total`, `ord_goods_total`, `ord_ship_total`, `ord_fee`, `ord_rate`, `ord_currency_id`, `ord_created`, `ord_success`) VALUES
+(1, 2, 1, 1, 2, 'RF123455698454DF9905GR', '68.07', '45.45', '21.08', '0.54', '1.00', 1, '2019-11-11 20:08:03', 1);
 
 -- --------------------------------------------------------
 
@@ -165,9 +200,40 @@ CREATE TABLE `order_items` (
   `itm_quantity` tinyint(3) UNSIGNED NOT NULL,
   `itm_tracking_nums` varchar(255) CHARACTER SET utf8 NOT NULL,
   `itm_total` decimal(10,2) NOT NULL,
+  `itm_goods_total` decimal(10,2) UNSIGNED NOT NULL,
+  `itm_ship_total` decimal(10,2) UNSIGNED NOT NULL,
   `itm_currency_id` tinyint(3) UNSIGNED NOT NULL,
   `itm_status_id` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`itm_id`, `itm_order_id`, `itm_product_id`, `itm_seller_id`, `itm_quantity`, `itm_tracking_nums`, `itm_total`, `itm_goods_total`, `itm_ship_total`, `itm_currency_id`, `itm_status_id`) VALUES
+(1, 1, 2, 1, 1, '', '65.00', '45.00', '20.00', 1, 1),
+(2, 1, 2, 2, 1, '', '2.53', '1.45', '1.08', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_item_track_history`
+--
+
+CREATE TABLE `order_item_track_history` (
+  `itmh_id` bigint(20) UNSIGNED NOT NULL,
+  `itmh_item_id` bigint(20) UNSIGNED NOT NULL,
+  `itmh_status_id` tinyint(3) UNSIGNED NOT NULL,
+  `itmh_created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_item_track_history`
+--
+
+INSERT INTO `order_item_track_history` (`itmh_id`, `itmh_item_id`, `itmh_status_id`, `itmh_created_at`) VALUES
+(1, 1, 1, '2019-11-11 20:08:03'),
+(2, 2, 1, '2019-11-11 20:08:03');
 
 -- --------------------------------------------------------
 
@@ -193,6 +259,25 @@ INSERT INTO `order_statuses` (`stat_id`, `stat_title`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `paymethods`
+--
+
+CREATE TABLE `paymethods` (
+  `pm_id` tinyint(3) UNSIGNED NOT NULL,
+  `pm_title` varchar(25) CHARACTER SET utf8 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `paymethods`
+--
+
+INSERT INTO `paymethods` (`pm_id`, `pm_title`) VALUES
+(1, 'Credit Card'),
+(2, 'Paypal');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `products`
 --
 
@@ -207,7 +292,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`prod_id`, `prod_title`, `prod_category_id`) VALUES
-(1, 'Harry Potter og vises stein', 1);
+(1, 'Harry Potter og vises stein', 1),
+(2, 'Henrik Ibsens Samtliche Werke', 1),
+(3, 'Chopsticks', 1);
 
 -- --------------------------------------------------------
 
@@ -226,7 +313,8 @@ CREATE TABLE `products_categories` (
 
 INSERT INTO `products_categories` (`cat_id`, `cat_title`) VALUES
 (1, 'All'),
-(2, 'Books');
+(2, 'Books'),
+(3, 'Kitchen utensils');
 
 -- --------------------------------------------------------
 
@@ -247,7 +335,8 @@ CREATE TABLE `products_filters` (
 INSERT INTO `products_filters` (`fil_id`, `fil_title`, `fil_product_category`) VALUES
 (1, 'Cover', 2),
 (2, 'Status', 1),
-(3, 'Language', 2);
+(3, 'Language', 2),
+(4, 'Publication Year', 2);
 
 -- --------------------------------------------------------
 
@@ -304,8 +393,8 @@ CREATE TABLE `reviews` (
 CREATE TABLE `sellers` (
   `sel_id` int(10) UNSIGNED NOT NULL,
   `seller_usr_id` bigint(20) UNSIGNED NOT NULL,
-  `sel_country` varchar(2) NOT NULL,
   `sel_title` varchar(125) NOT NULL,
+  `sel_country_id` smallint(5) UNSIGNED NOT NULL DEFAULT '1',
   `sel_ssn` varchar(60) NOT NULL,
   `sel_stars_avg` decimal(3,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -314,8 +403,9 @@ CREATE TABLE `sellers` (
 -- Dumping data for table `sellers`
 --
 
-INSERT INTO `sellers` (`sel_id`, `seller_usr_id`, `sel_country`, `sel_title`, `sel_ssn`, `sel_stars_avg`) VALUES
-(1, 1, 'DK', '', '', '0.00');
+INSERT INTO `sellers` (`sel_id`, `seller_usr_id`, `sel_title`, `sel_country_id`, `sel_ssn`, `sel_stars_avg`) VALUES
+(1, 1, 'Scandinavian World', 1, '', '0.00'),
+(2, 3, 'Asian Delight', 1, '', '0.00');
 
 -- --------------------------------------------------------
 
@@ -336,7 +426,9 @@ CREATE TABLE `selling` (
 --
 
 INSERT INTO `selling` (`sll_id`, `sll_seller_id`, `sll_product_id`, `sll_descr`, `sll_quantity`) VALUES
-(1, 1, 1, '', 0);
+(1, 1, 1, '', 1),
+(2, 1, 2, '', 1),
+(3, 2, 3, '', 45);
 
 -- --------------------------------------------------------
 
@@ -357,6 +449,13 @@ CREATE TABLE `shipping_addresses` (
   `shp_name` varchar(55) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `shipping_addresses`
+--
+
+INSERT INTO `shipping_addresses` (`shp_id`, `shp_user_id`, `shp_country_id`, `shp_city`, `shp_region`, `shp_street`, `shp_street_no`, `shp_code`, `shp_surname`, `shp_name`) VALUES
+(1, 2, 6, 'Athens', 'Palia Smyrni', 'Thukididi', '32B', '12367', 'Alkiviadis', 'Papadopoulos');
+
 -- --------------------------------------------------------
 
 --
@@ -367,16 +466,18 @@ CREATE TABLE `shipping_costs` (
   `shc_id` int(10) UNSIGNED NOT NULL,
   `shc_selling_id` int(10) UNSIGNED NOT NULL,
   `shc_continent_id` tinyint(3) UNSIGNED NOT NULL,
-  `shc_cost` decimal(10,2) UNSIGNED NOT NULL
+  `shc_cost` decimal(10,2) UNSIGNED NOT NULL,
+  `shc_currency_id` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `shipping_costs`
 --
 
-INSERT INTO `shipping_costs` (`shc_id`, `shc_selling_id`, `shc_continent_id`, `shc_cost`) VALUES
-(1, 1, 1, '7.00'),
-(2, 1, 2, '12.00');
+INSERT INTO `shipping_costs` (`shc_id`, `shc_selling_id`, `shc_continent_id`, `shc_cost`, `shc_currency_id`) VALUES
+(1, 1, 1, '7.00', 1),
+(2, 1, 2, '12.00', 1),
+(3, 1, 1, '15.00', 1);
 
 -- --------------------------------------------------------
 
@@ -387,8 +488,9 @@ INSERT INTO `shipping_costs` (`shc_id`, `shc_selling_id`, `shc_continent_id`, `s
 CREATE TABLE `shipping_costs_exceptions` (
   `shc_id` int(10) UNSIGNED NOT NULL,
   `shc_selling_id` int(10) UNSIGNED NOT NULL,
-  `shc_country_id` tinyint(3) UNSIGNED NOT NULL,
-  `shc_cost` decimal(10,2) UNSIGNED NOT NULL
+  `shc_country_id` smallint(5) UNSIGNED NOT NULL,
+  `shc_cost` decimal(10,2) UNSIGNED NOT NULL,
+  `shc_currency_id` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -398,10 +500,17 @@ CREATE TABLE `shipping_costs_exceptions` (
 --
 
 CREATE TABLE `shipping_country_forbidden` (
-  `shf_id` int(11) NOT NULL,
-  `shf_selling_id` int(11) NOT NULL,
-  `shf_contry_id` tinyint(4) NOT NULL
+  `shf_id` int(10) UNSIGNED NOT NULL,
+  `shf_selling_id` int(10) UNSIGNED NOT NULL,
+  `shf_country_id` smallint(4) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `shipping_country_forbidden`
+--
+
+INSERT INTO `shipping_country_forbidden` (`shf_id`, `shf_selling_id`, `shf_country_id`) VALUES
+(1, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -425,7 +534,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Nordic World', '', NULL, '', NULL, NULL, NULL);
+(1, 'Nordic World', '', NULL, '', NULL, NULL, NULL),
+(2, 'Rich buyer', '', NULL, '', NULL, NULL, NULL),
+(3, 'Asian Delight', '', NULL, '', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -477,12 +588,6 @@ ALTER TABLE `listings`
   ADD KEY `lis_currency_id` (`lis_currency_id`);
 
 --
--- Indexes for table `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -490,7 +595,8 @@ ALTER TABLE `orders`
   ADD KEY `ord_user_id` (`ord_user_id`),
   ADD KEY `ord_currency` (`ord_currency_id`),
   ADD KEY `ord_shipaddress_id` (`ord_shipaddress_id`),
-  ADD KEY `ord_billaddress_id` (`ord_billaddress_id`);
+  ADD KEY `ord_billaddress_id` (`ord_billaddress_id`),
+  ADD KEY `ord_paymethod_id` (`ord_paymethod_id`);
 
 --
 -- Indexes for table `order_items`
@@ -504,11 +610,25 @@ ALTER TABLE `order_items`
   ADD KEY `itm_status_id` (`itm_status_id`);
 
 --
+-- Indexes for table `order_item_track_history`
+--
+ALTER TABLE `order_item_track_history`
+  ADD PRIMARY KEY (`itmh_id`),
+  ADD KEY `itmh_item_id` (`itmh_item_id`),
+  ADD KEY `itmh_status_id` (`itmh_status_id`);
+
+--
 -- Indexes for table `order_statuses`
 --
 ALTER TABLE `order_statuses`
   ADD PRIMARY KEY (`stat_id`),
   ADD UNIQUE KEY `stat_title` (`stat_title`);
+
+--
+-- Indexes for table `paymethods`
+--
+ALTER TABLE `paymethods`
+  ADD PRIMARY KEY (`pm_id`);
 
 --
 -- Indexes for table `products`
@@ -551,7 +671,8 @@ ALTER TABLE `reviews`
 --
 ALTER TABLE `sellers`
   ADD PRIMARY KEY (`sel_id`),
-  ADD KEY `seller_usr_id` (`seller_usr_id`);
+  ADD KEY `seller_usr_id` (`seller_usr_id`),
+  ADD KEY `sel_country_id` (`sel_country_id`);
 
 --
 -- Indexes for table `selling`
@@ -575,7 +696,25 @@ ALTER TABLE `shipping_addresses`
 ALTER TABLE `shipping_costs`
   ADD PRIMARY KEY (`shc_id`),
   ADD KEY `shc_selling_id` (`shc_selling_id`),
-  ADD KEY `shc_continent_id` (`shc_continent_id`);
+  ADD KEY `shc_continent_id` (`shc_continent_id`),
+  ADD KEY `shc_currency_id` (`shc_currency_id`);
+
+--
+-- Indexes for table `shipping_costs_exceptions`
+--
+ALTER TABLE `shipping_costs_exceptions`
+  ADD PRIMARY KEY (`shc_id`),
+  ADD KEY `shc_selling_id` (`shc_selling_id`),
+  ADD KEY `shc_country_id` (`shc_country_id`),
+  ADD KEY `shc_currency_id` (`shc_currency_id`);
+
+--
+-- Indexes for table `shipping_country_forbidden`
+--
+ALTER TABLE `shipping_country_forbidden`
+  ADD PRIMARY KEY (`shf_id`),
+  ADD KEY `shf_country_id` (`shf_country_id`),
+  ADD KEY `shf_selling_id` (`shf_selling_id`);
 
 --
 -- Indexes for table `users`
@@ -591,43 +730,49 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `billing_addresses`
 --
 ALTER TABLE `billing_addresses`
-  MODIFY `bla_id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `bla_id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
-  MODIFY `ctr_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ctr_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `currencies`
 --
 ALTER TABLE `currencies`
-  MODIFY `cur_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cur_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `custom_products_filters_values`
 --
 ALTER TABLE `custom_products_filters_values`
-  MODIFY `csp_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `csp_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `listings`
 --
 ALTER TABLE `listings`
-  MODIFY `lis_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `lis_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `ord_id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ord_id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `itm_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `order_item_track_history`
+--
+ALTER TABLE `order_item_track_history`
+  MODIFY `itmh_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_statuses`
@@ -636,22 +781,28 @@ ALTER TABLE `order_statuses`
   MODIFY `stat_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `paymethods`
+--
+ALTER TABLE `paymethods`
+  MODIFY `pm_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `prod_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `prod_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products_categories`
 --
 ALTER TABLE `products_categories`
-  MODIFY `cat_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cat_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products_filters`
 --
 ALTER TABLE `products_filters`
-  MODIFY `fil_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `fil_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `products_filter_values`
@@ -669,31 +820,43 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `sellers`
 --
 ALTER TABLE `sellers`
-  MODIFY `sel_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `sel_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `selling`
 --
 ALTER TABLE `selling`
-  MODIFY `sll_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `sll_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `shipping_addresses`
 --
 ALTER TABLE `shipping_addresses`
-  MODIFY `shp_id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `shp_id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `shipping_costs`
 --
 ALTER TABLE `shipping_costs`
-  MODIFY `shc_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `shc_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `shipping_costs_exceptions`
+--
+ALTER TABLE `shipping_costs_exceptions`
+  MODIFY `shc_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `shipping_country_forbidden`
+--
+ALTER TABLE `shipping_country_forbidden`
+  MODIFY `shf_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -727,7 +890,8 @@ ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`ord_currency_id`) REFERENCES `currencies` (`cur_id`),
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`ord_user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`ord_shipaddress_id`) REFERENCES `shipping_addresses` (`shp_id`),
-  ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`ord_billaddress_id`) REFERENCES `billing_addresses` (`bla_id`);
+  ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`ord_billaddress_id`) REFERENCES `billing_addresses` (`bla_id`),
+  ADD CONSTRAINT `orders_ibfk_5` FOREIGN KEY (`ord_paymethod_id`) REFERENCES `paymethods` (`pm_id`);
 
 --
 -- Constraints for table `order_items`
@@ -738,6 +902,13 @@ ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_ibfk_3` FOREIGN KEY (`itm_product_id`) REFERENCES `selling` (`sll_id`),
   ADD CONSTRAINT `order_items_ibfk_4` FOREIGN KEY (`itm_seller_id`) REFERENCES `sellers` (`sel_id`),
   ADD CONSTRAINT `order_items_ibfk_5` FOREIGN KEY (`itm_status_id`) REFERENCES `order_statuses` (`stat_id`);
+
+--
+-- Constraints for table `order_item_track_history`
+--
+ALTER TABLE `order_item_track_history`
+  ADD CONSTRAINT `order_item_track_history_ibfk_1` FOREIGN KEY (`itmh_item_id`) REFERENCES `order_items` (`itm_id`),
+  ADD CONSTRAINT `order_item_track_history_ibfk_2` FOREIGN KEY (`itmh_status_id`) REFERENCES `order_statuses` (`stat_id`);
 
 --
 -- Constraints for table `products`
@@ -761,14 +932,15 @@ ALTER TABLE `products_filter_values`
 -- Constraints for table `reviews`
 --
 ALTER TABLE `reviews`
-  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`rev_ord_item_id`) REFERENCES `order_items` (`itm_id`),
-  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`rev_usr_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`rev_usr_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `reviews_ibfk_3` FOREIGN KEY (`rev_ord_item_id`) REFERENCES `order_items` (`itm_id`);
 
 --
 -- Constraints for table `sellers`
 --
 ALTER TABLE `sellers`
-  ADD CONSTRAINT `sellers_ibfk_1` FOREIGN KEY (`seller_usr_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `sellers_ibfk_1` FOREIGN KEY (`seller_usr_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `sellers_ibfk_2` FOREIGN KEY (`sel_country_id`) REFERENCES `countries` (`ctr_id`);
 
 --
 -- Constraints for table `selling`
@@ -789,7 +961,23 @@ ALTER TABLE `shipping_addresses`
 --
 ALTER TABLE `shipping_costs`
   ADD CONSTRAINT `shipping_costs_ibfk_1` FOREIGN KEY (`shc_continent_id`) REFERENCES `continents` (`con_id`),
-  ADD CONSTRAINT `shipping_costs_ibfk_2` FOREIGN KEY (`shc_selling_id`) REFERENCES `selling` (`sll_id`);
+  ADD CONSTRAINT `shipping_costs_ibfk_2` FOREIGN KEY (`shc_selling_id`) REFERENCES `selling` (`sll_id`),
+  ADD CONSTRAINT `shipping_costs_ibfk_3` FOREIGN KEY (`shc_currency_id`) REFERENCES `currencies` (`cur_id`);
+
+--
+-- Constraints for table `shipping_costs_exceptions`
+--
+ALTER TABLE `shipping_costs_exceptions`
+  ADD CONSTRAINT `shipping_costs_exceptions_ibfk_1` FOREIGN KEY (`shc_selling_id`) REFERENCES `selling` (`sll_id`),
+  ADD CONSTRAINT `shipping_costs_exceptions_ibfk_2` FOREIGN KEY (`shc_country_id`) REFERENCES `countries` (`ctr_id`),
+  ADD CONSTRAINT `shipping_costs_exceptions_ibfk_3` FOREIGN KEY (`shc_currency_id`) REFERENCES `currencies` (`cur_id`);
+
+--
+-- Constraints for table `shipping_country_forbidden`
+--
+ALTER TABLE `shipping_country_forbidden`
+  ADD CONSTRAINT `shipping_country_forbidden_ibfk_1` FOREIGN KEY (`shf_country_id`) REFERENCES `countries` (`ctr_id`),
+  ADD CONSTRAINT `shipping_country_forbidden_ibfk_2` FOREIGN KEY (`shf_selling_id`) REFERENCES `selling` (`sll_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
