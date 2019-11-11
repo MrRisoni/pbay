@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2019 at 07:14 PM
+-- Generation Time: Nov 11, 2019 at 07:49 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -130,7 +130,8 @@ CREATE TABLE `custom_products_filters_values` (
 
 INSERT INTO `custom_products_filters_values` (`csp_id`, `csp_selling_id`, `csp_filter_id`, `csp_value`) VALUES
 (1, 2, 4, '1878'),
-(2, 1, 4, '2011');
+(2, 1, 4, '2011'),
+(3, 1, 6, '445gh787687444');
 
 -- --------------------------------------------------------
 
@@ -198,7 +199,7 @@ CREATE TABLE `order_items` (
   `itm_product_id` int(10) UNSIGNED NOT NULL,
   `itm_seller_id` int(10) UNSIGNED NOT NULL,
   `itm_quantity` tinyint(3) UNSIGNED NOT NULL,
-  `itm_tracking_nums` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `itm_tracking_nums` varchar(225) CHARACTER SET utf8 NOT NULL,
   `itm_total` decimal(10,2) NOT NULL,
   `itm_goods_total` decimal(10,2) UNSIGNED NOT NULL,
   `itm_ship_total` decimal(10,2) UNSIGNED NOT NULL,
@@ -284,6 +285,7 @@ INSERT INTO `paymethods` (`pm_id`, `pm_title`) VALUES
 CREATE TABLE `products` (
   `prod_id` int(10) UNSIGNED NOT NULL,
   `prod_title` varchar(255) NOT NULL,
+  `prod_other_title` varchar(80) NOT NULL,
   `prod_category_id` mediumint(8) UNSIGNED NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -291,10 +293,14 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`prod_id`, `prod_title`, `prod_category_id`) VALUES
-(1, 'Harry Potter og vises stein', 1),
-(2, 'Henrik Ibsens Samtliche Werke', 1),
-(3, 'Chopsticks', 1);
+INSERT INTO `products` (`prod_id`, `prod_title`, `prod_other_title`, `prod_category_id`) VALUES
+(1, 'Harry Potter og vises stein', 'Harry Potter and the Philosoper\'s stone', 1),
+(2, 'Henrik Ibsens Samtliche Werke', '', 1),
+(3, 'Chopsticks', '', 1),
+(4, 'Idiot ', 'Идиот', 4),
+(5, 'Crime and Punishment', 'Преступление и наказание', 4),
+(6, 'Demons', 'бесы', 4),
+(7, 'Brothers Karamazov', 'Братья Карамазовы', 4);
 
 -- --------------------------------------------------------
 
@@ -314,7 +320,8 @@ CREATE TABLE `products_categories` (
 INSERT INTO `products_categories` (`cat_id`, `cat_title`) VALUES
 (1, 'All'),
 (2, 'Books'),
-(3, 'Kitchen utensils');
+(3, 'Kitchen utensils'),
+(4, 'DVD');
 
 -- --------------------------------------------------------
 
@@ -336,7 +343,9 @@ INSERT INTO `products_filters` (`fil_id`, `fil_title`, `fil_product_category`) V
 (1, 'Cover', 2),
 (2, 'Status', 1),
 (3, 'Language', 2),
-(4, 'Publication Year', 2);
+(4, 'Publication Year', 2),
+(5, 'Duration', 4),
+(6, 'ISBN', 2);
 
 -- --------------------------------------------------------
 
@@ -346,28 +355,10 @@ INSERT INTO `products_filters` (`fil_id`, `fil_title`, `fil_product_category`) V
 
 CREATE TABLE `products_filter_values` (
   `pfv_id` int(10) UNSIGNED NOT NULL,
+  `pfv_product_id` int(10) UNSIGNED NOT NULL,
   `pfv_filter_id` int(10) UNSIGNED NOT NULL,
   `pfv_value` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `products_filter_values`
---
-
-INSERT INTO `products_filter_values` (`pfv_id`, `pfv_filter_id`, `pfv_value`) VALUES
-(1, 2, 'Hardcover'),
-(2, 2, 'Paperback'),
-(3, 2, 'Brand New'),
-(4, 2, 'Used'),
-(5, 3, 'Greek'),
-(6, 3, 'English'),
-(7, 3, 'French'),
-(8, 3, 'Italian'),
-(9, 3, 'German'),
-(10, 3, 'Russian'),
-(11, 3, 'Danish'),
-(12, 3, 'Norwegian'),
-(13, 3, 'Sweedish');
 
 -- --------------------------------------------------------
 
@@ -405,7 +396,8 @@ CREATE TABLE `sellers` (
 
 INSERT INTO `sellers` (`sel_id`, `seller_usr_id`, `sel_title`, `sel_country_id`, `sel_ssn`, `sel_stars_avg`) VALUES
 (1, 1, 'Scandinavian World', 1, '', '0.00'),
-(2, 3, 'Asian Delight', 1, '', '0.00');
+(2, 3, 'Asian Delight', 1, '', '0.00'),
+(3, 4, '', 2, '', '0.00');
 
 -- --------------------------------------------------------
 
@@ -428,7 +420,11 @@ CREATE TABLE `selling` (
 INSERT INTO `selling` (`sll_id`, `sll_seller_id`, `sll_product_id`, `sll_descr`, `sll_quantity`) VALUES
 (1, 1, 1, '', 1),
 (2, 1, 2, '', 1),
-(3, 2, 3, '', 45);
+(3, 2, 3, '', 45),
+(4, 3, 4, '', 2),
+(5, 3, 5, '', 2),
+(6, 3, 6, '', 2),
+(7, 3, 7, '', 2);
 
 -- --------------------------------------------------------
 
@@ -536,7 +532,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Nordic World', '', NULL, '', NULL, NULL, NULL),
 (2, 'Rich buyer', '', NULL, '', NULL, NULL, NULL),
-(3, 'Asian Delight', '', NULL, '', NULL, NULL, NULL);
+(3, 'Asian Delight', '', NULL, '', NULL, NULL, NULL),
+(4, 'Rusiskoi Federacci', '', NULL, '', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -656,7 +653,8 @@ ALTER TABLE `products_filters`
 --
 ALTER TABLE `products_filter_values`
   ADD PRIMARY KEY (`pfv_id`),
-  ADD KEY `pfv_filter_id` (`pfv_filter_id`);
+  ADD KEY `pfv_filter_id` (`pfv_filter_id`),
+  ADD KEY `pfv_product_id` (`pfv_product_id`);
 
 --
 -- Indexes for table `reviews`
@@ -748,7 +746,7 @@ ALTER TABLE `currencies`
 -- AUTO_INCREMENT for table `custom_products_filters_values`
 --
 ALTER TABLE `custom_products_filters_values`
-  MODIFY `csp_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `csp_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `listings`
@@ -790,25 +788,25 @@ ALTER TABLE `paymethods`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `prod_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `prod_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `products_categories`
 --
 ALTER TABLE `products_categories`
-  MODIFY `cat_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cat_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `products_filters`
 --
 ALTER TABLE `products_filters`
-  MODIFY `fil_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `fil_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `products_filter_values`
 --
 ALTER TABLE `products_filter_values`
-  MODIFY `pfv_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `pfv_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -820,13 +818,13 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `sellers`
 --
 ALTER TABLE `sellers`
-  MODIFY `sel_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sel_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `selling`
 --
 ALTER TABLE `selling`
-  MODIFY `sll_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `sll_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `shipping_addresses`
@@ -856,7 +854,7 @@ ALTER TABLE `shipping_country_forbidden`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -926,7 +924,8 @@ ALTER TABLE `products_filters`
 -- Constraints for table `products_filter_values`
 --
 ALTER TABLE `products_filter_values`
-  ADD CONSTRAINT `products_filter_values_ibfk_1` FOREIGN KEY (`pfv_filter_id`) REFERENCES `products_filters` (`fil_id`);
+  ADD CONSTRAINT `products_filter_values_ibfk_1` FOREIGN KEY (`pfv_filter_id`) REFERENCES `products_filters` (`fil_id`),
+  ADD CONSTRAINT `products_filter_values_ibfk_2` FOREIGN KEY (`pfv_product_id`) REFERENCES `products` (`prod_id`);
 
 --
 -- Constraints for table `reviews`
