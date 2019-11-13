@@ -37,35 +37,35 @@ var mdlShippingAddress = sequelize.define('shipping_addresses', {
             primaryKey: true,
         },
         countryId: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.INTEGER,
             field: 'shp_country_id'
         },
         city: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'shp_city'
         },
         region: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'shp_region'
         },
         street: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'shp_street'
         },
         street_no: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'shp_street_no'
         },
         code: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'shp_code'
         },
         surname: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'shp_surname'
         },
         name: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'shp_name'
 
         }
@@ -90,38 +90,38 @@ var mdlBillingAddress = sequelize.define('billing_addresses', {
 
         },
         city: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'bla_city'
 
         },
         region: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'bla_region'
 
         },
         street: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'bla_street'
 
         },
 
         street_no: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'bla_street_no'
 
         },
         code: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'bla_code'
 
         },
         surname: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'bla_surname'
 
         },
         name: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'bla_name'
 
         },
@@ -141,7 +141,7 @@ var mdlOrders = sequelize.define('orders', {
             primaryKey: true,
         },
         transactionId: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'ord_bank_transaction_id'
         },
         total: {
@@ -185,7 +185,7 @@ var mdlOrderItems = sequelize.define('order_items', {
             primaryKey: true,
         },
         trackingNums: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'itm_tracking_nums'
         },
         total: {
@@ -203,11 +203,7 @@ var mdlOrderItems = sequelize.define('order_items', {
         currencyId: {
             type: Sequelize.INTEGER,
             field: 'itm_currency_id'
-        },
-        createdAt: {
-            type: Sequelize.DATE,
-            field: 'sel_title'
-        },
+        }
     },
     {
         timestamps: false,
@@ -217,7 +213,7 @@ var mdlOrderItems = sequelize.define('order_items', {
 );
 
 
-var mdlSellers = sequelize.define(' sellers', {
+var mdlSellers = sequelize.define('sellers', {
         id: {
             type: Sequelize.INTEGER.UNSIGNED,
             field: 'sel_id',
@@ -225,7 +221,7 @@ var mdlSellers = sequelize.define(' sellers', {
             primaryKey: true,
         },
         title: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'sel_title'
         },
     },
@@ -244,7 +240,7 @@ var mdlProducts = sequelize.define('products', {
             primaryKey: true,
         },
         title: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'prod_title'
         },
     },
@@ -263,7 +259,7 @@ var mdlOrderStatus = sequelize.define('order_statuses', {
             primaryKey: true,
         },
         title: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.CHAR,
             field: 'stat_title'
         },
     },
@@ -274,6 +270,32 @@ var mdlOrderStatus = sequelize.define('order_statuses', {
 );
 
 
+mdlOrders.belongsTo(mdlShippingAddress, {foreignKey: 'ord_shipaddress_id', as: 'shipTo'});
+mdlOrders.belongsTo(mdlBillingAddress, {foreignKey: 'ord_billaddress_id', as: 'bilTo'});
+
+
+mdlOrders.hasMany(mdlOrderItems, {foreignKey: 'itm_order_id', as: 'items'});
+
+
+
+mdlOrderItems.belongsTo(mdlProducts, {foreignKey: 'itm_product_id', as: 'product'});
+mdlOrderItems.belongsTo(mdlSellers, {foreignKey: 'itm_seller_id', as: 'seller'});
+mdlOrderItems.belongsTo(mdlOrderStatus, {foreignKey: 'itm_status_id', as: 'status'});
+
+
+
+
+
+module.exports = {
+    dbObj: sequelize,
+    mdlOrderStatus,
+    mdlProducts,
+    mdlSellers,
+    mdlOrderItems,
+    mdlOrders,
+    mdlBillingAddress,
+    mdlShippingAddress,
+};
 
 
 

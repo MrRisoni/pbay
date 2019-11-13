@@ -1,66 +1,69 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const http = require('http');
-
-const cors = require('cors');
-
-
-
 const port = process.env.PORT || 3500;
+const express = require('express');
 const app = express();
-app.server = http.createServer(app);
+const http = require('http').Server(app);
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const Sequelize = require('sequelize');
+
+
+app.use(bodyParser.json());
 app.use(cors());
 
+const mdls = require('./models');
+
+
 app.get('/api/version', (req, res) => {
-  res.send({
-    version: '8.5',
-    date: '2019-02-09',
-  });
+    res.send({
+        version: '8.5',
+        date: '2019-02-09',
+    });
 });
 
 
-app.get('/api/order/details', (req, res) => new Promise((resolve, reject) => {
-  mdls.OrdersModel.findAll({
-    include: [
-      {
-        model: mdls.OrderItemModel,
-        as: 'items',
-        required: true,
+app.get('/api/order', (req, res) => new Promise((resolve, reject) => {
+    mdls.mdlOrders.findAll({
         include: [
-          {
-            model: mdls.editionsModel,
-            attributes: ['ediId', 'ediPrintedOn'],
-            as: 'edition',
-            required: true,
-            include: [
-              {
-                model: mdls.BooksModel,
-                attributes: ['bokTitle'],
-                as: 'book',
+            {
+                model: mdls.mdlShippingAddress,
+                as: 'shipTo',
+                required: true
+            },
+            {
+                model: mdls.mdlBillingAddress,
+                as: 'bilTo',
+                required: true
+            },
+
+            {
+                model: mdls.mdlOrderItems,
+                as: 'items',
                 required: true,
-              }],
-          },
-          {
-            model: mdls.OrderItemHistoryModel,
-            as: 'history',
-            required: true,
-            include: [
-              {
-                model: mdls.StatusesModel,
-                as: 'status',
-                required: true,
-              }],
-          }],
-      }],
-  }).then((data) => {
-    resolve(res.send(data));
-  }).catch((err) => {
-    console.log(err);
-  });
+                include: [
+                    {
+                        model: mdls.mdlProducts,
+                        as: 'product',
+                        required: true
+                    },
+                    {
+                        model: mdls.mdlSellers,
+                        as: 'seller',
+                        required: true
+                    },
+                    {
+                        model: mdls.mdlOrderStatus,
+                        as: 'status',
+                        required: true
+                    }],
+            }],
+    }).then((data) => {
+        resolve(res.send(data));
+    }).catch((err) => {
+        console.log(err);
+    });
 }));
 
 
-
 app.listen(port, (req, res) => {
-  console.log('Server listening on port number', port);
+    console.log('Server listening on port number', port);
 });
