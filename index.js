@@ -57,7 +57,7 @@ app.get('/api/order', (req, res) => new Promise((resolve, reject) => {
                     }],
             }],
     }).then((data) => {
-        resolve(res.send(data));
+        resolve(res.send(data[0]));
     }).catch((err) => {
         console.log(err);
     });
