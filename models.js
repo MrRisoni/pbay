@@ -224,6 +224,14 @@ var mdlSellers = sequelize.define('sellers', {
             type: Sequelize.CHAR,
             field: 'sel_title'
         },
+        countryId: {
+            type: Sequelize.INTEGER,
+            field: 'sel_country_id'
+        },
+        rating: {
+            type: Sequelize.FLOAT,
+            field: 'sel_stars_avg'
+        },
     },
     {
         timestamps: false,
@@ -342,6 +350,7 @@ mdlOrders.belongsTo(mdlBillingAddress, {foreignKey: 'ord_billaddress_id', as: 'b
 mdlOrders.hasMany(mdlOrderItems, {foreignKey: 'itm_order_id', as: 'items'});
 
 mdlSelling.belongsTo(mdlProducts, {foreignKey: 'sll_product_id', as: 'sellProduct'});
+mdlSelling.belongsTo(mdlSellers, {foreignKey: 'sll_seller_id', as: 'sellerObj'});
 mdlListings.belongsTo(mdlSelling, {foreignKey: 'lis_selling_id', as: 'sellItem'});
 
 

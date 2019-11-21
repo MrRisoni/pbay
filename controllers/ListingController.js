@@ -24,7 +24,18 @@ module.exports =
                         {
                             model: self.mdls.mdlSelling,
                             as: 'sellItem',
-                            required: true
+                            required: true,
+                            include: [
+                                {
+                                    model: self.mdls.mdlProducts,
+                                    as: 'sellProduct',
+                                    required: true
+                                },
+                                {
+                                    model: self.mdls.mdlSellers,
+                                    as: 'sellerObj',
+                                    required: true
+                                }]
                         }]
                 }).then((data) => {
                     resolve(data);
