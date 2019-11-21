@@ -11,7 +11,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const mdls = require('./models');
+const OrderController = require('./controllers/OrderController');
 
+let ordCtrl = new OrderController(mdls);
 
 app.get('/api/version', (req, res) => {
     res.send({
@@ -21,47 +23,12 @@ app.get('/api/version', (req, res) => {
 });
 
 
-app.get('/api/order', (req, res) => new Promise((resolve, reject) => {
-    mdls.mdlOrders.findAll({
-        include: [
-            {
-                model: mdls.mdlShippingAddress,
-                as: 'shipTo',
-                required: true
-            },
-            {
-                model: mdls.mdlBillingAddress,
-                as: 'bilTo',
-                required: true
-            },
+app.get('/api/order', (req, res) => {
 
-            {
-                model: mdls.mdlOrderItems,
-                as: 'items',
-                required: true,
-                include: [
-                    {
-                        model: mdls.mdlProducts,
-                        as: 'product',
-                        required: true
-                    },
-                    {
-                        model: mdls.mdlSellers,
-                        as: 'seller',
-                        required: true
-                    },
-                    {
-                        model: mdls.mdlOrderStatus,
-                        as: 'status',
-                        required: true
-                    }],
-            }],
-    }).then((data) => {
-        resolve(res.send(data[0]));
-    }).catch((err) => {
-        console.log(err);
+    ordCtrl.getOrders(1).then(result => {
+        res.send(result);
     });
-}));
+});
 
 
 app.listen(port, (req, res) => {
