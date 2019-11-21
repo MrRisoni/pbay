@@ -15,7 +15,7 @@ const sequelize = new Sequelize(dbname, user, passwd, {
         acquire: 30000,
         idle: 10000
     },
-    logging: false
+    logging: console.log,
 });
 
 
@@ -251,6 +251,14 @@ var mdlProducts = sequelize.define('products', {
             type: Sequelize.CHAR,
             field: 'prod_title'
         },
+        categoryId: {
+            type: Sequelize.INTEGER,
+            field: 'prod_category_id'
+        },
+        preOwned: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'prod_preowned',
+        }
     },
     {
         timestamps: false,

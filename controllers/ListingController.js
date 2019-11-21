@@ -8,7 +8,7 @@ module.exports =
             this.mdls = models;
         }
 
-        getListings(categoryId = 1) {
+        getListings(categoryIds = [2,3]) {
             const self = this;
             return new Promise( (resolve, reject) => {
                 self.mdls.mdlListings.findAll({
@@ -29,7 +29,12 @@ module.exports =
                                 {
                                     model: self.mdls.mdlProducts,
                                     as: 'sellProduct',
-                                    required: true
+                                    required: true,
+                                    where: {
+                                        categoryId: {
+                                            [Sequelize.Op.or]:[categoryIds]
+                                        }
+                                    }
                                 },
                                 {
                                     model: self.mdls.mdlSellers,

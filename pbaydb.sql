@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2019 at 07:49 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.1
+-- Generation Time: Nov 21, 2019 at 09:49 AM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bpay`
+-- Database: `pbaydb`
 --
 
 -- --------------------------------------------------------
@@ -75,7 +75,7 @@ INSERT INTO `continents` (`con_id`, `con_title`) VALUES
 
 CREATE TABLE `countries` (
   `ctr_id` smallint(5) UNSIGNED NOT NULL,
-  `ctr_title` varchar(25) CHARACTER SET utf8 NOT NULL,
+  `ctr_title` varchar(45) CHARACTER SET utf8 NOT NULL,
   `ctr_code` varchar(2) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -145,8 +145,8 @@ CREATE TABLE `listings` (
   `lis_price` decimal(10,2) UNSIGNED NOT NULL,
   `lis_currency_id` tinyint(3) UNSIGNED NOT NULL,
   `lis_fee_eur` decimal(10,2) NOT NULL,
-  `lis_from` datetime NOT NULL,
-  `lis_to` datetime NOT NULL
+  `lis_from` date NOT NULL,
+  `lis_to` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -154,8 +154,8 @@ CREATE TABLE `listings` (
 --
 
 INSERT INTO `listings` (`lis_id`, `lis_selling_id`, `lis_price`, `lis_currency_id`, `lis_fee_eur`, `lis_from`, `lis_to`) VALUES
-(1, 2, '45.00', 1, '1.00', '2019-11-01 00:00:00', '2019-11-27 00:00:00'),
-(2, 3, '1.45', 1, '1.00', '2019-11-01 00:00:00', '2019-11-27 00:00:00');
+(1, 2, '45.00', 1, '1.00', '2019-11-01', '2019-12-27'),
+(2, 3, '1.45', 1, '1.00', '2019-11-01', '2019-12-27');
 
 -- --------------------------------------------------------
 
@@ -286,21 +286,22 @@ CREATE TABLE `products` (
   `prod_id` int(10) UNSIGNED NOT NULL,
   `prod_title` varchar(255) NOT NULL,
   `prod_other_title` varchar(80) NOT NULL,
-  `prod_category_id` mediumint(8) UNSIGNED NOT NULL DEFAULT '1'
+  `prod_category_id` mediumint(8) UNSIGNED NOT NULL DEFAULT '1',
+  `prod_preowned` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`prod_id`, `prod_title`, `prod_other_title`, `prod_category_id`) VALUES
-(1, 'Harry Potter og vises stein', 'Harry Potter and the Philosoper\'s stone', 1),
-(2, 'Henrik Ibsens Samtliche Werke', '', 1),
-(3, 'Chopsticks', '', 1),
-(4, 'Idiot ', 'Идиот', 4),
-(5, 'Crime and Punishment', 'Преступление и наказание', 4),
-(6, 'Demons', 'бесы', 4),
-(7, 'Brothers Karamazov', 'Братья Карамазовы', 4);
+INSERT INTO `products` (`prod_id`, `prod_title`, `prod_other_title`, `prod_category_id`, `prod_preowned`) VALUES
+(1, 'Harry Potter og vises stein', 'Harry Potter and the Philosoper\'s stone', 1, 0),
+(2, 'Henrik Ibsens Samtliche Werke', '', 2, 0),
+(3, 'Chopsticks', '', 3, 0),
+(4, 'Idiot ', 'Идиот', 4, 0),
+(5, 'Crime and Punishment', 'Преступление и наказание', 4, 0),
+(6, 'Demons', 'бесы', 4, 0),
+(7, 'Brothers Karamazov', 'Братья Карамазовы', 4, 0);
 
 -- --------------------------------------------------------
 
@@ -341,7 +342,7 @@ CREATE TABLE `products_filters` (
 
 INSERT INTO `products_filters` (`fil_id`, `fil_title`, `fil_product_category`) VALUES
 (1, 'Cover', 2),
-(2, 'Status', 1),
+(2, 'Unused', 1),
 (3, 'Language', 2),
 (4, 'Publication Year', 2),
 (5, 'Duration', 4),
@@ -436,11 +437,11 @@ CREATE TABLE `shipping_addresses` (
   `shp_id` bigint(10) UNSIGNED NOT NULL,
   `shp_user_id` bigint(10) UNSIGNED NOT NULL,
   `shp_country_id` smallint(5) UNSIGNED NOT NULL,
-  `shp_city` varchar(55) NOT NULL,
-  `shp_region` varchar(55) NOT NULL,
-  `shp_street` varchar(55) NOT NULL,
-  `shp_street_no` varchar(8) NOT NULL,
-  `shp_code` varchar(9) NOT NULL,
+  `shp_city` varchar(55) CHARACTER SET utf8 NOT NULL,
+  `shp_region` varchar(55) CHARACTER SET utf8 NOT NULL,
+  `shp_street` varchar(55) CHARACTER SET utf8 NOT NULL,
+  `shp_street_no` varchar(8) CHARACTER SET utf8 NOT NULL,
+  `shp_code` varchar(9) CHARACTER SET utf8 NOT NULL,
   `shp_surname` varchar(55) CHARACTER SET utf8 NOT NULL,
   `shp_name` varchar(55) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
