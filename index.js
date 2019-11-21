@@ -12,8 +12,11 @@ app.use(cors());
 
 const mdls = require('./models');
 const OrderController = require('./controllers/OrderController');
+const GeneralController = require('./controllers/GeneralController');
 
 let ordCtrl = new OrderController(mdls);
+let genCtrl = new GeneralController(mdls);
+
 
 app.get('/api/version', (req, res) => {
     res.send({
@@ -21,6 +24,13 @@ app.get('/api/version', (req, res) => {
         date: '2019-02-09',
     });
 });
+
+app.get('/api/categories', (req, res) => {
+    genCtrl.getCategories().then(result => {
+        res.send(result);
+    });
+});
+
 
 
 app.get('/api/order', (req, res) => {

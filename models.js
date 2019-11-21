@@ -250,6 +250,23 @@ var mdlProducts = sequelize.define('products', {
     }
 );
 
+var mdlProductCategories = sequelize.define('products_categories', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'cat_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'cat_title'
+        },
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
 
 var mdlOrderStatus = sequelize.define('order_statuses', {
         id: {
@@ -295,6 +312,7 @@ module.exports = {
     mdlOrders,
     mdlBillingAddress,
     mdlShippingAddress,
+    mdlProductCategories
 };
 
 
