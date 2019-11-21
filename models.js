@@ -15,7 +15,7 @@ const sequelize = new Sequelize(dbname, user, passwd, {
         acquire: 30000,
         idle: 10000
     },
-    logging: true
+    logging: false
 });
 
 
@@ -281,7 +281,7 @@ var mdlListings = sequelize.define('listings', {
 var mdlSelling = sequelize.define('selling', {
         id: {
             type: Sequelize.INTEGER.UNSIGNED,
-            field: '\tsll_id',
+            field: 'sll_id',
             autoIncrement: true,
             primaryKey: true,
         },

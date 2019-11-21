@@ -19,10 +19,17 @@ module.exports =
                         showTo: {
                             [Sequelize.Op.gt]: new Date()
                         }
-                    }
+                    },
+                    include: [
+                        {
+                            model: self.mdls.mdlSelling,
+                            as: 'sellItem',
+                            required: true
+                        }]
                 }).then((data) => {
                     resolve(data);
                 }).catch((err) => {
+                    console.log(err);
                     reject([]);
                 });
             });
