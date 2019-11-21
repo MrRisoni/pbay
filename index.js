@@ -13,9 +13,12 @@ app.use(cors());
 const mdls = require('./models');
 const OrderController = require('./controllers/OrderController');
 const GeneralController = require('./controllers/GeneralController');
+const ListingController = require('./controllers/ListingController');
+
 
 let ordCtrl = new OrderController(mdls);
 let genCtrl = new GeneralController(mdls);
+let listCtrl = new ListingController(mdls);
 
 
 app.get('/api/version', (req, res) => {
@@ -31,6 +34,11 @@ app.get('/api/categories', (req, res) => {
     });
 });
 
+app.get('/api/listings', (req, res) => {
+    listCtrl.getListings().then(result => {
+        res.send(result);
+    });
+});
 
 
 app.get('/api/order', (req, res) => {

@@ -250,6 +250,54 @@ var mdlProducts = sequelize.define('products', {
     }
 );
 
+
+var mdlListings = sequelize.define('listings', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'lis_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        price: {
+            type: Sequelize.FLOAT,
+            field: 'lis_price'
+        },
+        showFrom: {
+            type: Sequelize.DATE,
+            field: 'lis_from'
+        },
+        showTo: {
+            type: Sequelize.DATE,
+            field: 'lis_to'
+        },
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+var mdlSelling = sequelize.define('selling', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: '\tsll_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        quantity: {
+            type: Sequelize.INTEGER,
+            field: 'sll_quantity'
+        },
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+
 var mdlProductCategories = sequelize.define('products_categories', {
         id: {
             type: Sequelize.INTEGER.UNSIGNED,
@@ -293,6 +341,8 @@ mdlOrders.belongsTo(mdlBillingAddress, {foreignKey: 'ord_billaddress_id', as: 'b
 
 mdlOrders.hasMany(mdlOrderItems, {foreignKey: 'itm_order_id', as: 'items'});
 
+mdlSelling.belongsTo(mdlProducts, {foreignKey: 'sll_product_id', as: 'sellProduct'});
+mdlListings.belongsTo(mdlSelling, {foreignKey: 'lis_selling_id', as: 'sellItem'});
 
 
 mdlOrderItems.belongsTo(mdlProducts, {foreignKey: 'itm_product_id', as: 'product'});
@@ -312,7 +362,9 @@ module.exports = {
     mdlOrders,
     mdlBillingAddress,
     mdlShippingAddress,
-    mdlProductCategories
+    mdlProductCategories,
+    mdlSelling,
+    mdlListings
 };
 
 
