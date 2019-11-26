@@ -296,9 +296,13 @@ var mdlCurrencies = sequelize.define('currencies', {
             autoIncrement: true,
             primaryKey: true,
         },
-        title: {
+        code: {
             type: Sequelize.CHAR,
-            field: 'cur_title'
+            field: 'cur_code'
+        },
+        rate: {
+            type: Sequelize.FLOAT,
+            field: 'cur_rate'
         }
     },
     {
@@ -363,6 +367,10 @@ var mdlListings = sequelize.define('listings', {
         price: {
             type: Sequelize.FLOAT,
             field: 'lis_price'
+        },
+        currenyId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'lis_currency_id'
         },
         showFrom: {
             type: Sequelize.DATE,
@@ -455,10 +463,6 @@ var mdlShippingCosts = sequelize.define('shipping_costs', {
             type: Sequelize.INTEGER.UNSIGNED,
             field: 'shc_continent_id'
         },
-        currencyId: {
-            type: Sequelize.INTEGER.UNSIGNED,
-            field: 'shc_currency_id'
-        },
         cost: {
             type: Sequelize.FLOAT,
             field: 'shc_cost'
@@ -481,10 +485,6 @@ var mdlShippingCostsExceptions = sequelize.define('shipping_costs_exceptions', {
         countryId: {
             type: Sequelize.INTEGER.UNSIGNED,
             field: 'shcx_country_id'
-        },
-        currencyId: {
-            type: Sequelize.INTEGER.UNSIGNED,
-            field: 'shcx_currency_id'
         },
         cost: {
             type: Sequelize.FLOAT,
