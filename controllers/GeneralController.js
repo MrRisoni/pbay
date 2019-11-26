@@ -12,9 +12,8 @@ module.exports =
 
         getCategories() {
             const self = this;
-            return new Promise( (resolve, reject) => {
-                self.mdls.mdlProductCategories.findAll({
-                }).then((data) => {
+            return new Promise((resolve, reject) => {
+                self.mdls.mdlProductCategories.findAll({}).then((data) => {
                     resolve(data);
                 }).catch((err) => {
                     reject([]);
@@ -25,42 +24,25 @@ module.exports =
 
         getCountries() {
             const self = this;
-            return new Promise( (resolve, reject) => {
-                self.mdls.mdlCountries.findAll({
-                }).then((data) => {
-                    resolve(data);
-                }).catch((err) => {
-                    reject([]);
-                });
+            return new Promise((resolve, reject) => {
+                resolve(helps.getCountries(self.mdls));
             });
         }
-
 
 
         getContinents() {
             const self = this;
-            return new Promise( (resolve, reject) => {
-                self.mdls.mdlContinents.findAll({
-                    raw: true,
-                }).then((data) => {
-                    resolve(data);
-                }).catch((err) => {
-                    reject([]);
-                });
+            return new Promise((resolve, reject) => {
+                resolve(helps.getContinents(self.mdls));
             });
         }
 
 
-
         getCurrencies() {
             const self = this;
-            return new Promise( (resolve, reject) => {
-                self.mdls.mdlCurrencies.findAll({
-                }).then((data) => {
-                    resolve(data);
-                }).catch((err) => {
-                    reject([]);
-                });
+            return new Promise((resolve, reject) => {
+                resolve(helps.getCountries(self.mdls));
+
             });
         }
 

@@ -67,7 +67,6 @@ var mdlShippingAddress = sequelize.define('shipping_addresses', {
         name: {
             type: Sequelize.CHAR,
             field: 'shp_name'
-
         }
     },
     {

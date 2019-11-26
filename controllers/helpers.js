@@ -1,3 +1,5 @@
+const Sequelize = require('sequelize');
+
 function getContinents(mdls) {
     return new Promise((resolve, reject) => {
         mdls.mdlContinents.findAll({
@@ -19,6 +21,7 @@ function getCountries(mdls) {
         }).then((data) => {
             resolve(data);
         }).catch((err) => {
+            console.log(err);
             reject([]);
         });
     });
@@ -57,9 +60,29 @@ function currencyConvert(from, to, rates, amount ) {
 
         const AmountTo = Math.ceil(AmountEur * toThatRate).toFixed(2);
 
-        return AmountTo
+        return AmountTo;
 
     }
 }
 
-module.exports = {getContinents, getCountries, getCurrencies,currencyConvert}
+
+function   getShippingCountries(mdls, userId) {
+    const self = this;
+    // multi line string in ``
+    const q = " SELECT DISTINCT(shp_country_id) FROM shipping_addresses WHERE shp_user_id = '" + userId +"'";
+
+    return new Promise((resolve, reject) => {
+        mdls.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
+            .then(res => {
+                console.log(res);
+                resolve(res);
+            }).catch(errSql => {
+                console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+                console.log(errSql)
+            reject({errMsg: errSql});
+        });
+    });
+}
+
+
+module.exports = {getContinents, getCountries, getCurrencies,currencyConvert,getShippingCountries}

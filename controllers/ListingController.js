@@ -14,16 +14,22 @@ module.exports =
         getItemDetails(listingId) {
             const self = this;
 
-            const userCurrencyId = 3; // CHF
             const userCurrencyCode = 'CHF'; // CHF
+            const userId =2 ;
 
             return new Promise((resolve, reject) => {
-                Promise.all([helps.getContinents(self.mdls), this.getItemSellsLastDays(listingId), this.getItem(listingId), helps.getCountries(self.mdls), helps.getCurrencies(self.mdls)]).then(allRes => {
+                Promise.all([helps.getContinents(self.mdls),
+                    this.getItemSellsLastDays(listingId),
+                    this.getItem(listingId),
+                    helps.getCountries(self.mdls),
+                    helps.getCurrencies(self.mdls),
+                    helps.getShippingCountries(self.mdls, userId)]).then(allRes => {
 
 
                     const continentsData = allRes[0];
                     const countriesData = allRes[3];
                     const currencyData = allRes[4];
+                    const shippingCountries = allRes[5];
 
 
                     let productCurrencyObj = currencyData.filter((cr) => {
@@ -74,6 +80,30 @@ module.exports =
                         }
                     });
 
+                    let maybeShippingCountryForbidden = false;
+                    let maybeShippingCostExceptions = false;
+
+
+                    findIfShippingIsForbidden:
+                        for (let sf = 0; sf < allRes[2].sellItem.shipForbidden.length; sf++) {
+                            for (let scon = 0; scon < shippingCountries.length; scon++) {
+                                if (allRes[2].sellItem.shipForbidden[sf].countryId === shippingCountries[scon].shp_country_id) {
+                                    maybeShippingCountryForbidden = true;
+                                    break findIfShippingIsForbidden;
+                                }
+                            }
+                        }
+
+
+                    findIfShippingExceptions:
+                        for (let sf = 0; sf < allRes[2].sellItem.shipCostsExcept.length; sf++) {
+                            for (let scon = 0; scon < shippingCountries.length; scon++) {
+                                if (allRes[2].sellItem.shipCostsExcept[sf].countryId === shippingCountries[scon].shp_country_id) {
+                                    maybeShippingCostExceptions = true;
+                                    break findIfShippingExceptions;
+                                }
+                            }
+                        }
 
                     Object.assign(allRes[2], {notShipTo:allRes[2].sellItem.shipForbidden.map( (forbid) => {
                             return (forbid.countryName);
@@ -85,6 +115,9 @@ module.exports =
 
 
                     Object.assign(allRes[2], {userCurrencyCode});
+                    Object.assign(allRes[2], {maybeShippingCountryForbidden});
+                    Object.assign(allRes[2], {maybeShippingCostExceptions});
+
                     Object.assign(allRes[2], allRes[1]);
 
                     resolve(allRes[2]);

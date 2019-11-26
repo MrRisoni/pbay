@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const Sequelize = require('sequelize');
 
-
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -20,13 +19,6 @@ let ordCtrl = new OrderController(mdls);
 let genCtrl = new GeneralController(mdls);
 let listCtrl = new ListingController(mdls);
 
-
-app.get('/api/version', (req, res) => {
-    res.send({
-        version: '8.5',
-        date: '2019-02-09',
-    });
-});
 
 app.get('/api/categories', (req, res) => {
     genCtrl.getCategories().then(result => {
