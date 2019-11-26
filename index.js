@@ -80,6 +80,14 @@ app.get('/api/continents', (req, res) => {
 
 
 
+app.get('/api/shipping_addresses', (req, res) => {
+    genCtrl.getShippingAddresses(2).then(result => {
+        res.send(result);
+    });
+});
+
+
+
 app.listen(port, (req, res) => {
     console.log('Server listening on port number', port);
 });

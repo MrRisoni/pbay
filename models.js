@@ -36,6 +36,10 @@ var mdlShippingAddress = sequelize.define('shipping_addresses', {
             autoIncrement: true,
             primaryKey: true,
         },
+        userId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'shp_user_id'
+        },
         countryId: {
             type: Sequelize.INTEGER,
             field: 'shp_country_id'
@@ -576,6 +580,10 @@ mdlListings.belongsTo(mdlSelling, {foreignKey: 'lis_selling_id', as: 'sellItem'}
 mdlOrderItems.belongsTo(mdlProducts, {foreignKey: 'itm_product_id', as: 'product'});
 mdlOrderItems.belongsTo(mdlSellers, {foreignKey: 'itm_seller_id', as: 'seller'});
 mdlOrderItems.belongsTo(mdlOrderStatus, {foreignKey: 'itm_status_id', as: 'status'});
+
+mdlShippingAddress.belongsTo(mdlCountries, {foreignKey: 'shp_country_id', as: 'country'});
+
+
 
 
 module.exports = {

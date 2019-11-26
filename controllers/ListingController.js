@@ -83,31 +83,28 @@ module.exports =
                     let maybeShippingCountryForbidden = false;
                     let maybeShippingCostExceptions = false;
 
-
+                    let forbiddenShippingList =[];
                     findIfShippingIsForbidden:
                         for (let sf = 0; sf < allRes[2].sellItem.shipForbidden.length; sf++) {
                             for (let scon = 0; scon < shippingCountries.length; scon++) {
                                 if (allRes[2].sellItem.shipForbidden[sf].countryId === shippingCountries[scon].shp_country_id) {
                                     maybeShippingCountryForbidden = true;
-                                    break findIfShippingIsForbidden;
+                                    forbiddenShippingList.push(allRes[2].sellItem.shipForbidden[sf].countryName);
                                 }
                             }
                         }
 
-
-                    findIfShippingExceptions:
-                        for (let sf = 0; sf < allRes[2].sellItem.shipCostsExcept.length; sf++) {
-                            for (let scon = 0; scon < shippingCountries.length; scon++) {
-                                if (allRes[2].sellItem.shipCostsExcept[sf].countryId === shippingCountries[scon].shp_country_id) {
-                                    maybeShippingCostExceptions = true;
-                                    break findIfShippingExceptions;
-                                }
+                    let exceptionShippingList =[];
+                    for (let sf = 0; sf < allRes[2].sellItem.shipCostsExcept.length; sf++) {
+                        for (let scon = 0; scon < shippingCountries.length; scon++) {
+                            if (allRes[2].sellItem.shipCostsExcept[sf].countryId === shippingCountries[scon].shp_country_id) {
+                                maybeShippingCostExceptions = true;
+                                exceptionShippingList.push(allRes[2].sellItem.shipCostsExcept[sf]);
                             }
                         }
+                    }
 
-                    Object.assign(allRes[2], {notShipTo:allRes[2].sellItem.shipForbidden.map( (forbid) => {
-                            return (forbid.countryName);
-                        }).join(',')});
+                    Object.assign(allRes[2], {notShipTo:forbiddenShippingList.join(',')});
 
                     Object.assign(allRes[2], {userCurrencyCode});
                     Object.assign(allRes[2], {productCurrencyCode: productCurrencyObj.code});
@@ -117,6 +114,20 @@ module.exports =
                     Object.assign(allRes[2], {userCurrencyCode});
                     Object.assign(allRes[2], {maybeShippingCountryForbidden});
                     Object.assign(allRes[2], {maybeShippingCostExceptions});
+
+
+                    if (maybeShippingCostExceptions) {
+                        // only show the exception that match the user shipping address list
+
+                         Object.assign(allRes[2], {sellItem :
+                                Object.assign(allRes[2].sellItem, {shipCostsExcept : exceptionShippingList})
+                         });
+                    }
+
+                    if (maybeShippingCountryForbidden){
+                        // only show the forbidden that match the user shipping address list
+
+                    }
 
                     Object.assign(allRes[2], allRes[1]);
 
