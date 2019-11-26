@@ -41,13 +41,26 @@ app.get('/api/listings', (req, res) => {
 });
 
 
-app.get('/api/order', (req, res) => {
-
-    ordCtrl.getOrders(1).then(result => {
+app.get('/api/item', (req, res) => {
+    listCtrl.getItem(3).then(result => {
         res.send(result);
     });
 });
 
+
+app.get('/api/order', (req, res) => {
+
+    ordCtrl.getSpecificOrder(1).then(result => {
+        res.send(result);
+    });
+});
+
+app.get('/api/orders', (req, res) => {
+
+    ordCtrl.getOrders(2).then(result => {
+        res.send(result);
+    });
+});
 
 app.listen(port, (req, res) => {
     console.log('Server listening on port number', port);

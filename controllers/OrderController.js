@@ -18,6 +18,32 @@ module.exports =
             const self = this;
             return new Promise( (resolve, reject) => {
                 self.mdls.mdlOrders.findAll({
+                    where : {
+                        userId:userId
+                    },
+                    include: [
+                        {
+                            model: self.mdls.mdlOrderItems,
+                            as: 'items',
+                            required: true
+                        }],
+                }).then((data) => {
+                    resolve(data);
+                }).catch((err) => {
+                    reject([]);
+                });
+            });
+
+        }
+
+
+        getSpecificOrder(orderId) {
+            const self = this;
+            return new Promise( (resolve, reject) => {
+                self.mdls.mdlOrders.findAll({
+                    where : {
+                        id:orderId
+                    },
                     include: [
                         {
                             model: self.mdls.mdlShippingAddress,

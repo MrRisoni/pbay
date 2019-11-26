@@ -104,7 +104,6 @@ var mdlBillingAddress = sequelize.define('billing_addresses', {
             field: 'bla_street'
 
         },
-
         street_no: {
             type: Sequelize.CHAR,
             field: 'bla_street_no'
@@ -123,7 +122,6 @@ var mdlBillingAddress = sequelize.define('billing_addresses', {
         name: {
             type: Sequelize.CHAR,
             field: 'bla_name'
-
         },
     },
     {
@@ -143,6 +141,10 @@ var mdlOrders = sequelize.define('orders', {
         transactionId: {
             type: Sequelize.CHAR,
             field: 'ord_bank_transaction_id'
+        },
+        userId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'ord_user_id'
         },
         total: {
             type: Sequelize.FLOAT,
@@ -231,7 +233,7 @@ var mdlSellers = sequelize.define('sellers', {
         rating: {
             type: Sequelize.FLOAT,
             field: 'sel_stars_avg'
-        },
+        }
     },
     {
         timestamps: false,
@@ -251,6 +253,14 @@ var mdlProducts = sequelize.define('products', {
             type: Sequelize.CHAR,
             field: 'prod_title'
         },
+        otherTitle: {
+            type: Sequelize.CHAR,
+            field: 'prod_other_title'
+        },
+        descr: {
+            type: Sequelize.CHAR,
+            field: 'prod_descr'
+        },
         categoryId: {
             type: Sequelize.INTEGER,
             field: 'prod_category_id'
@@ -258,6 +268,26 @@ var mdlProducts = sequelize.define('products', {
         preOwned: {
             type: Sequelize.INTEGER.UNSIGNED,
             field: 'prod_preowned',
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+
+var mdlCurrencies = sequelize.define('currencies', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'cur_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'cur_title'
         }
     },
     {
@@ -305,6 +335,10 @@ var mdlSelling = sequelize.define('selling', {
             type: Sequelize.INTEGER,
             field: 'sll_quantity'
         },
+        mailerCo: {
+            type: Sequelize.CHAR,
+            field: 'sll_mailer_co'
+        }
     },
     {
         timestamps: false,
@@ -351,11 +385,114 @@ var mdlOrderStatus = sequelize.define('order_statuses', {
 );
 
 
+var mdlShippingCosts = sequelize.define('shipping_costs', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'shc_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        continentId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'shc_continent_id'
+        },
+        currencyId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'shc_currency_id'
+        },
+        cost: {
+            type: Sequelize.FLOAT,
+            field: 'shc_cost'
+        },
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+var mdlShippingCostsExceptions = sequelize.define('shipping_costs_exceptions', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'shcx_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        countryId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'shcx_country_id'
+        },
+        currencyId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'shcx_currency_id'
+        },
+        cost: {
+            type: Sequelize.FLOAT,
+            field: 'shcx_cost'
+        },
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+var mdlShippingForbidden = sequelize.define('shipping_country_forbidden', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'shf_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        countryId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'shf_country_id'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+var mdlProductFilters = sequelize.define('products_filters', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'sll_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        quantity: {
+            type: Sequelize.INTEGER,
+            field: 'sll_quantity'
+        },
+        mailerCo: {
+            type: Sequelize.CHAR,
+            field: 'sll_mailer_co'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+
+
+
 mdlOrders.belongsTo(mdlShippingAddress, {foreignKey: 'ord_shipaddress_id', as: 'shipTo'});
 mdlOrders.belongsTo(mdlBillingAddress, {foreignKey: 'ord_billaddress_id', as: 'bilTo'});
 
 
 mdlOrders.hasMany(mdlOrderItems, {foreignKey: 'itm_order_id', as: 'items'});
+mdlSelling.hasMany(mdlShippingCosts, {foreignKey: 'shc_selling_id', as: 'shipCosts'});
+mdlSelling.hasMany(mdlShippingCostsExceptions, {foreignKey: 'shcx_selling_id', as: 'shipCostsExcept'});
+mdlSelling.hasMany(mdlShippingForbidden, {foreignKey: 'shf_selling_id', as: 'shipForbidden'});
+
 
 mdlSelling.belongsTo(mdlProducts, {foreignKey: 'sll_product_id', as: 'sellProduct'});
 mdlSelling.belongsTo(mdlSellers, {foreignKey: 'sll_seller_id', as: 'sellerObj'});
@@ -381,7 +518,11 @@ module.exports = {
     mdlShippingAddress,
     mdlProductCategories,
     mdlSelling,
-    mdlListings
+    mdlListings,
+    mdlShippingCosts,
+    mdlCurrencies,
+    mdlShippingCostsExceptions,
+    mdlShippingForbidden
 };
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2019 at 09:49 AM
+-- Generation Time: Nov 26, 2019 at 08:48 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.2.7
 
@@ -155,7 +155,8 @@ CREATE TABLE `listings` (
 
 INSERT INTO `listings` (`lis_id`, `lis_selling_id`, `lis_price`, `lis_currency_id`, `lis_fee_eur`, `lis_from`, `lis_to`) VALUES
 (1, 2, '45.00', 1, '1.00', '2019-11-01', '2019-12-27'),
-(2, 3, '1.45', 1, '1.00', '2019-11-01', '2019-12-27');
+(2, 3, '1.45', 1, '1.00', '2019-11-01', '2019-12-27'),
+(3, 8, '45.00', 1, '0.00', '2019-11-01', '2019-11-30');
 
 -- --------------------------------------------------------
 
@@ -185,7 +186,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`ord_id`, `ord_user_id`, `ord_shipaddress_id`, `ord_billaddress_id`, `ord_paymethod_id`, `ord_bank_transaction_id`, `ord_total`, `ord_goods_total`, `ord_ship_total`, `ord_fee`, `ord_rate`, `ord_currency_id`, `ord_created`, `ord_success`) VALUES
-(1, 2, 1, 1, 2, 'RF123455698454DF9905GR', '68.07', '45.45', '21.08', '0.54', '1.00', 1, '2019-11-11 20:08:03', 1);
+(1, 2, 1, 1, 2, 'RF123455698454DF9905GR', '68.07', '45.45', '21.08', '0.54', '1.00', 1, '2019-11-11 20:08:03', 1),
+(2, 2, 1, 1, 2, '', '56.00', '45.00', '6.00', '1.00', '1.00', 1, '2019-11-26 06:15:17', 0);
 
 -- --------------------------------------------------------
 
@@ -213,7 +215,8 @@ CREATE TABLE `order_items` (
 
 INSERT INTO `order_items` (`itm_id`, `itm_order_id`, `itm_product_id`, `itm_seller_id`, `itm_quantity`, `itm_tracking_nums`, `itm_total`, `itm_goods_total`, `itm_ship_total`, `itm_currency_id`, `itm_status_id`) VALUES
 (1, 1, 2, 1, 1, '', '65.00', '45.00', '20.00', 1, 1),
-(2, 1, 2, 2, 1, '', '2.53', '1.45', '1.08', 1, 1);
+(2, 1, 2, 2, 1, '', '2.53', '1.45', '1.08', 1, 1),
+(3, 2, 8, 1, 1, '', '56.00', '5.00', '6.00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -273,8 +276,9 @@ CREATE TABLE `paymethods` (
 --
 
 INSERT INTO `paymethods` (`pm_id`, `pm_title`) VALUES
-(1, 'Credit Card'),
-(2, 'Paypal');
+(1, 'Mastercard'),
+(2, 'Paypal'),
+(3, 'Visa');
 
 -- --------------------------------------------------------
 
@@ -286,6 +290,7 @@ CREATE TABLE `products` (
   `prod_id` int(10) UNSIGNED NOT NULL,
   `prod_title` varchar(255) NOT NULL,
   `prod_other_title` varchar(80) NOT NULL,
+  `prod_descr` text NOT NULL,
   `prod_category_id` mediumint(8) UNSIGNED NOT NULL DEFAULT '1',
   `prod_preowned` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -294,14 +299,15 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`prod_id`, `prod_title`, `prod_other_title`, `prod_category_id`, `prod_preowned`) VALUES
-(1, 'Harry Potter og vises stein', 'Harry Potter and the Philosoper\'s stone', 1, 0),
-(2, 'Henrik Ibsens Samtliche Werke', '', 2, 0),
-(3, 'Chopsticks', '', 3, 0),
-(4, 'Idiot ', 'Идиот', 4, 0),
-(5, 'Crime and Punishment', 'Преступление и наказание', 4, 0),
-(6, 'Demons', 'бесы', 4, 0),
-(7, 'Brothers Karamazov', 'Братья Карамазовы', 4, 0);
+INSERT INTO `products` (`prod_id`, `prod_title`, `prod_other_title`, `prod_descr`, `prod_category_id`, `prod_preowned`) VALUES
+(1, 'Harry Potter og vises stein', 'Harry Potter and the Philosoper\'s stone', '', 1, 0),
+(2, 'Henrik Ibsens Samtliche Werke', '', '', 2, 0),
+(3, 'Chopsticks', '', '', 3, 0),
+(4, 'Idiot ', 'Идиот', '', 4, 0),
+(5, 'Crime and Punishment', 'Преступление и наказание', '', 4, 0),
+(6, 'Demons', 'бесы', '', 4, 0),
+(7, 'Brothers Karamazov', 'Братья Карамазовы', '', 4, 0),
+(8, 'Harry Potter och Fenixorden', 'Harry Potter and the order of the phoenix', '', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -346,7 +352,8 @@ INSERT INTO `products_filters` (`fil_id`, `fil_title`, `fil_product_category`) V
 (3, 'Language', 2),
 (4, 'Publication Year', 2),
 (5, 'Duration', 4),
-(6, 'ISBN', 2);
+(6, 'ISBN', 2),
+(7, 'Pages', 2);
 
 -- --------------------------------------------------------
 
@@ -360,6 +367,17 @@ CREATE TABLE `products_filter_values` (
   `pfv_filter_id` int(10) UNSIGNED NOT NULL,
   `pfv_value` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `products_filter_values`
+--
+
+INSERT INTO `products_filter_values` (`pfv_id`, `pfv_product_id`, `pfv_filter_id`, `pfv_value`) VALUES
+(1, 8, 1, 'HardCover'),
+(2, 8, 6, '9789129717150'),
+(3, 8, 3, 'Sweedish'),
+(4, 8, 7, '682'),
+(5, 8, 4, '2018');
 
 -- --------------------------------------------------------
 
@@ -410,22 +428,23 @@ CREATE TABLE `selling` (
   `sll_id` int(10) UNSIGNED NOT NULL,
   `sll_seller_id` int(10) UNSIGNED NOT NULL,
   `sll_product_id` int(10) UNSIGNED NOT NULL,
-  `sll_descr` text NOT NULL,
-  `sll_quantity` int(10) UNSIGNED NOT NULL
+  `sll_quantity` int(10) UNSIGNED NOT NULL,
+  `sll_mailer_co` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `selling`
 --
 
-INSERT INTO `selling` (`sll_id`, `sll_seller_id`, `sll_product_id`, `sll_descr`, `sll_quantity`) VALUES
-(1, 1, 1, '', 1),
-(2, 1, 2, '', 1),
-(3, 2, 3, '', 45),
-(4, 3, 4, '', 2),
-(5, 3, 5, '', 2),
-(6, 3, 6, '', 2),
-(7, 3, 7, '', 2);
+INSERT INTO `selling` (`sll_id`, `sll_seller_id`, `sll_product_id`, `sll_quantity`, `sll_mailer_co`) VALUES
+(1, 1, 1, 1, ''),
+(2, 1, 2, 1, ''),
+(3, 2, 3, 45, ''),
+(4, 3, 4, 2, ''),
+(5, 3, 5, 2, ''),
+(6, 3, 6, 2, ''),
+(7, 3, 7, 2, ''),
+(8, 1, 8, 3, 'DHL International');
 
 -- --------------------------------------------------------
 
@@ -474,7 +493,9 @@ CREATE TABLE `shipping_costs` (
 INSERT INTO `shipping_costs` (`shc_id`, `shc_selling_id`, `shc_continent_id`, `shc_cost`, `shc_currency_id`) VALUES
 (1, 1, 1, '7.00', 1),
 (2, 1, 2, '12.00', 1),
-(3, 1, 1, '15.00', 1);
+(3, 1, 1, '15.00', 1),
+(4, 8, 1, '4.00', 1),
+(5, 8, 2, '9.00', 1);
 
 -- --------------------------------------------------------
 
@@ -483,11 +504,11 @@ INSERT INTO `shipping_costs` (`shc_id`, `shc_selling_id`, `shc_continent_id`, `s
 --
 
 CREATE TABLE `shipping_costs_exceptions` (
-  `shc_id` int(10) UNSIGNED NOT NULL,
-  `shc_selling_id` int(10) UNSIGNED NOT NULL,
-  `shc_country_id` smallint(5) UNSIGNED NOT NULL,
-  `shc_cost` decimal(10,2) UNSIGNED NOT NULL,
-  `shc_currency_id` tinyint(3) UNSIGNED NOT NULL
+  `shcx_id` int(10) UNSIGNED NOT NULL,
+  `shcx_selling_id` int(10) UNSIGNED NOT NULL,
+  `shcx_country_id` smallint(5) UNSIGNED NOT NULL,
+  `shcx_cost` decimal(10,2) UNSIGNED NOT NULL,
+  `shcx_currency_id` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -507,7 +528,8 @@ CREATE TABLE `shipping_country_forbidden` (
 --
 
 INSERT INTO `shipping_country_forbidden` (`shf_id`, `shf_selling_id`, `shf_country_id`) VALUES
-(1, 1, 3);
+(1, 1, 3),
+(2, 8, 3);
 
 -- --------------------------------------------------------
 
@@ -654,6 +676,7 @@ ALTER TABLE `products_filters`
 --
 ALTER TABLE `products_filter_values`
   ADD PRIMARY KEY (`pfv_id`),
+  ADD UNIQUE KEY `pfv_product_id_2` (`pfv_product_id`,`pfv_filter_id`),
   ADD KEY `pfv_filter_id` (`pfv_filter_id`),
   ADD KEY `pfv_product_id` (`pfv_product_id`);
 
@@ -702,10 +725,10 @@ ALTER TABLE `shipping_costs`
 -- Indexes for table `shipping_costs_exceptions`
 --
 ALTER TABLE `shipping_costs_exceptions`
-  ADD PRIMARY KEY (`shc_id`),
-  ADD KEY `shc_selling_id` (`shc_selling_id`),
-  ADD KEY `shc_country_id` (`shc_country_id`),
-  ADD KEY `shc_currency_id` (`shc_currency_id`);
+  ADD PRIMARY KEY (`shcx_id`),
+  ADD KEY `shc_selling_id` (`shcx_selling_id`),
+  ADD KEY `shc_country_id` (`shcx_country_id`),
+  ADD KEY `shc_currency_id` (`shcx_currency_id`);
 
 --
 -- Indexes for table `shipping_country_forbidden`
@@ -753,19 +776,19 @@ ALTER TABLE `custom_products_filters_values`
 -- AUTO_INCREMENT for table `listings`
 --
 ALTER TABLE `listings`
-  MODIFY `lis_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `lis_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `ord_id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ord_id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `itm_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `itm_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `order_item_track_history`
@@ -783,13 +806,13 @@ ALTER TABLE `order_statuses`
 -- AUTO_INCREMENT for table `paymethods`
 --
 ALTER TABLE `paymethods`
-  MODIFY `pm_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pm_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `prod_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `prod_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `products_categories`
@@ -801,13 +824,13 @@ ALTER TABLE `products_categories`
 -- AUTO_INCREMENT for table `products_filters`
 --
 ALTER TABLE `products_filters`
-  MODIFY `fil_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `fil_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `products_filter_values`
 --
 ALTER TABLE `products_filter_values`
-  MODIFY `pfv_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `pfv_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -825,7 +848,7 @@ ALTER TABLE `sellers`
 -- AUTO_INCREMENT for table `selling`
 --
 ALTER TABLE `selling`
-  MODIFY `sll_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `sll_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `shipping_addresses`
@@ -837,19 +860,19 @@ ALTER TABLE `shipping_addresses`
 -- AUTO_INCREMENT for table `shipping_costs`
 --
 ALTER TABLE `shipping_costs`
-  MODIFY `shc_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `shc_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `shipping_costs_exceptions`
 --
 ALTER TABLE `shipping_costs_exceptions`
-  MODIFY `shc_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `shcx_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shipping_country_forbidden`
 --
 ALTER TABLE `shipping_country_forbidden`
-  MODIFY `shf_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `shf_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -968,9 +991,9 @@ ALTER TABLE `shipping_costs`
 -- Constraints for table `shipping_costs_exceptions`
 --
 ALTER TABLE `shipping_costs_exceptions`
-  ADD CONSTRAINT `shipping_costs_exceptions_ibfk_1` FOREIGN KEY (`shc_selling_id`) REFERENCES `selling` (`sll_id`),
-  ADD CONSTRAINT `shipping_costs_exceptions_ibfk_2` FOREIGN KEY (`shc_country_id`) REFERENCES `countries` (`ctr_id`),
-  ADD CONSTRAINT `shipping_costs_exceptions_ibfk_3` FOREIGN KEY (`shc_currency_id`) REFERENCES `currencies` (`cur_id`);
+  ADD CONSTRAINT `shipping_costs_exceptions_ibfk_1` FOREIGN KEY (`shcx_selling_id`) REFERENCES `selling` (`sll_id`),
+  ADD CONSTRAINT `shipping_costs_exceptions_ibfk_2` FOREIGN KEY (`shcx_country_id`) REFERENCES `countries` (`ctr_id`),
+  ADD CONSTRAINT `shipping_costs_exceptions_ibfk_3` FOREIGN KEY (`shcx_currency_id`) REFERENCES `currencies` (`cur_id`);
 
 --
 -- Constraints for table `shipping_country_forbidden`
