@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const moment = require('moment');
+const helps = require('./helpers');
+
 
 module.exports =
     class ListingController {
@@ -10,10 +12,29 @@ module.exports =
 
 
         getItemDetails(listingId) {
+            const self = this;
+
             return new Promise((resolve, reject) => {
-                Promise.all([this.getItemSellsLastDays(listingId),this.getItem(listingId)]).then(allRes => {
-                    resolve({...allRes[0],...allRes[1]});
+                Promise.all([helps.getContinents(self.mdls), this.getItemSellsLastDays(listingId),this.getItem(listingId)]).then(allRes => {
+                   // console.log(allRes[0][0].title);
+                  //  resolve(allRes[0][0].title);
+
+                    const continentsData = allRes[0];
+
+                    allRes[2].sellItem.shipCosts = allRes[2].sellItem.shipCosts.map( (scost) => {
+
+                        let obj = continentsData.filter( (con) => {
+                            return con.id == scost.continentId
+                        });
+
+                        console.log(obj[0]);
+                        return {...scost, ...{continentName:obj[0].title}}
+                    });
+
+                     resolve(allRes[2]);
+                    // resolve({...allRes[0],...allRes[1]});
                 }).catch(err => {
+                    console.log(err);
                     reject([]);
                 });
 

@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const moment = require('moment');
+const helps = require('./helpers');
+
 
 module.exports =
     class GeneralController {
@@ -8,7 +10,7 @@ module.exports =
             this.mdls = models;
         }
 
-        getCategories(userId) {
+        getCategories() {
             const self = this;
             return new Promise( (resolve, reject) => {
                 self.mdls.mdlProductCategories.findAll({
@@ -21,10 +23,10 @@ module.exports =
         }
 
 
-        getCountries(userId) {
+        getCountries() {
             const self = this;
             return new Promise( (resolve, reject) => {
-                self.mdls.mdlC.findAll({
+                self.mdls.mdlCountries.findAll({
                 }).then((data) => {
                     resolve(data);
                 }).catch((err) => {
@@ -35,10 +37,11 @@ module.exports =
 
 
 
-        getContinents(userId) {
+        getContinents() {
             const self = this;
             return new Promise( (resolve, reject) => {
-                self.mdls.mdlC.findAll({
+                self.mdls.mdlContinents.findAll({
+                    raw: true,
                 }).then((data) => {
                     resolve(data);
                 }).catch((err) => {
@@ -49,7 +52,7 @@ module.exports =
 
 
 
-        getCurrenies(userId) {
+        getCurrencies() {
             const self = this;
             return new Promise( (resolve, reject) => {
                 self.mdls.mdlCurrencies.findAll({
