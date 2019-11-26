@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2019 at 08:48 AM
+-- Generation Time: Nov 26, 2019 at 10:15 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.2.7
 
@@ -56,16 +56,23 @@ INSERT INTO `billing_addresses` (`bla_id`, `bla_user_id`, `bla_country_id`, `bla
 
 CREATE TABLE `continents` (
   `con_id` tinyint(3) UNSIGNED NOT NULL,
-  `con_title` varchar(3) NOT NULL
+  `con_code` varchar(3) NOT NULL,
+  `con_title` varchar(35) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `continents`
 --
 
-INSERT INTO `continents` (`con_id`, `con_title`) VALUES
-(1, 'EU'),
-(2, 'NA');
+INSERT INTO `continents` (`con_id`, `con_code`, `con_title`) VALUES
+(1, 'EU', 'Europe'),
+(2, 'NA', 'North America'),
+(3, 'CA', 'Central America'),
+(4, 'SA', 'South America'),
+(5, 'AF', 'Africa'),
+(6, 'AS', 'Asia'),
+(7, 'ME', 'Middle East'),
+(8, 'AU', 'Australia');
 
 -- --------------------------------------------------------
 
@@ -109,7 +116,8 @@ CREATE TABLE `currencies` (
 
 INSERT INTO `currencies` (`cur_id`, `cur_title`, `cur_rate`) VALUES
 (1, 'EUR', '1.00'),
-(2, 'USD', '1.28');
+(2, 'USD', '1.28'),
+(3, 'CHF', '1.98');
 
 -- --------------------------------------------------------
 
@@ -146,17 +154,30 @@ CREATE TABLE `listings` (
   `lis_currency_id` tinyint(3) UNSIGNED NOT NULL,
   `lis_fee_eur` decimal(10,2) NOT NULL,
   `lis_from` date NOT NULL,
-  `lis_to` date NOT NULL
+  `lis_to` date NOT NULL,
+  `lis_watching` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `listings`
 --
 
-INSERT INTO `listings` (`lis_id`, `lis_selling_id`, `lis_price`, `lis_currency_id`, `lis_fee_eur`, `lis_from`, `lis_to`) VALUES
-(1, 2, '45.00', 1, '1.00', '2019-11-01', '2019-12-27'),
-(2, 3, '1.45', 1, '1.00', '2019-11-01', '2019-12-27'),
-(3, 8, '45.00', 1, '0.00', '2019-11-01', '2019-11-30');
+INSERT INTO `listings` (`lis_id`, `lis_selling_id`, `lis_price`, `lis_currency_id`, `lis_fee_eur`, `lis_from`, `lis_to`, `lis_watching`) VALUES
+(1, 2, '45.00', 1, '1.00', '2019-11-01', '2019-12-27', 0),
+(2, 3, '1.45', 1, '1.00', '2019-11-01', '2019-12-27', 0),
+(3, 8, '45.00', 1, '0.00', '2019-11-01', '2019-11-30', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `listing_watching`
+--
+
+CREATE TABLE `listing_watching` (
+  `lwi_id` int(10) UNSIGNED NOT NULL,
+  `lwi_user_ud` bigint(20) UNSIGNED NOT NULL,
+  `lwi_listing_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -178,16 +199,17 @@ CREATE TABLE `orders` (
   `ord_rate` decimal(5,2) UNSIGNED NOT NULL,
   `ord_currency_id` tinyint(3) UNSIGNED NOT NULL,
   `ord_created` datetime NOT NULL,
-  `ord_success` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'
+  `ord_success` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `ord_void` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`ord_id`, `ord_user_id`, `ord_shipaddress_id`, `ord_billaddress_id`, `ord_paymethod_id`, `ord_bank_transaction_id`, `ord_total`, `ord_goods_total`, `ord_ship_total`, `ord_fee`, `ord_rate`, `ord_currency_id`, `ord_created`, `ord_success`) VALUES
-(1, 2, 1, 1, 2, 'RF123455698454DF9905GR', '68.07', '45.45', '21.08', '0.54', '1.00', 1, '2019-11-11 20:08:03', 1),
-(2, 2, 1, 1, 2, '', '56.00', '45.00', '6.00', '1.00', '1.00', 1, '2019-11-26 06:15:17', 0);
+INSERT INTO `orders` (`ord_id`, `ord_user_id`, `ord_shipaddress_id`, `ord_billaddress_id`, `ord_paymethod_id`, `ord_bank_transaction_id`, `ord_total`, `ord_goods_total`, `ord_ship_total`, `ord_fee`, `ord_rate`, `ord_currency_id`, `ord_created`, `ord_success`, `ord_void`) VALUES
+(1, 2, 1, 1, 2, 'RF123455698454DF9905GR', '68.07', '45.45', '21.08', '0.54', '1.00', 1, '2019-11-11 20:08:03', 1, 0),
+(2, 2, 1, 1, 2, '', '56.00', '45.00', '6.00', '1.00', '1.00', 1, '2019-11-26 06:15:17', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -206,17 +228,18 @@ CREATE TABLE `order_items` (
   `itm_goods_total` decimal(10,2) UNSIGNED NOT NULL,
   `itm_ship_total` decimal(10,2) UNSIGNED NOT NULL,
   `itm_currency_id` tinyint(3) UNSIGNED NOT NULL,
-  `itm_status_id` tinyint(3) UNSIGNED NOT NULL
+  `itm_status_id` tinyint(3) UNSIGNED NOT NULL,
+  `itm_void` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`itm_id`, `itm_order_id`, `itm_product_id`, `itm_seller_id`, `itm_quantity`, `itm_tracking_nums`, `itm_total`, `itm_goods_total`, `itm_ship_total`, `itm_currency_id`, `itm_status_id`) VALUES
-(1, 1, 2, 1, 1, '', '65.00', '45.00', '20.00', 1, 1),
-(2, 1, 2, 2, 1, '', '2.53', '1.45', '1.08', 1, 1),
-(3, 2, 8, 1, 1, '', '56.00', '5.00', '6.00', 1, 1);
+INSERT INTO `order_items` (`itm_id`, `itm_order_id`, `itm_product_id`, `itm_seller_id`, `itm_quantity`, `itm_tracking_nums`, `itm_total`, `itm_goods_total`, `itm_ship_total`, `itm_currency_id`, `itm_status_id`, `itm_void`) VALUES
+(1, 1, 2, 1, 1, '', '65.00', '45.00', '20.00', 1, 1, 0),
+(2, 1, 2, 2, 1, '', '2.53', '1.45', '1.08', 1, 1, 0),
+(3, 2, 8, 1, 1, '', '56.00', '5.00', '6.00', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -575,14 +598,16 @@ ALTER TABLE `billing_addresses`
 --
 ALTER TABLE `continents`
   ADD PRIMARY KEY (`con_id`),
-  ADD UNIQUE KEY `con_title` (`con_title`);
+  ADD UNIQUE KEY `con_title` (`con_code`),
+  ADD UNIQUE KEY `con_code` (`con_code`);
 
 --
 -- Indexes for table `countries`
 --
 ALTER TABLE `countries`
   ADD PRIMARY KEY (`ctr_id`),
-  ADD UNIQUE KEY `ctr_code` (`ctr_code`);
+  ADD UNIQUE KEY `ctr_code` (`ctr_code`),
+  ADD UNIQUE KEY `ctr_title` (`ctr_title`);
 
 --
 -- Indexes for table `currencies`
@@ -606,6 +631,14 @@ ALTER TABLE `listings`
   ADD PRIMARY KEY (`lis_id`),
   ADD KEY `lis_selling_id` (`lis_selling_id`),
   ADD KEY `lis_currency_id` (`lis_currency_id`);
+
+--
+-- Indexes for table `listing_watching`
+--
+ALTER TABLE `listing_watching`
+  ADD PRIMARY KEY (`lwi_id`),
+  ADD KEY `lwi_user_ud` (`lwi_user_ud`),
+  ADD KEY `lwi_listing_id` (`lwi_listing_id`);
 
 --
 -- Indexes for table `orders`
@@ -764,7 +797,7 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT for table `currencies`
 --
 ALTER TABLE `currencies`
-  MODIFY `cur_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cur_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `custom_products_filters_values`
@@ -777,6 +810,12 @@ ALTER TABLE `custom_products_filters_values`
 --
 ALTER TABLE `listings`
   MODIFY `lis_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `listing_watching`
+--
+ALTER TABLE `listing_watching`
+  MODIFY `lwi_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orders`

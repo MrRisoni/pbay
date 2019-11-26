@@ -166,6 +166,14 @@ var mdlOrders = sequelize.define('orders', {
             type: Sequelize.FLOAT,
             field: 'ord_rate'
         },
+        success: {
+            type: Sequelize.INTEGER,
+            field: 'ord_success'
+        },
+        void: {
+            type: Sequelize.INTEGER,
+            field: 'ord_void'
+        },
         createdAt: {
             type: Sequelize.DATE,
             field: 'ord_created'
@@ -205,6 +213,10 @@ var mdlOrderItems = sequelize.define('order_items', {
         currencyId: {
             type: Sequelize.INTEGER,
             field: 'itm_currency_id'
+        },
+        void: {
+            type: Sequelize.INTEGER,
+            field: 'itm_void'
         }
     },
     {
@@ -277,7 +289,6 @@ var mdlProducts = sequelize.define('products', {
 );
 
 
-
 var mdlCurrencies = sequelize.define('currencies', {
         id: {
             type: Sequelize.INTEGER.UNSIGNED,
@@ -319,7 +330,6 @@ var mdlCountries = sequelize.define('countries', {
 );
 
 
-
 var mdlContinents = sequelize.define('continents', {
         id: {
             type: Sequelize.INTEGER.UNSIGNED,
@@ -341,8 +351,6 @@ var mdlContinents = sequelize.define('continents', {
         freezeTableName: true
     }
 );
-
-
 
 
 var mdlListings = sequelize.define('listings', {
@@ -397,7 +405,6 @@ var mdlSelling = sequelize.define('selling', {
         freezeTableName: true
     }
 );
-
 
 
 var mdlProductCategories = sequelize.define('products_categories', {
@@ -548,9 +555,6 @@ var mdlProductFiltersValues = sequelize.define('products_filter_values', {
 );
 
 
-
-
-
 mdlOrders.belongsTo(mdlShippingAddress, {foreignKey: 'ord_shipaddress_id', as: 'shipTo'});
 mdlOrders.belongsTo(mdlBillingAddress, {foreignKey: 'ord_billaddress_id', as: 'bilTo'});
 
@@ -573,9 +577,6 @@ mdlListings.belongsTo(mdlSelling, {foreignKey: 'lis_selling_id', as: 'sellItem'}
 mdlOrderItems.belongsTo(mdlProducts, {foreignKey: 'itm_product_id', as: 'product'});
 mdlOrderItems.belongsTo(mdlSellers, {foreignKey: 'itm_seller_id', as: 'seller'});
 mdlOrderItems.belongsTo(mdlOrderStatus, {foreignKey: 'itm_status_id', as: 'status'});
-
-
-
 
 
 module.exports = {

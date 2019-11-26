@@ -19,8 +19,10 @@ module.exports =
             return new Promise( (resolve, reject) => {
                 self.mdls.mdlOrders.findAll({
                     where : {
-                        userId:userId
+                        userId:userId,
+                        success:1
                     },
+                    order : [['createdAt','DESC']],
                     include: [
                         {
                             model: self.mdls.mdlOrderItems,
