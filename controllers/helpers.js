@@ -49,17 +49,13 @@ function currencyConvert(from, to, rates, amount ) {
            return (cur.code == from);
         })[0].rate;
 
-        console.log('from eur rate ' + fromEurRate);
         const AmountEur = amount / fromEurRate;
 
         const toThatRate = rates.filter( (cur) => {
             return (cur.code == to);
         })[0].rate;
 
-        console.log('to that rate ' + toThatRate);
         const AmountTo = Math.ceil(AmountEur * toThatRate).toFixed(2);
-
-        console.log(AmountTo);
 
         return AmountTo
 
