@@ -8,12 +8,51 @@ module.exports =
             this.mdls = models;
         }
 
+
+        getItemDetails(listingId) {
+            return new Promise((resolve, reject) => {
+                Promise.all([this.getItemSellsLastDays(listingId),this.getItem(listingId)]).then(allRes => {
+                    resolve(allRes);
+                }).catch(err => {
+                    reject([]);
+                });
+
+            });
+        };
+
+
+        getItemSellsLastDays(listingId){
+            const self = this;
+            // multi line string in ``
+        const q = `SELECT COUNT(O.ord_id) AS soldLastDays
+                 FROM  listings L 
+                JOIN selling S ON S.sll_id = L.lis_selling_id
+                JOIN  order_items OI ON OI.itm_product_id = S.sll_id 
+                JOIN  orders O ON O.ord_id =  OI.itm_order_id
+                 WHERE L.lis_id = '` + listingId +`' AND OI.itm_void = 0
+                 AND O.ord_success = 1
+                 AND 
+                 DATEDIFF(CURRENT_DATE, DATE(O.ord_created)) <=2
+                 AND 
+                  DATEDIFF(CURRENT_DATE, DATE(O.ord_created)) >=0`;
+
+            return new Promise((resolve, reject) => {
+                self.mdls.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
+                    .then(res => {
+                        resolve(res[0]);
+                    }).catch(errSql => {
+                    reject({errMsg: errSql});
+                });
+            });
+        }
+
+
         getItem(listingId) {
             const self = this;
-            return new Promise( (resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 self.mdls.mdlListings.findAll({
                     where: {
-                        id:listingId
+                        id: listingId
                     },
                     include: [
                         {
@@ -24,7 +63,19 @@ module.exports =
                                 {
                                     model: self.mdls.mdlProducts,
                                     as: 'sellProduct',
-                                    required: true
+                                    required: true,
+                                    include: [
+                                        {
+                                            model: self.mdls.mdlProductFiltersValues,
+                                            as: 'filtersVals',
+                                            required: true,
+                                            include: [
+                                                {
+                                                    model: self.mdls.mdlProductFilters,
+                                                    as: 'filter',
+                                                    required: true
+                                                }]
+                                        }]
                                 },
                                 {
                                     model: self.mdls.mdlShippingCosts,
@@ -46,7 +97,7 @@ module.exports =
                                 }]
                         }]
                 }).then((data) => {
-                    resolve(data);
+                    resolve(data[0]);
                 }).catch((err) => {
                     console.log(err);
                     reject([]);
@@ -57,9 +108,9 @@ module.exports =
         }
 
 
-        getListings(categoryIds = [2,3]) {
+        getListings(categoryIds = [2, 3]) {
             const self = this;
-            return new Promise( (resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 self.mdls.mdlListings.findAll({
                     where: {
                         showFrom: {
@@ -81,7 +132,7 @@ module.exports =
                                     required: true,
                                     where: {
                                         categoryId: {
-                                            [Sequelize.Op.or]:[categoryIds]
+                                            [Sequelize.Op.or]: [categoryIds]
                                         }
                                     }
                                 },

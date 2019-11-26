@@ -42,9 +42,11 @@ app.get('/api/listings', (req, res) => {
 
 
 app.get('/api/item', (req, res) => {
-    listCtrl.getItem(3).then(result => {
+
+    listCtrl.getItemDetails(3).then(result => {
         res.send(result);
     });
+
 });
 
 
@@ -61,6 +63,30 @@ app.get('/api/orders', (req, res) => {
         res.send(result);
     });
 });
+
+
+app.get('/api/currencies', (req, res) => {
+    genCtrl.getCurrenies().then(result => {
+        res.send(result);
+    });
+});
+
+
+app.get('/api/countries', (req, res) => {
+    genCtrl.getCountries().then(result => {
+        res.send(result);
+    });
+});
+
+
+
+app.get('/api/continents', (req, res) => {
+    genCtrl.getContinents().then(result => {
+        res.send(result);
+    });
+});
+
+
 
 app.listen(port, (req, res) => {
     console.log('Server listening on port number', port);

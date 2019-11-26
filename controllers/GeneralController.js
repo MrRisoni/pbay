@@ -19,4 +19,47 @@ module.exports =
                 });
             });
         }
+
+
+        getCountries(userId) {
+            const self = this;
+            return new Promise( (resolve, reject) => {
+                self.mdls.mdlC.findAll({
+                }).then((data) => {
+                    resolve(data);
+                }).catch((err) => {
+                    reject([]);
+                });
+            });
+        }
+
+
+
+        getContinents(userId) {
+            const self = this;
+            return new Promise( (resolve, reject) => {
+                self.mdls.mdlC.findAll({
+                }).then((data) => {
+                    resolve(data);
+                }).catch((err) => {
+                    reject([]);
+                });
+            });
+        }
+
+
+
+        getCurrenies(userId) {
+            const self = this;
+            return new Promise( (resolve, reject) => {
+                self.mdls.mdlCurrencies.findAll({
+                }).then((data) => {
+                    resolve(data);
+                }).catch((err) => {
+                    reject([]);
+                });
+            });
+        }
+
+
     };

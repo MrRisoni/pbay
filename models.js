@@ -296,6 +296,54 @@ var mdlCurrencies = sequelize.define('currencies', {
     }
 );
 
+var mdlCountries = sequelize.define('countries', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'ctr_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'ctr_title'
+        },
+        code: {
+            type: Sequelize.CHAR,
+            field: 'ctr_code'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+
+var mdlContinents = sequelize.define('continents', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'con_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'con_title'
+        },
+        code: {
+            type: Sequelize.CHAR,
+            field: 'con_code'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+
 
 var mdlListings = sequelize.define('listings', {
         id: {
@@ -315,6 +363,10 @@ var mdlListings = sequelize.define('listings', {
         showTo: {
             type: Sequelize.DATE,
             field: 'lis_to'
+        },
+        watching: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'lis_watching'
         },
     },
     {
@@ -461,17 +513,32 @@ var mdlShippingForbidden = sequelize.define('shipping_country_forbidden', {
 var mdlProductFilters = sequelize.define('products_filters', {
         id: {
             type: Sequelize.INTEGER.UNSIGNED,
-            field: 'sll_id',
+            field: 'fil_id',
             autoIncrement: true,
             primaryKey: true,
         },
-        quantity: {
-            type: Sequelize.INTEGER,
-            field: 'sll_quantity'
-        },
-        mailerCo: {
+        title: {
             type: Sequelize.CHAR,
-            field: 'sll_mailer_co'
+            field: 'fil_title'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+var mdlProductFiltersValues = sequelize.define('products_filter_values', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'pfv_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        val: {
+            type: Sequelize.CHAR,
+            field: 'pfv_value'
         }
     },
     {
@@ -492,6 +559,10 @@ mdlOrders.hasMany(mdlOrderItems, {foreignKey: 'itm_order_id', as: 'items'});
 mdlSelling.hasMany(mdlShippingCosts, {foreignKey: 'shc_selling_id', as: 'shipCosts'});
 mdlSelling.hasMany(mdlShippingCostsExceptions, {foreignKey: 'shcx_selling_id', as: 'shipCostsExcept'});
 mdlSelling.hasMany(mdlShippingForbidden, {foreignKey: 'shf_selling_id', as: 'shipForbidden'});
+
+
+mdlProducts.hasMany(mdlProductFiltersValues, {foreignKey: 'pfv_product_id', as: 'filtersVals'});
+mdlProductFiltersValues.belongsTo(mdlProductFilters, {foreignKey: 'pfv_filter_id', as: 'filter'});
 
 
 mdlSelling.belongsTo(mdlProducts, {foreignKey: 'sll_product_id', as: 'sellProduct'});
@@ -522,7 +593,11 @@ module.exports = {
     mdlShippingCosts,
     mdlCurrencies,
     mdlShippingCostsExceptions,
-    mdlShippingForbidden
+    mdlShippingForbidden,
+    mdlProductFilters,
+    mdlProductFiltersValues,
+    mdlContinents,
+    mdlCountries
 };
 
 
