@@ -12,7 +12,7 @@ module.exports =
         getItemDetails(listingId) {
             return new Promise((resolve, reject) => {
                 Promise.all([this.getItemSellsLastDays(listingId),this.getItem(listingId)]).then(allRes => {
-                    resolve(allRes);
+                    resolve({...allRes[0],...allRes[1]});
                 }).catch(err => {
                     reject([]);
                 });
@@ -97,7 +97,7 @@ module.exports =
                                 }]
                         }]
                 }).then((data) => {
-                    resolve(data[0]);
+                    resolve(data[0].get({ plain: true }));
                 }).catch((err) => {
                     console.log(err);
                     reject([]);
