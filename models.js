@@ -387,6 +387,10 @@ var mdlListings = sequelize.define('listings', {
             type: Sequelize.INTEGER.UNSIGNED,
             field: 'lis_watching'
         },
+        isAuction: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'lis_is_auction'
+        },
     },
     {
         timestamps: false,
@@ -549,6 +553,33 @@ var mdlProductFiltersValues = sequelize.define('products_filter_values', {
         val: {
             type: Sequelize.CHAR,
             field: 'pfv_value'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+var mdlBiding = sequelize.define('biddings', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'bid_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        price: {
+            type: Sequelize.FLOAT,
+            field: 'bid_price'
+        },
+        currencyId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'bid_currency_id'
+        },
+        active: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'bid_active'
         }
     },
     {

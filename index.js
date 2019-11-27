@@ -35,7 +35,7 @@ app.get('/api/listings', (req, res) => {
 
 app.get('/api/item', (req, res) => {
 
-    listCtrl.getItemDetails(3).then(result => {
+    listCtrl.getItemDetails(4).then(result => {
         res.send(result);
     });
 
@@ -58,7 +58,7 @@ app.get('/api/orders', (req, res) => {
 
 
 app.get('/api/currencies', (req, res) => {
-    genCtrl.getCurrenies().then(result => {
+    genCtrl.getCurrencies().then(result => {
         res.send(result);
     });
 });

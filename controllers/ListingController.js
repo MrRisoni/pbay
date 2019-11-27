@@ -15,7 +15,7 @@ module.exports =
             const self = this;
 
             const userCurrencyCode = 'CHF'; // CHF
-            const userId =2 ;
+            const userId = 2;
 
             return new Promise((resolve, reject) => {
                 Promise.all([helps.getContinents(self.mdls),
@@ -23,7 +23,10 @@ module.exports =
                     this.getItem(listingId),
                     helps.getCountries(self.mdls),
                     helps.getCurrencies(self.mdls),
-                    helps.getShippingCountries(self.mdls, userId)]).then(allRes => {
+                    helps.getShippingCountries(self.mdls, userId),
+                    this.getTotalBidsLastDays(listingId),
+                    this.getBestBid(listingId)]
+                ).then(allRes => {
 
 
                     const continentsData = allRes[0];
@@ -43,7 +46,7 @@ module.exports =
                     Object.assign(allRes[2].sellItem.sellerObj, {countryName: sellerCountryObj[0].title});
 
 
-                        allRes[2].sellItem.shipForbidden = allRes[2].sellItem.shipForbidden.map((forbid) => {
+                    allRes[2].sellItem.shipForbidden = allRes[2].sellItem.shipForbidden.map((forbid) => {
 
                         let obj = countriesData.filter((crn) => {
                             return crn.id === forbid.countryId
@@ -83,7 +86,7 @@ module.exports =
                     let maybeShippingCountryForbidden = false;
                     let maybeShippingCostExceptions = false;
 
-                    let forbiddenShippingList =[];
+                    let forbiddenShippingList = [];
                     findIfShippingIsForbidden:
                         for (let sf = 0; sf < allRes[2].sellItem.shipForbidden.length; sf++) {
                             for (let scon = 0; scon < shippingCountries.length; scon++) {
@@ -94,7 +97,7 @@ module.exports =
                             }
                         }
 
-                    let exceptionShippingList =[];
+                    let exceptionShippingList = [];
                     for (let sf = 0; sf < allRes[2].sellItem.shipCostsExcept.length; sf++) {
                         for (let scon = 0; scon < shippingCountries.length; scon++) {
                             if (allRes[2].sellItem.shipCostsExcept[sf].countryId === shippingCountries[scon].shp_country_id) {
@@ -104,7 +107,7 @@ module.exports =
                         }
                     }
 
-                    Object.assign(allRes[2], {notShipTo:forbiddenShippingList.join(',')});
+                    Object.assign(allRes[2], {notShipTo: forbiddenShippingList.join(',')});
 
                     Object.assign(allRes[2], {userCurrencyCode});
                     Object.assign(allRes[2], {productCurrencyCode: productCurrencyObj.code});
@@ -119,17 +122,24 @@ module.exports =
                     if (maybeShippingCostExceptions) {
                         // only show the exception that match the user shipping address list
 
-                         Object.assign(allRes[2], {sellItem :
-                                Object.assign(allRes[2].sellItem, {shipCostsExcept : exceptionShippingList})
-                         });
+                        Object.assign(allRes[2], {
+                            sellItem:
+                                Object.assign(allRes[2].sellItem, {shipCostsExcept: exceptionShippingList})
+                        });
                     }
 
-                    if (maybeShippingCountryForbidden){
+                    if (maybeShippingCountryForbidden) {
                         // only show the forbidden that match the user shipping address list
 
                     }
 
+
                     Object.assign(allRes[2], allRes[1]);
+                    Object.assign(allRes[2], allRes[6]);
+
+                     Object.assign(allRes[2], {highestBidding: { price : helps.currencyConvert('EUR', userCurrencyCode, currencyData,allRes[7].bestBid),
+                         hoursAgo: allRes[7].hoursAgo}});
+
 
                     resolve(allRes[2]);
                 }).catch(err => {
@@ -139,6 +149,46 @@ module.exports =
 
             });
         };
+
+
+        getTotalBidsLastDays(listingId) {
+            const self = this;
+            const q = `SELECT COUNT(bid_id) AS totalBids FROM biddings
+                WHERE bid_active = 1 AND bid_listing_id = '` + listingId + `'
+                 AND 
+                 DATEDIFF(CURRENT_DATE, DATE(bid_created_at)) <=2
+                 AND 
+                 DATEDIFF(CURRENT_DATE, DATE(bid_created_at)) >=0`;
+            return new Promise((resolve, reject) => {
+                self.mdls.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
+                    .then(res => {
+                        resolve(res[0]);
+                    }).catch(errSql => {
+                    console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%');
+                    console.log(errSql);
+                    reject({errMsg: errSql});
+                });
+            });
+        }
+
+        getBestBid(listingId) {
+            const self = this;
+            const q = `SELECT bid_price_eur AS bestBid,  TIMESTAMPDIFF(HOUR,bid_created_at,NOW()) 
+                AS hoursAgo
+                FROM biddings
+                WHERE bid_active = 1 AND bid_listing_id = '` + listingId + `'
+                ORDER BY bid_price_eur DESC LIMIT 1`;
+            return new Promise((resolve, reject) => {
+                self.mdls.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
+                    .then(res => {
+                        resolve(res[0]);
+                    }).catch(errSql => {
+                    console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%');
+                    console.log(errSql);
+                    reject({errMsg: errSql});
+                });
+            });
+        }
 
 
         getItemSellsLastDays(listingId) {
