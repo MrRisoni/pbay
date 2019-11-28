@@ -35,7 +35,7 @@ app.get('/api/listings', (req, res) => {
 
 app.get('/api/item', (req, res) => {
 
-    listCtrl.getItemDetails(4).then(result => {
+    listCtrl.getItemDetails(3).then(result => {
         res.send(result);
     });
 

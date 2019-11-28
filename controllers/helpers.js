@@ -69,7 +69,10 @@ function currencyConvert(from, to, rates, amount ) {
 function   getShippingCountries(mdls, userId) {
     const self = this;
     // multi line string in ``
-    const q = " SELECT DISTINCT(shp_country_id) FROM shipping_addresses WHERE shp_user_id = '" + userId +"'";
+    const q = ` SELECT DISTINCT(shp_country_id) AS id , CR.ctr_title AS title
+                FROM shipping_addresses
+                JOIN countries CR ON CR.ctr_id = shp_country_id 
+                WHERE shp_user_id =` + userId ;
 
     return new Promise((resolve, reject) => {
         mdls.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
@@ -77,12 +80,33 @@ function   getShippingCountries(mdls, userId) {
                 console.log(res);
                 resolve(res);
             }).catch(errSql => {
-                console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
-                console.log(errSql)
+
             reject({errMsg: errSql});
         });
     });
 }
 
 
-module.exports = {getContinents, getCountries, getCurrencies,currencyConvert,getShippingCountries}
+function   getShippingContinents(mdls, userId) {
+    const self = this;
+    // multi line string in ``
+    const q = ` SELECT DISTINCT(CN.con_id)  AS id, CN.con_title AS title
+                FROM shipping_addresses 
+                JOIN countries CR ON CR.ctr_id = shp_country_id 
+                JOIN continents CN ON CN.con_id = CR.ctr_continent_id WHERE shp_user_id = ` + userId;
+
+    return new Promise((resolve, reject) => {
+        mdls.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
+            .then(res => {
+                console.log(res);
+                resolve(res);
+            }).catch(errSql => {
+            console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+            console.log(errSql)
+            reject({errMsg: errSql});
+        });
+    });
+}
+
+
+module.exports = {getContinents, getCountries, getCurrencies,currencyConvert,getShippingCountries,getShippingContinents}
