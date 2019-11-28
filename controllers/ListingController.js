@@ -47,17 +47,26 @@ module.exports =
                     let sellerCountryObj = countriesList.filter((crn) => {
                         return crn.id === itemData.sellItem.sellerObj.countryId
                     });
-                    console.log('Sellect Coutry');
-                    console.log(sellerCountryObj);
+
                     Object.assign(itemData.sellItem.sellerObj, {countryName: sellerCountryObj[0].title});
 
                     itemData.sellItem.shipForbidden = itemData.sellItem.shipForbidden.filter( (forbid) => {
                         return userShipCountries.some((el) => {
-                            return (el.id === forbid.id);
+                            return (el.id === forbid.countryId);
                         })
+                    }).map((forbid) => {
+
+                        let obj = userShipCountries.filter((crn) => {
+                            return crn.id === forbid.countryId
+                        });
+
+                        if (obj.length >0) {
+                            return {...forbid, ...{countryName: obj[0].title}}
+                        }
                     });
 
-                    console.log('itemData.sellItem.shipForbidden');
+
+                    console.log('itemData.sellItem.shipForbiddennnnnnnnnnnnn');
                     console.log(itemData.sellItem.shipForbidden);
 
                     let avgShipPrice = 0;
@@ -101,8 +110,6 @@ module.exports =
                         }
                     });
 
-                    console.log('foribbden');
-                    console.log(itemData.sellItem.shipForbidden)
 
                     let maybeShippingCountryForbidden = false;
                     let maybeShippingCostExceptions = false;
@@ -121,7 +128,7 @@ module.exports =
                     let exceptionShippingList = [];
                     for (let sf = 0; sf < itemData.sellItem.shipCostsExcept.length; sf++) {
                         for (let scon = 0; scon < userShipCountries.length; scon++) {
-                            if (itemData.sellItem.shipCostsExcept[sf].countryId === userShipCountries[scon].shp_country_id) {
+                            if (itemData.sellItem.shipCostsExcept[sf].countryId === userShipCountries[scon].id) {
                                 maybeShippingCostExceptions = true;
                                 exceptionShippingList.push(itemData.sellItem.shipCostsExcept[sf]);
                             }
