@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2019 at 11:49 AM
+-- Generation Time: Nov 28, 2019 at 07:56 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.2.7
 
@@ -108,21 +108,22 @@ INSERT INTO `continents` (`con_id`, `con_code`, `con_title`) VALUES
 CREATE TABLE `countries` (
   `ctr_id` smallint(5) UNSIGNED NOT NULL,
   `ctr_title` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `ctr_code` varchar(2) CHARACTER SET utf8 NOT NULL
+  `ctr_code` varchar(2) CHARACTER SET utf8 NOT NULL,
+  `ctr_continent_id` tinyint(3) UNSIGNED NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `countries`
 --
 
-INSERT INTO `countries` (`ctr_id`, `ctr_title`, `ctr_code`) VALUES
-(1, 'Germany', 'DE'),
-(2, 'Russia', 'RU'),
-(3, 'China', 'CN'),
-(4, 'Norway', 'NO'),
-(5, 'Australia', 'AU'),
-(6, 'Greece', 'GR'),
-(7, 'Alaska', 'AS');
+INSERT INTO `countries` (`ctr_id`, `ctr_title`, `ctr_code`, `ctr_continent_id`) VALUES
+(1, 'Germany', 'DE', 1),
+(2, 'Russia', 'RU', 1),
+(3, 'China', 'CN', 6),
+(4, 'Norway', 'NO', 1),
+(5, 'Australia', 'AU', 8),
+(6, 'Greece', 'GR', 1),
+(7, 'Alaska', 'AS', 2);
 
 -- --------------------------------------------------------
 
@@ -673,7 +674,8 @@ ALTER TABLE `continents`
 ALTER TABLE `countries`
   ADD PRIMARY KEY (`ctr_id`),
   ADD UNIQUE KEY `ctr_code` (`ctr_code`),
-  ADD UNIQUE KEY `ctr_title` (`ctr_title`);
+  ADD UNIQUE KEY `ctr_title` (`ctr_title`),
+  ADD KEY `ctr_continent_id` (`ctr_continent_id`);
 
 --
 -- Indexes for table `currencies`
@@ -1008,6 +1010,12 @@ ALTER TABLE `biddings`
 ALTER TABLE `billing_addresses`
   ADD CONSTRAINT `billing_addresses_ibfk_1` FOREIGN KEY (`bla_country_id`) REFERENCES `countries` (`ctr_id`),
   ADD CONSTRAINT `billing_addresses_ibfk_2` FOREIGN KEY (`bla_user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `countries`
+--
+ALTER TABLE `countries`
+  ADD CONSTRAINT `countries_ibfk_1` FOREIGN KEY (`ctr_continent_id`) REFERENCES `continents` (`con_id`);
 
 --
 -- Constraints for table `custom_products_filters_values`

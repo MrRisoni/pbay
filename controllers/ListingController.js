@@ -18,15 +18,15 @@ module.exports =
             const userId = 2;
 
             return new Promise((resolve, reject) => {
-                Promise.all([ helps.getShippingContinents(self.mdls,userId),
-                    this.getItemSellsLastDays(listingId),
-                    this.getItem(listingId),
-                    helps.getCurrencies(self.mdls),
-                    helps.getShippingCountries(self.mdls, userId),
-                    this.getTotalBidsLastDays(listingId),
-                    this.getBestBid(listingId),
-                    helps.getCountries(self.mdls)
-                   ]
+                Promise.all([helps.getShippingContinents(self.mdls, userId),
+                        this.getItemSellsLastDays(listingId),
+                        this.getItem(listingId),
+                        helps.getCurrencies(self.mdls),
+                        helps.getShippingCountries(self.mdls, userId),
+                        this.getTotalBidsLastDays(listingId),
+                        this.getBestBid(listingId),
+                        helps.getCountries(self.mdls)
+                    ]
                 ).then(allRes => {
 
                     const userShipContinents = allRes[0];
@@ -39,7 +39,6 @@ module.exports =
                     const countriesList = allRes[7];
 
 
-
                     let productCurrencyObj = currencyList.filter((cr) => {
                         return cr.id === itemData.currenyId;
                     })[0];
@@ -50,7 +49,7 @@ module.exports =
 
                     Object.assign(itemData.sellItem.sellerObj, {countryName: sellerCountryObj[0].title});
 
-                    itemData.sellItem.shipForbidden = itemData.sellItem.shipForbidden.filter( (forbid) => {
+                    itemData.sellItem.shipForbidden = itemData.sellItem.shipForbidden.filter((forbid) => {
                         return userShipCountries.some((el) => {
                             return (el.id === forbid.countryId);
                         })
@@ -60,26 +59,24 @@ module.exports =
                             return crn.id === forbid.countryId
                         });
 
-                        if (obj.length >0) {
+                        if (obj.length > 0) {
                             return {...forbid, ...{countryName: obj[0].title}}
                         }
                     });
 
 
-                    console.log('itemData.sellItem.shipForbiddennnnnnnnnnnnn');
-                    console.log(itemData.sellItem.shipForbidden);
 
                     let avgShipPrice = 0;
 
-                    itemData.sellItem.shipCosts = itemData.sellItem.shipCosts.map((scost) => {
+                    /*/itemData.sellItem.shipCosts = itemData.sellItem.shipCosts.map((scost) => {
 
                         let obj = userShipContinents.filter((con) => {
                             return con.id == scost.continentId
                         });
 
-                        if (obj.length >0) {
+                        if (obj.length > 0) {
 
-                            let userSeesPriceShip =  helps.currencyConvert(productCurrencyObj.code, userCurrencyCode, currencyList, scost.cost)
+                            let userSeesPriceShip = helps.currencyConvert(productCurrencyObj.code, userCurrencyCode, currencyList, scost.cost)
                             avgShipPrice += userSeesPriceShip;
                             return {
                                 ...scost, ...{
@@ -88,19 +85,47 @@ module.exports =
                                 }
                             }
                         }
+                    });*/
+
+
+                    itemData.sellItem.shipCosts = itemData.sellItem.shipCosts.filter((scost) => {
+
+                        return userShipContinents.some((conEl) => {
+                            return (conEl.id === scost.continentId);
+                        })
+                    }).map((scost) => {
+
+                        let obj = userShipContinents.filter((con) => {
+                            return con.id == scost.continentId
+                        });
+
+                        let userSeesPriceShip = helps.currencyConvert(productCurrencyObj.code, userCurrencyCode, currencyList, scost.cost)
+                        avgShipPrice += userSeesPriceShip;
+                        return {
+                            ...scost, ...{
+                                continentName: obj[0].title,
+                                userSeesPrice: userSeesPriceShip
+                            }
+                        }
+
                     });
 
                     avgShipPrice /= itemData.sellItem.shipCosts.length;
+                    avgShipPrice = avgShipPrice.toFixed(2);
                     Object.assign(itemData, {avgShipPrice: avgShipPrice});
 
 
-                    itemData.sellItem.shipCostsExcept = itemData.sellItem.shipCostsExcept.map((costEx) => {
+                    itemData.sellItem.shipCostsExcept = itemData.sellItem.shipCostsExcept.filter((costEx) => {
+                        return userShipCountries.some((el) => {
+                            return (el.id === costEx.countryId);
+                        })
+                    }).map((costEx) => {
 
                         let obj = userShipCountries.filter((crn) => {
                             return crn.id === costEx.countryId
                         });
 
-                        if (obj.length >0) {
+                        if (obj.length > 0) {
                             return {
                                 ...costEx, ...{
                                     countryName: obj[0].title,
@@ -115,24 +140,15 @@ module.exports =
                     let maybeShippingCostExceptions = false;
 
                     let forbiddenShippingList = [];
-                    findIfShippingIsForbidden:
-                        for (let sf = 0; sf < itemData.sellItem.shipForbidden.length; sf++) {
-                            for (let scon = 0; scon < userShipCountries.length; scon++) {
-                                if (itemData.sellItem.shipForbidden[sf].countryId === userShipCountries[scon].id) {
-                                    maybeShippingCountryForbidden = true;
-                                    forbiddenShippingList.push(itemData.sellItem.shipForbidden[sf].countryName);
-                                }
-                            }
-                        }
+                    for (let sf = 0; sf < itemData.sellItem.shipForbidden.length; sf++) {
+                        maybeShippingCountryForbidden = true;
+                        forbiddenShippingList.push(itemData.sellItem.shipForbidden[sf].countryName);
+                    }
 
                     let exceptionShippingList = [];
                     for (let sf = 0; sf < itemData.sellItem.shipCostsExcept.length; sf++) {
-                        for (let scon = 0; scon < userShipCountries.length; scon++) {
-                            if (itemData.sellItem.shipCostsExcept[sf].countryId === userShipCountries[scon].id) {
-                                maybeShippingCostExceptions = true;
-                                exceptionShippingList.push(itemData.sellItem.shipCostsExcept[sf]);
-                            }
-                        }
+                        maybeShippingCostExceptions = true;
+                        exceptionShippingList.push(itemData.sellItem.shipCostsExcept[sf]);
                     }
 
                     Object.assign(itemData, {notShipTo: forbiddenShippingList.join(',')});
@@ -148,7 +164,6 @@ module.exports =
 
 
                     if (maybeShippingCostExceptions) {
-                        // only show the exception that match the user shipping address list
 
                         Object.assign(itemData, {
                             sellItem:
@@ -156,18 +171,17 @@ module.exports =
                         });
                     }
 
-                    if (maybeShippingCountryForbidden) {
-                        // only show the forbidden that match the user shipping address list
-
-                    }
-
-
-                    Object.assign(itemData, allRes[1]);
-                    Object.assign(itemData, allRes[6]);
+                    Object.assign(itemData, itemsSoldLastData);
 
                     if (itemData.isAuction === 1) {
-                        Object.assign(itemData, {highestBidding: { price : helps.currencyConvert('EUR', userCurrencyCode, currencyData,bestBidData.bestBid),
-                                hoursAgo: bestBidData.hoursAgo}});
+                        Object.assign(itemData, {
+                            highestBidding: {
+                                price: helps.currencyConvert('EUR', userCurrencyCode, currencyData, bestBidData.bestBid),
+                                hoursAgo: bestBidData.hoursAgo
+                            }
+                        });
+
+                        Object.assign(itemData, getTotalBidsLastDays);
                     }
 
 
