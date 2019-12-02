@@ -27,7 +27,7 @@ app.get('/api/categories', (req, res) => {
 });
 
 app.get('/api/listings', (req, res) => {
-    listCtrl.getListings().then(result => {
+    listCtrl.getCleanedListings().then(result => {
         res.send(result);
     });
 });

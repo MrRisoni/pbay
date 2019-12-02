@@ -302,7 +302,12 @@ module.exports =
         }
 
 
-        getListings(categoryIds = [1, 2, 3]) {
+        getListings( ) {
+            const searchParams = {
+                categoryIds:[1, 2, 3],
+                searchTxt: 'Potter och',
+            };
+
             const self = this;
             return new Promise((resolve, reject) => {
                 self.mdls.mdlListings.findAll({
@@ -328,7 +333,10 @@ module.exports =
                                     required: true,
                                     where: {
                                         categoryId: {
-                                            [Sequelize.Op.or]: [categoryIds]
+                                            [Sequelize.Op.or]: [searchParams.categoryIds]
+                                        },
+                                        title: {
+                                            [Sequelize.Op.like]: '%' + searchParams.searchTxt +'%'
                                         }
                                     },
                                     include: [
@@ -346,11 +354,60 @@ module.exports =
                         }]
                 }).then((data) => {
                     resolve(data);
+                  //  const sqlRes = data;
                 }).catch((err) => {
                     console.log(err);
                     reject([]);
                 });
             });
         }
+
+
+
+        getFilterValsForSearch()
+        {
+            const self = this;
+            // multi line string in ``
+            const q = ` SELECT  PF.fil_title AS filterTitle , GROUP_CONCAT(PFV.pfv_value) AS allVals
+                    FROM  listings L
+                    JOIN  selling S ON S.sll_id = L.lis_selling_id
+                    JOIN products P ON P.prod_id = S.sll_product_id
+                    JOIN  products_filter_values PFV ON  PFV.pfv_product_id  = P.prod_id
+                    JOIN products_filters PF ON PF.fil_id = PFV.pfv_filter_id
+                    WHERE PF.fil_filterable = 1
+                    GROUP BY pfv_filter_id `;
+
+            return new Promise((resolve, reject) => {
+                self.mdls.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
+                    .then(res => {
+                        console.log(res);
+                        resolve(res);
+                    }).catch(errSql => {
+                    console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+                    console.log(errSql)
+                    reject({errMsg: errSql});
+                });
+            });
+        }
+
+
+        getCleanedListings() {
+            return new Promise((resolve, reject) => {
+
+                Promise.all([this.getFilterValsForSearch(),
+                        this.getListings()
+                    ]
+                ).then(allRes => {
+                    resolve({filterVals:allRes[0],listings:allRes[1]});
+                }).catch(err => {
+                    console.log(err)
+                    reject({errMsg: err});
+                });
+            });
+        }
+
+
+
+
 
     };
