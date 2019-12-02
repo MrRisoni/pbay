@@ -15,7 +15,7 @@ const sequelize = new Sequelize(dbname, user, passwd, {
         acquire: 30000,
         idle: 10000
     },
-    logging: false, //console.log,
+    logging: true, //console.log,
 });
 
 
@@ -376,11 +376,11 @@ var mdlListings = sequelize.define('listings', {
             field: 'lis_currency_id'
         },
         showFrom: {
-            type: Sequelize.DATE,
+            type: Sequelize.DATE ,
             field: 'lis_from'
         },
         showTo: {
-            type: Sequelize.DATE,
+            type: Sequelize.DATE ,
             field: 'lis_to'
         },
         watching: {
@@ -390,6 +390,14 @@ var mdlListings = sequelize.define('listings', {
         isAuction: {
             type: Sequelize.INTEGER.UNSIGNED,
             field: 'lis_is_auction'
+        },
+        bought: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'lis_bought'
+        },
+        isActive: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'lis_active'
         },
     },
     {

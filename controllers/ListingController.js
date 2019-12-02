@@ -68,26 +68,6 @@ module.exports =
 
                     let avgShipPrice = 0;
 
-                    /*/itemData.sellItem.shipCosts = itemData.sellItem.shipCosts.map((scost) => {
-
-                        let obj = userShipContinents.filter((con) => {
-                            return con.id == scost.continentId
-                        });
-
-                        if (obj.length > 0) {
-
-                            let userSeesPriceShip = helps.currencyConvert(productCurrencyObj.code, userCurrencyCode, currencyList, scost.cost)
-                            avgShipPrice += userSeesPriceShip;
-                            return {
-                                ...scost, ...{
-                                    continentName: obj[0].title,
-                                    userSeesPrice: userSeesPriceShip
-                                }
-                            }
-                        }
-                    });*/
-
-
                     itemData.sellItem.shipCosts = itemData.sellItem.shipCosts.filter((scost) => {
 
                         return userShipContinents.some((conEl) => {
@@ -322,7 +302,7 @@ module.exports =
         }
 
 
-        getListings(categoryIds = [2, 3]) {
+        getListings(categoryIds = [1, 2, 3]) {
             const self = this;
             return new Promise((resolve, reject) => {
                 self.mdls.mdlListings.findAll({
@@ -332,7 +312,9 @@ module.exports =
                         },
                         showTo: {
                             [Sequelize.Op.gt]: new Date()
-                        }
+                        },
+                        bought:0,
+                        isActive: 1,
                     },
                     include: [
                         {
@@ -348,7 +330,13 @@ module.exports =
                                         categoryId: {
                                             [Sequelize.Op.or]: [categoryIds]
                                         }
-                                    }
+                                    },
+                                    include: [
+                                        {
+                                            model: self.mdls.mdlProductFiltersValues,
+                                            as: 'filtersVals',
+                                            required: true
+                                        }]
                                 },
                                 {
                                     model: self.mdls.mdlSellers,
@@ -364,4 +352,5 @@ module.exports =
                 });
             });
         }
+
     };
