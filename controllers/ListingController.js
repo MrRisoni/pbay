@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const moment = require('moment');
 const helps = require('./helpers');
+const _ = require('lodash');
 
 
 module.exports =
@@ -368,22 +369,20 @@ module.exports =
         {
             const self = this;
             // multi line string in ``
-            const q = ` SELECT  PF.fil_title AS filterTitle , GROUP_CONCAT(PFV.pfv_value) AS allVals
+            const q = ` SELECT  PF.fil_title AS filterTitle , PFV.pfv_value AS val, PF.fil_id AS filtrId
                     FROM  listings L
                     JOIN  selling S ON S.sll_id = L.lis_selling_id
                     JOIN products P ON P.prod_id = S.sll_product_id
                     JOIN  products_filter_values PFV ON  PFV.pfv_product_id  = P.prod_id
                     JOIN products_filters PF ON PF.fil_id = PFV.pfv_filter_id
                     WHERE PF.fil_filterable = 1
-                    GROUP BY pfv_filter_id `;
+                    ORDER BY pfv_filter_id `;
 
             return new Promise((resolve, reject) => {
                 self.mdls.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
                     .then(res => {
-                        console.log(res);
                         resolve(res);
                     }).catch(errSql => {
-                    console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
                     console.log(errSql)
                     reject({errMsg: errSql});
                 });
@@ -391,14 +390,32 @@ module.exports =
         }
 
 
-        getCleanedListings() {
+        getListingsAndFilters() {
             return new Promise((resolve, reject) => {
 
                 Promise.all([this.getFilterValsForSearch(),
                         this.getListings()
                     ]
                 ).then(allRes => {
-                    resolve({filterVals:allRes[0],listings:allRes[1]});
+                    let uniqueFilterVals = {};
+                    let allFilterVals = {};
+
+                    allRes[0].forEach((filtro) => {
+                        if ( typeof allFilterVals[filtro.filterTitle] !== 'undefined') {
+                            allFilterVals[filtro.filterTitle]['values'].push(filtro.val);
+                        }
+                        else {
+                            allFilterVals[filtro.filterTitle] = { values: [filtro.val], Id :filtro.filtrId }
+                        }
+                    })
+
+                    console.log(allFilterVals);
+
+                   for (var filtrKey in allFilterVals) {
+                       uniqueFilterVals[filtrKey] = { Id:allFilterVals[filtrKey]['Id'],  values:  _.uniqBy(allFilterVals[filtrKey]['values']) };
+                    }
+
+                    resolve({filterVals:uniqueFilterVals,listings:allRes[1]});
                 }).catch(err => {
                     console.log(err)
                     reject({errMsg: err});
