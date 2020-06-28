@@ -4,7 +4,7 @@
 
  @Entity
  @Table(name = "products_categories")
- public class Products_categories { 
+ public class ProductCategory {
 
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)

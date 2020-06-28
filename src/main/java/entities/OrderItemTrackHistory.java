@@ -4,7 +4,7 @@
 
  @Entity
  @Table(name = "order_item_track_history")
- public class Order_item_track_history { 
+ public class OrderItemTrackHistory {
 
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)

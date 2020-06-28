@@ -4,7 +4,7 @@
 
  @Entity
  @Table(name = "products_filter_values")
- public class Products_filter_values { 
+ public class ProductFilterValue {
 
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
