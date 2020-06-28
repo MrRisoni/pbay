@@ -1,6 +1,6 @@
-package hello;
+package core;
 
-import models.HibernateUtil;
+import entities.HibernateUtil;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
