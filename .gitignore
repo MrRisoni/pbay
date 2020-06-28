@@ -6,11 +6,8 @@
 *.log
 config.json
 *.env
-*.xml
 ./idea
-*.xml
 /.idea/workspace.xml
-/.idea
 .idea/workspace.xml
 **/.idea/workspace.xml
 *.sw?
@@ -31,7 +28,6 @@ README.html
 *.iml
 .idea
 .vscode
-/node_modules
 .mvn/wrapper
 spring_app.log
 *.gz
@@ -41,3 +37,4 @@ spring_app.log
 *.pdf
 hiberdickens_app.log
 ut.log
+.php_cs.cache
