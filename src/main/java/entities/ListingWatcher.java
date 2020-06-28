@@ -3,12 +3,12 @@
 
 
  @Entity
- @Table(name = "countries")
- public class Countries { 
+ @Table(name = "listing_watching")
+ public class ListingWatcher {
 
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
- @Column(name="ctr_id")
+ @Column(name="lwi_id")
 private int id;
 
  } 

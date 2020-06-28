@@ -3,15 +3,15 @@
 
 
  @Entity
- @Table(name = "continents")
- public class Continents { 
+ @Table(name = "currencies")
+ public class Currency {
 
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
- @Column(name="con_id")
+ @Column(name="cur_id")
 private int id;
 
- @Column(name="con_title")
-private String title;
+ @Column(name="cur_rate")
+private float rate;
 
  } 

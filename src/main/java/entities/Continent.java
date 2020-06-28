@@ -3,12 +3,15 @@
 
 
  @Entity
- @Table(name = "listing_watching")
- public class Listing_watching { 
+ @Table(name = "continents")
+ public class Continent {
 
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
- @Column(name="lwi_id")
+ @Column(name="con_id")
 private int id;
+
+ @Column(name="con_title")
+private String title;
 
  } 

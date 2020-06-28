@@ -3,33 +3,33 @@
 
 
  @Entity
- @Table(name = "billing_addresses")
- public class Billing_addresses { 
+ @Table(name = "shipping_addresses")
+ public class ShippingAddress {
 
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
- @Column(name="bla_id")
+ @Column(name="shp_id")
 private int id;
 
- @Column(name="bla_city")
+ @Column(name="shp_city")
 private String city;
 
- @Column(name="bla_region")
+ @Column(name="shp_region")
 private String region;
 
- @Column(name="bla_street")
+ @Column(name="shp_street")
 private String street;
 
- @Column(name="bla_street_no")
+ @Column(name="shp_street_no")
 private String streetNo;
 
- @Column(name="bla_code")
+ @Column(name="shp_code")
 private String code;
 
- @Column(name="bla_surname")
+ @Column(name="shp_surname")
 private String surname;
 
- @Column(name="bla_name")
+ @Column(name="shp_name")
 private String name;
 
  } 

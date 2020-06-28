@@ -4,7 +4,7 @@
 
  @Entity
  @Table(name = "listings")
- public class Listings { 
+ public class Listing {
 
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)

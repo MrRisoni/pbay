@@ -3,15 +3,15 @@
 
 
  @Entity
- @Table(name = "shipping_costs")
- public class Shipping_costs { 
+ @Table(name = "shipping_costs_exceptions")
+ public class ShippingCostsException {
 
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
- @Column(name="shc_id")
+ @Column(name="shcx_id")
 private int id;
 
- @Column(name="shc_cost")
+ @Column(name="shcx_cost")
 private float cost;
 
  } 

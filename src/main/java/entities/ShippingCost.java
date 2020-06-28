@@ -3,15 +3,15 @@
 
 
  @Entity
- @Table(name = "currencies")
- public class Currencies { 
+ @Table(name = "shipping_costs")
+ public class ShippingCost {
 
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
- @Column(name="cur_id")
+ @Column(name="shc_id")
 private int id;
 
- @Column(name="cur_rate")
-private float rate;
+ @Column(name="shc_cost")
+private float cost;
 
  } 
