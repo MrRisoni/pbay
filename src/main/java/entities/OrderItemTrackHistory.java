@@ -17,11 +17,7 @@ public class OrderItemTrackHistory {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date createdAt;
 
-    public OrderItemTrackHistory(int id, Date createdAt) {
-        this.id = id;
-        this.createdAt = createdAt;
-    }
-
+    public OrderItemTrackHistory(){}
     public int getId() {
         return id;
     }

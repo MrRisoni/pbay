@@ -23,12 +23,7 @@ public class Review {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date createdAt;
 
-    public Review(int id, String comment, float star, Date createdAt) {
-        this.id = id;
-        this.comment = comment;
-        this.star = star;
-        this.createdAt = createdAt;
-    }
+    public Review(){}
 
     public int getId() {
         return id;

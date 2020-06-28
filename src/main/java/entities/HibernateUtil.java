@@ -1,5 +1,6 @@
 package entities;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -17,7 +18,13 @@ public class HibernateUtil {
 
     private static EntityManager em = null;
 
-    public static  EntityManager getEM()
+    private static ObjectMapper omp = new ObjectMapper();
+
+    public static ObjectMapper getObjMapper() {
+        return omp;
+    }
+
+    public static  EntityManager getEntityMngr()
     {
         if (em == null) {
             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");

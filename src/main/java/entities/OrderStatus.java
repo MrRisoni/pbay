@@ -32,10 +32,5 @@ public class OrderStatus {
         this.title = title;
     }
 
-    public OrderStatus(int id, String title) {
-
-
-        this.id = id;
-        this.title = title;
-    }
+    public OrderStatus(){}
 }

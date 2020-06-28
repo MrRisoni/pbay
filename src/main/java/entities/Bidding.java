@@ -66,12 +66,5 @@ public class Bidding {
         this.active = active;
     }
 
-    public Bidding(int id, float price, float priceEur, Date createdAt, boolean active) {
-
-        this.id = id;
-        this.price = price;
-        this.priceEur = priceEur;
-        this.createdAt = createdAt;
-        this.active = active;
-    }
+    public Bidding(){}
 }

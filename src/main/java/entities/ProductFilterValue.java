@@ -15,9 +15,7 @@ public class ProductFilterValue {
     @Column(name = "pfv_value")
     private String value;
 
-    public ProductFilterValue(int id, String value) {
-        this.id = id;
-        this.value = value;
+    public ProductFilterValue() {
     }
 
 

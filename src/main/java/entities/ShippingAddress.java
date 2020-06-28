@@ -34,15 +34,7 @@ public class ShippingAddress {
     private String name;
 
 
-    public ShippingAddress(int id, String city, String region, String street, String streetNo, String code, String surname, String name) {
-        this.id = id;
-        this.city = city;
-        this.region = region;
-        this.street = street;
-        this.streetNo = streetNo;
-        this.code = code;
-        this.surname = surname;
-        this.name = name;
+    public ShippingAddress() {
     }
 
 

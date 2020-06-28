@@ -16,10 +16,7 @@ public class ProductFilter {
     @Column(name = "fil_title")
     private String title;
 
-    public ProductFilter(int id, String title) {
-        this.id = id;
-        this.title = title;
-    }
+    public ProductFilter(){}
 
     public int getId() {
         return id;

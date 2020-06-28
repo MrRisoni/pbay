@@ -12,7 +12,7 @@ public class Currency {
     @Column(name = "cur_id")
     private int id;
 
-    @Column(name = "cur_title")
+    @Column(name = "cur_code")
     private String code;
 
     @Column(name = "cur_rate")
@@ -42,10 +42,5 @@ public class Currency {
         this.rate = rate;
     }
 
-    public Currency(int id, String code, float rate) {
-
-        this.id = id;
-        this.code = code;
-        this.rate = rate;
-    }
+    public Currency(){}
 }

@@ -19,11 +19,7 @@ public class Country {
     @Column(name = "ctr_code")
     private String code;
 
-    public Country(int id, String title, String code) {
-        this.id = id;
-        this.title = title;
-        this.code = code;
-    }
+    public Country(){}
 
     public int getId() {
         return id;

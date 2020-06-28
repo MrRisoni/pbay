@@ -24,13 +24,8 @@ public class Product {
     @Column(name = "prod_preowned")
     private boolean preowned;
 
-    public Product(int id, String title, String otherTitle, String descr, boolean preowned) {
-        this.id = id;
-        this.title = title;
-        this.otherTitle = otherTitle;
-        this.descr = descr;
-        this.preowned = preowned;
-    }
+    public Product() {
+     }
 
     public int getId() {
         return id;

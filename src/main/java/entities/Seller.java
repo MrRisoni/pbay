@@ -21,12 +21,7 @@ public class Seller {
     @Column(name = "sel_stars_avg")
     private float starsAvg;
 
-    public Seller(int id, String title, String ssn, float starsAvg) {
-        this.id = id;
-        this.title = title;
-        this.ssn = ssn;
-        this.starsAvg = starsAvg;
-    }
+    public Seller(){}
 
     public int getId() {
         return id;

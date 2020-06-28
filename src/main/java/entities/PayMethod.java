@@ -15,10 +15,7 @@ public class PayMethod {
     @Column(name = "pm_title")
     private String title;
 
-    public PayMethod(int id, String title) {
-        this.id = id;
-        this.title = title;
-    }
+    public PayMethod(){}
 
     public int getId() {
         return id;

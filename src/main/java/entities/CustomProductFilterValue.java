@@ -15,10 +15,7 @@ public class CustomProductFilterValue {
     @Column(name = "csp_value")
     private String value;
 
-    public CustomProductFilterValue(int id, String value) {
-        this.id = id;
-        this.value = value;
-    }
+    public CustomProductFilterValue(){}
 
     public int getId() {
         return id;

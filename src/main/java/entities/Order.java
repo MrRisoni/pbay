@@ -42,18 +42,7 @@ public class Order {
     private boolean isVoid;
 
 
-    public Order(int id, String bankTransactionId, float total, float goodsTotal, float shipTotal, float fee, float rate, Date created, boolean success, boolean isVoid) {
-        this.id = id;
-        this.bankTransactionId = bankTransactionId;
-        this.total = total;
-        this.goodsTotal = goodsTotal;
-        this.shipTotal = shipTotal;
-        this.fee = fee;
-        this.rate = rate;
-        this.created = created;
-        this.success = success;
-        this.isVoid = isVoid;
-    }
+    public Order(){}
 
     public int getId() {
         return id;

@@ -16,9 +16,7 @@ public class ShippingCost {
     private float cost;
 
 
-    public ShippingCost(int id, float cost) {
-        this.id = id;
-        this.cost = cost;
+    public ShippingCost() {
     }
 
 

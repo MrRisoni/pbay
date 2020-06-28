@@ -15,10 +15,7 @@ public class Continent {
     @Column(name = "con_title")
     private String title;
 
-    public Continent(int id, String title) {
-        this.id = id;
-        this.title = title;
-    }
+    public Continent(){}
 
     public int getId() {
         return id;

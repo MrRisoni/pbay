@@ -30,15 +30,7 @@ public class OrderItem {
     @Column(name = "itm_void")
     private boolean isVoid;
 
-    public OrderItem(int id, int quantity, String trackingNums, float total, float goodsTotal, float shipTotal, boolean isVoid) {
-        this.id = id;
-        this.quantity = quantity;
-        this.trackingNums = trackingNums;
-        this.total = total;
-        this.goodsTotal = goodsTotal;
-        this.shipTotal = shipTotal;
-        this.isVoid = isVoid;
-    }
+    public OrderItem(){}
 
     public int getId() {
         return id;

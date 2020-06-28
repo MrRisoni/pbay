@@ -33,15 +33,7 @@ public class Listing {
     @Column(name = "lis_is_auction")
     private boolean isAuction;
 
-    public Listing(int id, float price, float feeEur, Date from, Date to, int watching, boolean isAuction) {
-        this.id = id;
-        this.price = price;
-        this.feeEur = feeEur;
-        this.from = from;
-        this.to = to;
-        this.watching = watching;
-        this.isAuction = isAuction;
-    }
+    public Listing(){}
 
     public int getId() {
         return id;

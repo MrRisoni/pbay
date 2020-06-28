@@ -15,9 +15,8 @@ public class ShippingCostsException {
     @Column(name = "shcx_cost")
     private float cost;
 
-    public ShippingCostsException(int id, float cost) {
-        this.id = id;
-        this.cost = cost;
+    public ShippingCostsException() {
+
     }
 
     public int getId() {

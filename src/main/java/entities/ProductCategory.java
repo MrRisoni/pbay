@@ -15,10 +15,7 @@ public class ProductCategory {
     @Column(name = "cat_title")
     private String title;
 
-    public ProductCategory(int id, String title) {
-        this.id = id;
-        this.title = title;
-    }
+    public ProductCategory(){}
 
 
     public int getId() {

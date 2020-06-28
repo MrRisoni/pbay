@@ -18,10 +18,7 @@ public class Selling {
     @Column(name = "sll_mailer_co")
     private String mailerCo;
 
-    public Selling(int id, int quantity, String mailerCo) {
-        this.id = id;
-        this.quantity = quantity;
-        this.mailerCo = mailerCo;
+    public Selling() {
     }
 
     public int getId() {
