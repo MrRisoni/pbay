@@ -4,22 +4,17 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "products_filters")
-public class ProductFilter {
+@Table(name = "order_statuses")
+public class OrderStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "fil_id")
+    @Column(name = "stat_id")
     private int id;
 
 
-    @Column(name = "fil_title")
+    @Column(name = "stat_title")
     private String title;
-
-    public ProductFilter(int id, String title) {
-        this.id = id;
-        this.title = title;
-    }
 
     public int getId() {
         return id;
@@ -34,6 +29,13 @@ public class ProductFilter {
     }
 
     public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public OrderStatus(int id, String title) {
+
+
+        this.id = id;
         this.title = title;
     }
 }
