@@ -1,6 +1,5 @@
 /node_modules
 /.idea
-*.xml
 /bower_components
 *.mp3
 *.log

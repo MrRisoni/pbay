@@ -16,7 +16,7 @@ public class Country {
     private String title;
 
 
-    @Column(name = "ctr_title")
+    @Column(name = "ctr_code")
     private String code;
 
     public Country(int id, String title, String code) {
