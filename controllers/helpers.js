@@ -28,19 +28,6 @@ function getCountries(mdls) {
 }
 
 
-function getCurrencies(mdls) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-        mdls.mdlCurrencies.findAll({
-            raw: true,
-        }).then((data) => {
-            resolve(data);
-        }).catch((err) => {
-            reject([]);
-        });
-    });
-}
-
 function currencyConvert(from, to, rates, amount ) {
     if (from === to) {
         return amount;

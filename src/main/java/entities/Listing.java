@@ -33,6 +33,10 @@ public class Listing {
     @Column(name = "lis_is_auction")
     private boolean isAuction;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="lis_selling_id")
+    private Selling sellingObj;
+
     public Listing(){}
 
     public int getId() {
@@ -89,5 +93,13 @@ public class Listing {
 
     public void setAuction(boolean auction) {
         isAuction = auction;
+    }
+
+    public Selling getSellingObj() {
+        return sellingObj;
+    }
+
+    public void setSellingObj(Selling sellingObj) {
+        this.sellingObj = sellingObj;
     }
 }
