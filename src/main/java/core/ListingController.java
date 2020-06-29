@@ -95,11 +95,15 @@ System.out.println("PRINT RESULTS");
             CriteriaQuery<Listing> criteria = builder.createQuery( Listing.class );
             Root<Listing> root = criteria.from( Listing.class );
             Join<Listing, Selling> sellObjJoin = root.join("sellingObj");
+            SetJoin<Selling, ShippingCost> shipCostsJoin = sellObjJoin.joinSet("shipCosts", JoinType.LEFT);
+            SetJoin<Selling, ShippingCostsException> shipCostsExceptionJoin = sellObjJoin.joinSet("shipExcepts", JoinType.LEFT);
+            SetJoin<Selling, ShippingCountryForbidden> shipCostsVerbotJoin = sellObjJoin.joinSet("shipVerboten", JoinType.LEFT);
+
             Join<Selling, Product> productJoin = sellObjJoin.join("productObj");
             Join<Product, ProductCategory> prodCatJoin = productJoin.join("prodCatObj");
             SetJoin<Product, ProductFilterValue> prodFilterValsJoin = productJoin.joinSet("filterVals");
             Join<ProductFilterValue,ProductFilter> prodFilterObjJoin = prodFilterValsJoin.join("filtrObj");
-            Join<Selling, Seller> sellerJoin = sellObjJoin.join("sellObj");
+            Join<Selling, Seller> sellerJoin = sellObjJoin.join("sellerObj");
 
 
             criteria.select( root );

@@ -1,6 +1,8 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -25,7 +27,19 @@ public class Selling {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="sll_seller_id")
-    private Seller sellObj;
+    private Seller sellerObj;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JoinColumn(name = "shc_selling_id")
+    private Set<ShippingCost> shipCosts = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JoinColumn(name = "shcx_selling_id")
+    private Set<ShippingCostsException> shipExcepts = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JoinColumn(name = "shf_selling_id ")
+    private Set<ShippingCountryForbidden> shipVerboten = new HashSet<>();
 
     public Selling() {
     }
@@ -62,11 +76,35 @@ public class Selling {
         this.productObj = productObj;
     }
 
-    public Seller getSellObj() {
-        return sellObj;
+    public Seller getSellerObj() {
+        return sellerObj;
     }
 
-    public void setSellObj(Seller sellObj) {
-        this.sellObj = sellObj;
+    public void setSellerObj(Seller sellerObj) {
+        this.sellerObj = sellerObj;
+    }
+
+    public Set<ShippingCost> getShipCosts() {
+        return shipCosts;
+    }
+
+    public void setShipCosts(Set<ShippingCost> shipCosts) {
+        this.shipCosts = shipCosts;
+    }
+
+     public Set<ShippingCostsException> getShipExcepts() {
+        return shipExcepts;
+    }
+
+    public void setShipExcepts(Set<ShippingCostsException> shipExcepts) {
+        this.shipExcepts = shipExcepts;
+    }
+
+    public Set<ShippingCountryForbidden> getShipVerboten() {
+        return shipVerboten;
+    }
+
+    public void setShipVerboten(Set<ShippingCountryForbidden> shipVerboten) {
+        this.shipVerboten = shipVerboten;
     }
 }

@@ -16,6 +16,7 @@ public class ShippingCost {
     private float cost;
 
 
+
     public ShippingCost() {
     }
 

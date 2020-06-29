@@ -159,47 +159,6 @@ getItemDetails(listingId) {
 };
 
 
-getItem(listingId) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-        self.mdls.mdlListings.findAll({
-            where: {
-                id: listingId
-            },
-            include: [
-                {
-                    model: self.mdls.mdlSelling,
-                    as: 'sellItem',
-                    required: true,
-                    include: [
-
-                        {
-                            model: self.mdls.mdlShippingCosts,
-                            as: 'shipCosts',
-                            required: true
-                        },
-                        {
-                            model: self.mdls.mdlShippingCostsExceptions,
-                            as: 'shipCostsExcept'
-                        },
-                        {
-                            model: self.mdls.mdlShippingForbidden,
-                            as: 'shipForbidden'
-                        },
-                       ]
-                }]
-        }).then((data) => {
-            resolve(data[0].get({plain: true}));
-        }).catch((err) => {
-            console.log(err);
-            reject([]);
-        });
-    });
-
-
-}
-
-
 getListings( ) {
     const searchParams = {
         categoryIds:[1, 2, 3],

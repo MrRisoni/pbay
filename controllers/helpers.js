@@ -1,32 +1,3 @@
-const Sequelize = require('sequelize');
-
-function getContinents(mdls) {
-    return new Promise((resolve, reject) => {
-        mdls.mdlContinents.findAll({
-            raw: true,
-        }).then((data) => {
-            resolve(data)
-        }).catch((err) => {
-            console.log(err);
-            reject([]);
-        });
-    });
-}
-
-
-function getCountries(mdls) {
-    return new Promise((resolve, reject) => {
-        mdls.mdlCountries.findAll({
-            raw: true,
-        }).then((data) => {
-            resolve(data);
-        }).catch((err) => {
-            console.log(err);
-            reject([]);
-        });
-    });
-}
-
 
 function currencyConvert(from, to, rates, amount ) {
     if (from === to) {
@@ -96,4 +67,3 @@ function   getShippingContinents(mdls, userId) {
 }
 
 
-module.exports = {getContinents, getCountries, getCurrencies,currencyConvert,getShippingCountries,getShippingContinents}
