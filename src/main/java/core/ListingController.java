@@ -98,7 +98,7 @@ System.out.println("PRINT RESULTS");
             Join<Selling, Product> productJoin = sellObjJoin.join("productObj");
             Join<Product, ProductCategory> prodCatJoin = productJoin.join("prodCatObj");
             SetJoin<Product, ProductFilterValue> prodFilterValsJoin = productJoin.joinSet("filterVals");
-
+            Join<ProductFilterValue,ProductFilter> prodFilterObjJoin = prodFilterValsJoin.join("filtrObj");
             Join<Selling, Seller> sellerJoin = sellObjJoin.join("sellObj");
 
 
@@ -108,7 +108,7 @@ System.out.println("PRINT RESULTS");
             List<Listing> persons = em.createQuery( criteria ).getResultList();
 
 
-            return HibernateUtil.getObjMapper().writeValueAsString(persons);
+            return HibernateUtil.getObjMapper().writeValueAsString(persons.get(0));
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println(ex.getMessage());

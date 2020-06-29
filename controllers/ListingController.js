@@ -172,23 +172,7 @@ getItem(listingId) {
                     as: 'sellItem',
                     required: true,
                     include: [
-                        {
-                            model: self.mdls.mdlProducts,
-                            as: 'sellProduct',
-                            required: true,
-                            include: [
-                                {
-                                    model: self.mdls.mdlProductFiltersValues,
-                                    as: 'filtersVals',
-                                    required: true,
-                                    include: [
-                                        {
-                                            model: self.mdls.mdlProductFilters,
-                                            as: 'filter',
-                                            required: true
-                                        }]
-                                }]
-                        },
+
                         {
                             model: self.mdls.mdlShippingCosts,
                             as: 'shipCosts',
@@ -202,11 +186,7 @@ getItem(listingId) {
                             model: self.mdls.mdlShippingForbidden,
                             as: 'shipForbidden'
                         },
-                        {
-                            model: self.mdls.mdlSellers,
-                            as: 'sellerObj',
-                            required: true
-                        }]
+                       ]
                 }]
         }).then((data) => {
             resolve(data[0].get({plain: true}));

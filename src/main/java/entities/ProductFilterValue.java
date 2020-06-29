@@ -15,9 +15,12 @@ public class ProductFilterValue {
     @Column(name = "pfv_value")
     private String value;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pfv_filter_id")
+    private ProductFilter filtrObj;
+
     public ProductFilterValue() {
     }
-
 
     public int getId() {
         return id;
@@ -33,5 +36,13 @@ public class ProductFilterValue {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public ProductFilter getFiltrObj() {
+        return filtrObj;
+    }
+
+    public void setFiltrObj(ProductFilter filtrObj) {
+        this.filtrObj = filtrObj;
     }
 }
