@@ -99,7 +99,9 @@ System.out.println("PRINT RESULTS");
             Root<Listing> root = criteria.from( Listing.class );
             Join<Listing, Selling> sellObjJoin = root.join("sellingObj");
             Join<Selling, Product> productJoin = sellObjJoin.join("productObj");
+            Join<Product, ProductCategory> prodCatJoin = productJoin.join("prodCatObj");
             Join<Selling, Seller> sellerJoin = sellObjJoin.join("sellObj");
+
 
             criteria.select( root );
             criteria.where( builder.equal( root.get( "id" ), "1" ) );

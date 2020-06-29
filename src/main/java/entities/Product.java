@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -24,8 +25,13 @@ public class Product {
     @Column(name = "prod_preowned")
     private boolean preowned;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "prod_category_id")
+    private ProductCategory prodCatObj;
+
+
     public Product() {
-     }
+    }
 
     public int getId() {
         return id;
@@ -66,4 +72,13 @@ public class Product {
     public void setPreowned(boolean preowned) {
         this.preowned = preowned;
     }
+
+    public ProductCategory getProdCatObj() {
+        return prodCatObj;
+    }
+
+    public void setProdCatObj(ProductCategory prodCatObj) {
+        this.prodCatObj = prodCatObj;
+    }
+
 }
