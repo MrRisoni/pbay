@@ -1,6 +1,7 @@
 package entities;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -21,6 +22,7 @@ public class HibernateUtil {
     private static ObjectMapper omp = new ObjectMapper();
 
     public static ObjectMapper getObjMapper() {
+        omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         return omp;
     }
 

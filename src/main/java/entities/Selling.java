@@ -18,6 +18,10 @@ public class Selling {
     @Column(name = "sll_mailer_co")
     private String mailerCo;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="sll_product_id")
+    private Product productObj;
+
     public Selling() {
     }
 
@@ -43,5 +47,13 @@ public class Selling {
 
     public void setMailerCo(String mailerCo) {
         this.mailerCo = mailerCo;
+    }
+
+    public Product getProductObj() {
+        return productObj;
+    }
+
+    public void setProductObj(Product productObj) {
+        this.productObj = productObj;
     }
 }
