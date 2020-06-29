@@ -38,7 +38,7 @@ public class Selling {
     private Set<ShippingCostsException> shipExcepts = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    @JoinColumn(name = "shf_selling_id ")
+    @JoinColumn(name = "shf_selling_id")
     private Set<ShippingCountryForbidden> shipVerboten = new HashSet<>();
 
     public Selling() {

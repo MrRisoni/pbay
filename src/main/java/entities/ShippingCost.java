@@ -15,7 +15,9 @@ public class ShippingCost {
     @Column(name = "shc_cost")
     private float cost;
 
-
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="shc_continent_id")
+    private Continent contiObj;
 
     public ShippingCost() {
     }
@@ -35,5 +37,13 @@ public class ShippingCost {
 
     public void setCost(float cost) {
         this.cost = cost;
+    }
+
+    public Continent getContiObj() {
+        return contiObj;
+    }
+
+    public void setContiObj(Continent contiObj) {
+        this.contiObj = contiObj;
     }
 }
