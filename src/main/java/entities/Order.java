@@ -47,6 +47,23 @@ public class Order {
     @JoinColumn(name = "itm_order_id")
     private Set<OrderItem> orderItems = new HashSet<>();
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ord_shipaddress_id")
+    private ShippingAddress shipAddObj;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ord_billaddress_id")
+    private BillingAddress billAddObj;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ord_paymethod_id")
+    private PayMethod payMethodObj;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ord_currency_id")
+    private Currency currencyObj;
+
+
     public Order(){}
 
     public int getId() {
@@ -135,5 +152,37 @@ public class Order {
 
     public void setOrderItems(Set<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public ShippingAddress getShipAddObj() {
+        return shipAddObj;
+    }
+
+    public void setShipAddObj(ShippingAddress shipAddObj) {
+        this.shipAddObj = shipAddObj;
+    }
+
+    public BillingAddress getBillAddObj() {
+        return billAddObj;
+    }
+
+    public void setBillAddObj(BillingAddress billAddObj) {
+        this.billAddObj = billAddObj;
+    }
+
+    public PayMethod getPayMethodObj() {
+        return payMethodObj;
+    }
+
+    public void setPayMethodObj(PayMethod payMethodObj) {
+        this.payMethodObj = payMethodObj;
+    }
+
+    public Currency getCurrencyObj() {
+        return currencyObj;
+    }
+
+    public void setCurrencyObj(Currency currencyObj) {
+        this.currencyObj = currencyObj;
     }
 }
