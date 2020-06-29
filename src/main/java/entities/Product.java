@@ -1,6 +1,9 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -28,6 +31,10 @@ public class Product {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prod_category_id")
     private ProductCategory prodCatObj;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JoinColumn(name = "pfv_product_id")
+    private Set<ProductFilterValue> filterVals = new HashSet<>();
 
 
     public Product() {
@@ -81,4 +88,11 @@ public class Product {
         this.prodCatObj = prodCatObj;
     }
 
+    public Set<ProductFilterValue> getFilterVals() {
+        return filterVals;
+    }
+
+    public void setFilterVals(Set<ProductFilterValue> filterVals) {
+        this.filterVals = filterVals;
+    }
 }

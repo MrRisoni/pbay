@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -100,6 +97,8 @@ System.out.println("PRINT RESULTS");
             Join<Listing, Selling> sellObjJoin = root.join("sellingObj");
             Join<Selling, Product> productJoin = sellObjJoin.join("productObj");
             Join<Product, ProductCategory> prodCatJoin = productJoin.join("prodCatObj");
+            SetJoin<Product, ProductFilterValue> prodFilterValsJoin = productJoin.joinSet("filterVals");
+
             Join<Selling, Seller> sellerJoin = sellObjJoin.join("sellObj");
 
 
