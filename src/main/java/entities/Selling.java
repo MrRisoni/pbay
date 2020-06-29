@@ -22,6 +22,11 @@ public class Selling {
     @JoinColumn(name="sll_product_id")
     private Product productObj;
 
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="sll_seller_id")
+    private Seller sellObj;
+
     public Selling() {
     }
 
@@ -55,5 +60,13 @@ public class Selling {
 
     public void setProductObj(Product productObj) {
         this.productObj = productObj;
+    }
+
+    public Seller getSellObj() {
+        return sellObj;
+    }
+
+    public void setSellObj(Seller sellObj) {
+        this.sellObj = sellObj;
     }
 }
