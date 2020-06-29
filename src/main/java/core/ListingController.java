@@ -1,10 +1,7 @@
 package core;
 
 
-import entities.Bidding;
-import entities.Currency;
-import entities.HibernateUtil;
-import entities.Listing;
+import entities.*;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +15,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
@@ -99,13 +97,15 @@ System.out.println("PRINT RESULTS");
 
             CriteriaQuery<Listing> criteria = builder.createQuery( Listing.class );
             Root<Listing> root = criteria.from( Listing.class );
+            Join<Listing, Selling> personJoin = root.join("sellingObj");
+
             criteria.select( root );
-            criteria.where( builder.equal( root.get( Listing_.id ), "1" ) );
+            criteria.where( builder.equal( root.get( "id" ), "1" ) );
 
             List<Listing> persons = em.createQuery( criteria ).getResultList();
 
 
-            return HibernateUtil.getObjMapper().writeValueAsString(rsp);
+            return HibernateUtil.getObjMapper().writeValueAsString(persons);
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println(ex.getMessage());
