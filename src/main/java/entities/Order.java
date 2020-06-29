@@ -2,6 +2,8 @@ package entities;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -41,6 +43,9 @@ public class Order {
     @Column(name = "ord_void")
     private boolean isVoid;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JoinColumn(name = "itm_order_id")
+    private Set<OrderItem> orderItems = new HashSet<>();
 
     public Order(){}
 
@@ -122,5 +127,13 @@ public class Order {
 
     public void setVoid(boolean aVoid) {
         isVoid = aVoid;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

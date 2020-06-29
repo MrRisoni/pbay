@@ -29,6 +29,8 @@ public class ListingController {
     @Value("${app.dummy_unix}")
     private long dummy_unix;
 
+
+
     @RequestMapping(value = "/api/listing", method = RequestMethod.GET)
     public String getListingDetails() {
         try {
@@ -94,25 +96,14 @@ System.out.println("PRINT RESULTS");
 
             CriteriaQuery<Listing> criteria = builder.createQuery( Listing.class );
             Root<Listing> root = criteria.from( Listing.class );
-            Join<Listing, Selling> sellObjJoin = root.join("sellingObj");
-            SetJoin<Selling, ShippingCost> shipCostsJoin = sellObjJoin.joinSet("shipCosts", JoinType.LEFT);
-            SetJoin<Selling, ShippingCostsException> shipCostsExceptionJoin = sellObjJoin.joinSet("shipExcepts", JoinType.LEFT);
-            SetJoin<Selling, ShippingCountryForbidden> shipCostsVerbotJoin = sellObjJoin.joinSet("shipVerboten", JoinType.LEFT);
-
-            Join<Selling, Product> productJoin = sellObjJoin.join("productObj");
-            Join<Product, ProductCategory> prodCatJoin = productJoin.join("prodCatObj");
-            SetJoin<Product, ProductFilterValue> prodFilterValsJoin = productJoin.joinSet("filterVals");
-            Join<ProductFilterValue,ProductFilter> prodFilterObjJoin = prodFilterValsJoin.join("filtrObj");
-            Join<Selling, Seller> sellerJoin = sellObjJoin.join("sellerObj");
-
 
             criteria.select( root );
             criteria.where( builder.equal( root.get( "id" ), "1" ) );
-
-            List<Listing> persons = em.createQuery( criteria ).getResultList();
-
-
-            return HibernateUtil.getObjMapper().writeValueAsString(persons.get(0));
+            System.out.println("Getting Results List");
+            List<Listing> listedItems = em.createQuery( criteria ).getResultList();
+            System.out.println("SERIALIZE THEM!!!!!!!!!!!!!!!!!!!!!");
+            // everything gets fetched !!!!!
+            return HibernateUtil.getObjMapper().writeValueAsString(listedItems.get(0));
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println(ex.getMessage());

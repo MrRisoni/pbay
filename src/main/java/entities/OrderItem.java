@@ -30,6 +30,18 @@ public class OrderItem {
     @Column(name = "itm_void")
     private boolean isVoid;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="itm_product_id")
+    private Product prodObj;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="itm_seller_id")
+    private Seller sellerObj;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="itm_status_id")
+    private OrderStatus statusObj;
+
     public OrderItem(){}
 
     public int getId() {
@@ -86,5 +98,21 @@ public class OrderItem {
 
     public void setVoid(boolean aVoid) {
         isVoid = aVoid;
+    }
+
+    public Product getProdObj() {
+        return prodObj;
+    }
+
+    public void setProdObj(Product prodObj) {
+        this.prodObj = prodObj;
+    }
+
+    public Seller getSellerObj() {
+        return sellerObj;
+    }
+
+    public void setSellerObj(Seller sellerObj) {
+        this.sellerObj = sellerObj;
     }
 }
