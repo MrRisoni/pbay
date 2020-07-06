@@ -1,0 +1,20 @@
+{
+  "name": "pbay",
+  "version": "1.0.0",
+  "description": "eBay clone API",
+  "main": "index.js",
+  "repository": "https://github.com/MrRisoni/pbay.git",
+  "author": "Vaggelis Katanias <e.katanias@altair-travel.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1",
+    "mysql2": "^2.0.0",
+    "sequelize": "^5.21.2"
+  },
+    "scripts": {
+    "start": "node index.js"
+  }
+}
