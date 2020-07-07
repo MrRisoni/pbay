@@ -9,6 +9,7 @@ module.exports =
 
         constructor(models) {
             this.mdls = models;
+            this.todayStr = helps.getTodayStr();
         }
 
 
@@ -314,10 +315,10 @@ module.exports =
                 self.mdls.mdlListings.findAll({
                     where: {
                         showFrom: {
-                            [Sequelize.Op.lt]: new Date()
+                            [Sequelize.Op.lt]: self.todayStr
                         },
                         showTo: {
-                            [Sequelize.Op.gt]: new Date()
+                            [Sequelize.Op.gt]: self.todayStr
                         },
                         bought:0,
                         isActive: 1,

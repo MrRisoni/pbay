@@ -14,6 +14,7 @@ function getContinents(mdls) {
 }
 
 
+
 function getCountries(mdls) {
     return new Promise((resolve, reject) => {
         mdls.mdlCountries.findAll({
@@ -108,5 +109,9 @@ function   getShippingContinents(mdls, userId) {
     });
 }
 
+function getTodayStr()
+{
+    return '2020-07-07 08:50:34';
+}
 
-module.exports = {getContinents, getCountries, getCurrencies,currencyConvert,getShippingCountries,getShippingContinents}
+module.exports = {getTodayStr, getContinents, getCountries, getCurrencies,currencyConvert,getShippingCountries,getShippingContinents}
