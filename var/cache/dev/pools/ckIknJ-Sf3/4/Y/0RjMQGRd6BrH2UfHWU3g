@@ -15,11 +15,11 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
         'stdClass' => [
             'name' => [
                 'order_items',
-                'itm_seller_id',
                 'itm_order_id',
                 'itm_product_id',
                 'itm_currency_id',
                 'itm_status_id',
+                'itm_seller_id',
             ],
             'indexes' => [
                 [
@@ -32,9 +32,6 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             ],
             'columns' => [
                 1 => [
-                    'itm_seller_id',
-                ],
-                [
                     'itm_order_id',
                 ],
                 [
@@ -45,6 +42,9 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                 ],
                 [
                     'itm_status_id',
+                ],
+                [
+                    'itm_seller_id',
                 ],
             ],
         ],

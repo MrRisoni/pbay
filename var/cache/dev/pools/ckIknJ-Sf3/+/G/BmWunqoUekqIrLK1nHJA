@@ -12,8 +12,8 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
         'stdClass' => [
             'name' => [
                 'custom_products_filters_values',
-                'csp_selling_id',
                 'csp_filter_id',
+                'csp_selling_id',
             ],
             'indexes' => [
                 [
@@ -23,10 +23,10 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             ],
             'columns' => [
                 1 => [
-                    'csp_selling_id',
+                    'csp_filter_id',
                 ],
                 [
-                    'csp_filter_id',
+                    'csp_selling_id',
                 ],
             ],
         ],

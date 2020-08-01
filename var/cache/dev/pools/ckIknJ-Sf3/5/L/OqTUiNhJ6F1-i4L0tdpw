@@ -13,9 +13,9 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
         'stdClass' => [
             'name' => [
                 'biddings',
+                'bid_listing_id',
                 'bid_user_id',
                 'bid_currency_id',
-                'bid_listing_id',
             ],
             'indexes' => [
                 [
@@ -26,13 +26,13 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             ],
             'columns' => [
                 1 => [
+                    'bid_listing_id',
+                ],
+                [
                     'bid_user_id',
                 ],
                 [
                     'bid_currency_id',
-                ],
-                [
-                    'bid_listing_id',
                 ],
             ],
         ],
