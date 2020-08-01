@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CustomProductsFiltersValues
  *
- * @ORM\Table(name="custom_products_filters_values", indexes={@ORM\Index(name="csp_selling_id", columns={"csp_selling_id"}), @ORM\Index(name="csp_filter_id", columns={"csp_filter_id"})})
+ * @ORM\Table(name="custom_products_filters_values", indexes={@ORM\Index(name="csp_filter_id", columns={"csp_filter_id"}), @ORM\Index(name="csp_selling_id", columns={"csp_selling_id"})})
  * @ORM\Entity
  */
 class CustomProductsFiltersValues
