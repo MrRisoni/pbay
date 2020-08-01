@@ -1,0 +1,57 @@
+<?php //%255BApp%255CEntity%255COrderItems%255D%255B1%255D
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\Table'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Table')),
+        clone ($p['Doctrine\\ORM\\Mapping\\Index'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Index')),
+        clone $p['Doctrine\\ORM\\Mapping\\Index'],
+        clone $p['Doctrine\\ORM\\Mapping\\Index'],
+        clone $p['Doctrine\\ORM\\Mapping\\Index'],
+        clone $p['Doctrine\\ORM\\Mapping\\Index'],
+        clone ($p['Doctrine\\ORM\\Mapping\\Entity'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Entity')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'name' => [
+                'order_items',
+                'itm_seller_id',
+                'itm_order_id',
+                'itm_product_id',
+                'itm_currency_id',
+                'itm_status_id',
+            ],
+            'indexes' => [
+                [
+                    $o[1],
+                    $o[2],
+                    $o[3],
+                    $o[4],
+                    $o[5],
+                ],
+            ],
+            'columns' => [
+                1 => [
+                    'itm_seller_id',
+                ],
+                [
+                    'itm_order_id',
+                ],
+                [
+                    'itm_product_id',
+                ],
+                [
+                    'itm_currency_id',
+                ],
+                [
+                    'itm_status_id',
+                ],
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[6],
+    ],
+    []
+); }];

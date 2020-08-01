@@ -1,0 +1,39 @@
+<?php //%255BApp%255CEntity%255CContinents%255D%255B1%255D
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\Table'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Table')),
+        clone ($p['Doctrine\\ORM\\Mapping\\UniqueConstraint'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\UniqueConstraint')),
+        clone $p['Doctrine\\ORM\\Mapping\\UniqueConstraint'],
+        clone ($p['Doctrine\\ORM\\Mapping\\Entity'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Entity')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'name' => [
+                'continents',
+                'con_title',
+                'con_code',
+            ],
+            'uniqueConstraints' => [
+                [
+                    $o[1],
+                    $o[2],
+                ],
+            ],
+            'columns' => [
+                1 => [
+                    'con_code',
+                ],
+                [
+                    'con_code',
+                ],
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[3],
+    ],
+    []
+); }];

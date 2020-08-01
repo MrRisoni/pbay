@@ -1,4 +1,5 @@
 /node_modules
+/vendor
 /.idea
 /bower_components
 *.mp3
@@ -13,6 +14,7 @@ config.json
 .#*
 *#
 *~
+.env
 .classpath
 .project
 .settings

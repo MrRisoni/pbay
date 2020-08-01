@@ -1,0 +1,35 @@
+.card-block {
+  min-height: 55px;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.col-xs-4 { color: #fff; font-size: 25px; padding: 18px; }
+.card-course:nth-child(3n+1) { background: #c69; }
+.card-course:nth-child(3n+2) { background: #9c6; }
+.card-course:nth-child(3n+3) { background: #69c; }
+.card-course:nth-child(3n+4) { background: #4c32a8; }
+
+
+.course-div {
+  min-height: 55px;
+  line-height: 35px;
+
+  text-align: center;
+  margin-top: 5px;
+
+  border:1px solid #114df8;
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+
+  -webkit-box-shadow:0px 0px 12px 9px #d9d8e5 ;
+  -moz-box-shadow:0px 0px 12px 9px #d9d8e5 ;
+  box-shadow:0px 0px 12px 9px #d9d8e5 ;
+}
+
+.course-div.header {
+  font-weight: bold;
+  border:2px solid #114df8;
+
+}
