@@ -6,7 +6,6 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/dickens?serverTimezone=UTC</property>
          <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="hibernate.hbm2ddl.auto">none</property>
         <property name="show_sql">true</property>
@@ -14,77 +13,7 @@
         <property name="use_sql_comments">true</property>
         <property name="connection.pool_size">100</property>
 
-        <mapping class="models.CourseModel"/>
-        <mapping class="models.GroupModel"/>
-        <mapping class="models.HistoryModel"/>
-        <mapping class="models.Teacher"/>
-        <mapping class="models.Member"/>
-        <mapping class="models.Room"/>
-        <mapping class="models.Building"/>
-        <mapping class="models.Language"/>
-        <mapping class="models.CourseType"/>
-        <mapping class="models.SchoolClass"/>
-        <mapping class="models.Diploma"/>
-        <mapping class="models.HourModel"/>
-        <mapping class="models.MockExam"/>
-
-        <mapping class="models.MockExamResultText"/>
-        <mapping class="models.MockExamResultNumeric"/>
-        <mapping class="models.Student"/>
-        <mapping class="models.RealExam"/>
-        <mapping class="models.RealExamResult"/>
-        <mapping class="models.Period"/>
-        <mapping class="models.GradingSystem"/>
-        <mapping class="models.GroupStudent"/>
-        <mapping class="models.TeacherDebt"/>
-        <mapping class="models.TeacherPayment"/>
-        <mapping class="models.StudentDebt"/>
-        <mapping class="models.StudentPayment"/>
-        <mapping class="models.Age"/>
-        <mapping class="models.Speed"/>
-        <mapping class="models.Town"/>
-        <mapping class="models.Suburb"/>
-        <mapping class="models.Perfecture"/>
-        <mapping class="models.Discipline"/>
-        <mapping class="models.Month"/>
-
-        <mapping class="models.ReviewQuestionnaire"/>
-        <mapping class="models.ReviewQuestionnaireChapter"/>
-        <mapping class="models.ReviewQuestionnaireQuestion"/>
-        <mapping class="models.PoolReviewQuestion"/>
-
-        <mapping class="models.Pools"/>
-        <mapping class="models.PoolChapter"/>
-        <mapping class="models.PoolQuestion"/>
-        <mapping class="models.PoolQuestionAnswer"/>
-        <mapping class="models.TestSubmission"/>
-        <mapping class="models.TestModel"/>
-
-        <mapping class="models.InterViewStage"/>
-        <mapping class="models.InterViewGrade"/>
-        <mapping class="models.JobApplication"/>
-        <mapping class="models.JobOpening"/>
-        <mapping class="models.JobOpeningCourse"/>
-        <mapping class="models.InterViewSchedule"/>
-
-        <mapping class="models.GroupRank"/>
-        <mapping class="models.CourseFee"/>
-        <mapping class="models.CourseWage"/>
-        <mapping class="models.CourseGrade"/>
-        <mapping class="models.Absency"/>
-
-        <mapping class="models.ParentsModel"/>
-        <mapping class="models.GroupTeachers"/>
-        <mapping class="models.Institut"/>
-
-        <mapping class="models.PayRoll"/>
-        <mapping class="models.PayRollAnalysis"/>
-        <mapping class="models.PayRollCategory"/>
-        <mapping class="models.PayRollGroupAnalysis"/>
-
-        <mapping class="models.Seminars"/>
-        <mapping class="models.SeminarsCategory"/>
-        <mapping class="models.SeminarModules"/>
+        <mapping class="models.Listing"/>
 
     </session-factory>
 </hibernate-configuration>

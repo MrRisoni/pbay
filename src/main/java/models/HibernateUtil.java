@@ -25,14 +25,14 @@ public class HibernateUtil {
             configOverrides.put("javax.persistence.jdbc.password", System.getenv("SPRING_APP_DB_PASSWD"));
             configOverrides.put("javax.persistence.jdbc.user", System.getenv("SPRING_APP_DB_USR"));
             if (System.getenv("SPRING_APP_DB_HOST") != null) {
-                String dbUrl = "jdbc:mysql://" + System.getenv("SPRING_APP_DB_HOST") + ":3306/" + System.getenv("SPRING_APP_DB_NAME") + "?serverTimezone=UTC";
+                String dbUrl = "jdbc:mysql://" + System.getenv("SPRING_APP_DB_HOST") + ":3306/" + System.getenv("SPRING_APP_EBAY_DB_NAME") + "?serverTimezone=UTC";
                 configOverrides.put("javax.persistence.jdbc.url",dbUrl);
                 System.out.println("URL CON");
                 System.out.println(dbUrl);
 
             }
 
-            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb",configOverrides);
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ebaydb",configOverrides);
             em = entityManagerFactory.createEntityManager();
         }
         return  em;
@@ -45,7 +45,7 @@ public class HibernateUtil {
         HerokuSettings.put("hibernate.connection.password",System.getenv("SPRING_APP_DB_PASSWD"));
         HerokuSettings.put("hibernate.connection.user",System.getenv("SPRING_APP_DB_USR"));
         if (System.getenv("SPRING_APP_DB_HOST") != null) {
-            String dbUrl = "jdbc:mysql://" + System.getenv("SPRING_APP_DB_HOST") + ":3306/" + System.getenv("SPRING_APP_DB_NAME") + "?serverTimezone=UTC";
+            String dbUrl = "jdbc:mysql://" + System.getenv("SPRING_APP_DB_HOST") + ":3306/" + System.getenv("SPRING_APP_EBAY_DB_NAME") + "?serverTimezone=UTC";
             HerokuSettings.put("hibernate.connection.url",dbUrl);
             System.out.println(dbUrl);
         }
