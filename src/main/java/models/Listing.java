@@ -22,6 +22,9 @@ public class Listing {
     @Column(name="lis_price")
     private BigDecimal price;
 
+    @Formula("(SELECT b.bid_price FROM biddings b WHERE b.bid_listing_id=lis_id AND b.bid_active=1 ORDER BY b.bid_created_at DESC LIMIT 1 )")
+    private BigDecimal highestBid;
+
     public Listing() {
     }
 
@@ -39,5 +42,9 @@ public class Listing {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public BigDecimal getHighestBid() {
+        return highestBid;
     }
 }
