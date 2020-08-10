@@ -10,6 +10,10 @@ public class ShippingCostForbidden {
     @Column(name = "shf_id")
     private Long id;
 
+    @Column(name="shf_country_code")
+    private String countryCode;
+
+
     public ShippingCostForbidden() {
     }
 
@@ -19,5 +23,13 @@ public class ShippingCostForbidden {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 }

@@ -39,6 +39,12 @@ public class SellItem
     @JoinColumn(name = "shcx_selling_id", referencedColumnName = "sll_id")
     private List<ShippingCostException> shipCostsExceptions = new ArrayList<>();
 
+    @OneToMany(targetEntity=ShippingCostForbidden.class,cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "shf_selling_id", referencedColumnName = "sll_id")
+    private List<ShippingCostForbidden> shipForbidden = new ArrayList<>();
+
+
     public SellItem() {
     }
 
@@ -80,5 +86,13 @@ public class SellItem
 
     public void setShipCostsExceptions(List<ShippingCostException> shipCostsExceptions) {
         this.shipCostsExceptions = shipCostsExceptions;
+    }
+
+    public List<ShippingCostForbidden> getShipForbidden() {
+        return shipForbidden;
+    }
+
+    public void setShipForbidden(List<ShippingCostForbidden> shipForbidden) {
+        this.shipForbidden = shipForbidden;
     }
 }

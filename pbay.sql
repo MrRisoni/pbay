@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 04, 2020 at 02:00 PM
+-- Generation Time: Aug 10, 2020 at 07:13 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -554,7 +554,7 @@ INSERT INTO `shipping_addresses` (`shp_id`, `shp_user_id`, `shp_country_id`, `sh
 CREATE TABLE `shipping_costs` (
   `shc_id` int(10) UNSIGNED NOT NULL,
   `shc_selling_id` int(10) UNSIGNED NOT NULL,
-  `shc_continent_id` tinyint(3) UNSIGNED NOT NULL,
+  `shc_continent_code` varchar(3) NOT NULL,
   `shc_cost` decimal(10,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -562,13 +562,13 @@ CREATE TABLE `shipping_costs` (
 -- Dumping data for table `shipping_costs`
 --
 
-INSERT INTO `shipping_costs` (`shc_id`, `shc_selling_id`, `shc_continent_id`, `shc_cost`) VALUES
-(1, 1, 1, '7.00'),
-(2, 1, 2, '12.00'),
-(3, 1, 1, '15.00'),
-(4, 8, 1, '4.00'),
-(5, 8, 2, '9.00'),
-(6, 9, 1, '5.00');
+INSERT INTO `shipping_costs` (`shc_id`, `shc_selling_id`, `shc_continent_code`, `shc_cost`) VALUES
+(1, 1, 'EU', '7.00'),
+(2, 1, 'NA', '12.00'),
+(3, 1, 'EU', '15.00'),
+(4, 8, 'EU', '4.00'),
+(5, 8, 'NA', '9.00'),
+(6, 9, 'EU', '5.00');
 
 -- --------------------------------------------------------
 
@@ -579,7 +579,7 @@ INSERT INTO `shipping_costs` (`shc_id`, `shc_selling_id`, `shc_continent_id`, `s
 CREATE TABLE `shipping_costs_exceptions` (
   `shcx_id` int(10) UNSIGNED NOT NULL,
   `shcx_selling_id` int(10) UNSIGNED NOT NULL,
-  `shcx_country_id` smallint(5) UNSIGNED NOT NULL,
+  `shcx_country_code` varchar(3) NOT NULL,
   `shcx_cost` decimal(10,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -587,9 +587,9 @@ CREATE TABLE `shipping_costs_exceptions` (
 -- Dumping data for table `shipping_costs_exceptions`
 --
 
-INSERT INTO `shipping_costs_exceptions` (`shcx_id`, `shcx_selling_id`, `shcx_country_id`, `shcx_cost`) VALUES
-(1, 8, 2, '12.00'),
-(2, 8, 4, '56.00');
+INSERT INTO `shipping_costs_exceptions` (`shcx_id`, `shcx_selling_id`, `shcx_country_code`, `shcx_cost`) VALUES
+(1, 8, '2', '12.00'),
+(2, 8, '4', '56.00');
 
 -- --------------------------------------------------------
 
@@ -600,17 +600,17 @@ INSERT INTO `shipping_costs_exceptions` (`shcx_id`, `shcx_selling_id`, `shcx_cou
 CREATE TABLE `shipping_country_forbidden` (
   `shf_id` int(10) UNSIGNED NOT NULL,
   `shf_selling_id` int(10) UNSIGNED NOT NULL,
-  `shf_country_id` smallint(4) UNSIGNED NOT NULL
+  `shf_country_code` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `shipping_country_forbidden`
 --
 
-INSERT INTO `shipping_country_forbidden` (`shf_id`, `shf_selling_id`, `shf_country_id`) VALUES
-(1, 1, 3),
-(2, 8, 3),
-(3, 8, 6);
+INSERT INTO `shipping_country_forbidden` (`shf_id`, `shf_selling_id`, `shf_country_code`) VALUES
+(1, 1, '3'),
+(2, 8, '3'),
+(3, 9, 'GR');
 
 -- --------------------------------------------------------
 
@@ -818,24 +818,20 @@ ALTER TABLE `shipping_addresses`
 --
 ALTER TABLE `shipping_costs`
   ADD PRIMARY KEY (`shc_id`),
-  ADD KEY `shc_selling_id` (`shc_selling_id`),
-  ADD KEY `shc_continent_id` (`shc_continent_id`);
+  ADD KEY `shc_selling_id` (`shc_selling_id`);
 
 --
 -- Indexes for table `shipping_costs_exceptions`
 --
 ALTER TABLE `shipping_costs_exceptions`
   ADD PRIMARY KEY (`shcx_id`),
-  ADD KEY `shc_selling_id` (`shcx_selling_id`),
-  ADD KEY `shc_country_id` (`shcx_country_id`);
+  ADD KEY `shc_selling_id` (`shcx_selling_id`);
 
 --
 -- Indexes for table `shipping_country_forbidden`
 --
 ALTER TABLE `shipping_country_forbidden`
   ADD PRIMARY KEY (`shf_id`),
-  ADD UNIQUE KEY `shf_selling_id_2` (`shf_selling_id`,`shf_country_id`),
-  ADD KEY `shf_country_id` (`shf_country_id`),
   ADD KEY `shf_selling_id` (`shf_selling_id`);
 
 --
@@ -1109,21 +1105,18 @@ ALTER TABLE `shipping_addresses`
 -- Constraints for table `shipping_costs`
 --
 ALTER TABLE `shipping_costs`
-  ADD CONSTRAINT `shipping_costs_ibfk_1` FOREIGN KEY (`shc_continent_id`) REFERENCES `continents` (`con_id`),
   ADD CONSTRAINT `shipping_costs_ibfk_2` FOREIGN KEY (`shc_selling_id`) REFERENCES `selling` (`sll_id`);
 
 --
 -- Constraints for table `shipping_costs_exceptions`
 --
 ALTER TABLE `shipping_costs_exceptions`
-  ADD CONSTRAINT `shipping_costs_exceptions_ibfk_1` FOREIGN KEY (`shcx_selling_id`) REFERENCES `selling` (`sll_id`),
-  ADD CONSTRAINT `shipping_costs_exceptions_ibfk_2` FOREIGN KEY (`shcx_country_id`) REFERENCES `countries` (`ctr_id`);
+  ADD CONSTRAINT `shipping_costs_exceptions_ibfk_1` FOREIGN KEY (`shcx_selling_id`) REFERENCES `selling` (`sll_id`);
 
 --
 -- Constraints for table `shipping_country_forbidden`
 --
 ALTER TABLE `shipping_country_forbidden`
-  ADD CONSTRAINT `shipping_country_forbidden_ibfk_1` FOREIGN KEY (`shf_country_id`) REFERENCES `countries` (`ctr_id`),
   ADD CONSTRAINT `shipping_country_forbidden_ibfk_2` FOREIGN KEY (`shf_selling_id`) REFERENCES `selling` (`sll_id`);
 COMMIT;
 
