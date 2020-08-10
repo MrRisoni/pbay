@@ -38,6 +38,11 @@ public class Listing {
     @Formula("(SELECT COUNT(w.lwi_id) FROM listing_watching w WHERE w.lwi_listing_id=lis_id)")
     private int numWatchers;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lis_selling_id")
+    private SellItem sellItmObj;
+
+
     public Listing() {
     }
 
@@ -67,5 +72,13 @@ public class Listing {
 
     public Date getHighestBidAt() {
         return highestBidAt;
+    }
+
+    public SellItem getSellItmObj() {
+        return sellItmObj;
+    }
+
+    public void setSellItmObj(SellItem sellItmObj) {
+        this.sellItmObj = sellItmObj;
     }
 }

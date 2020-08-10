@@ -14,6 +14,10 @@
         <property name="connection.pool_size">100</property>
 
         <mapping class="models.Listing"/>
+        <mapping class="models.SellItem"/>
+        <mapping class="models.Product"/>
+        <mapping class="models.Seller"/>
+
 
     </session-factory>
 </hibernate-configuration>

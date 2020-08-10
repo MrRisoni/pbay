@@ -20,6 +20,13 @@ public class SellItem
     @Column(name = "sll_id")
     private Long id;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = " sll_product_id")
+    private Product productObj;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = " sll_seller_id")
+    private Seller sellerObj;
 
     public SellItem() {
     }
@@ -30,5 +37,21 @@ public class SellItem
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Product getProductObj() {
+        return productObj;
+    }
+
+    public void setProductObj(Product productObj) {
+        this.productObj = productObj;
+    }
+
+    public Seller getSellerObj() {
+        return sellerObj;
+    }
+
+    public void setSellerObj(Seller sellerObj) {
+        this.sellerObj = sellerObj;
     }
 }
