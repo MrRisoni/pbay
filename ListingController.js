@@ -197,25 +197,6 @@ module.exports =
             });
         }
 
-        getBestBid(listingId) {
-            const self = this;
-            const q = `SELECT bid_price_eur AS bestBid,  TIMESTAMPDIFF(HOUR,bid_created_at,NOW()) 
-                AS hoursAgo
-                FROM biddings
-                WHERE bid_active = 1 AND bid_listing_id = '` + listingId + `'
-                ORDER BY bid_price_eur DESC LIMIT 1`;
-            return new Promise((resolve, reject) => {
-                self.mdls.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
-                    .then(res => {
-                        resolve(res[0]);
-                    }).catch(errSql => {
-                    console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%');
-                    console.log(errSql);
-                    reject({errMsg: errSql});
-                });
-            });
-        }
-
 
         getItemSellsLastDays(listingId) {
             const self = this;

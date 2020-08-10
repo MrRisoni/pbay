@@ -22,8 +22,21 @@ public class Listing {
     @Column(name="lis_price")
     private BigDecimal price;
 
-    @Formula("(SELECT b.bid_price FROM biddings b WHERE b.bid_listing_id=lis_id AND b.bid_active=1 ORDER BY b.bid_created_at DESC LIMIT 1 )")
+    @Formula("(SELECT b.bid_price FROM biddings b WHERE b.bid_listing_id=lis_id AND b.bid_active=1 ORDER BY b.bid_price_eur  DESC LIMIT 1 )")
     private BigDecimal highestBid;
+
+    @Formula("(SELECT MAX(b.bid_price_eur) FROM biddings b WHERE b.bid_listing_id=lis_id AND b.bid_active=1 )")
+    private BigDecimal highestBidEuro;
+
+    @Formula("(SELECT b.bid_created_at " +
+            "FROM biddings b " +
+            "WHERE b.bid_listing_id =lis_id  " +
+            "AND b.bid_active =1 " +
+            "ORDER BY b.bid_price_eur DESC LIMIT 1 )")
+    private Date highestBidAt;
+
+    @Formula("(SELECT COUNT(w.lwi_id) FROM listing_watching w WHERE w.lwi_listing_id=lis_id)")
+    private int numWatchers;
 
     public Listing() {
     }
@@ -46,5 +59,13 @@ public class Listing {
 
     public BigDecimal getHighestBid() {
         return highestBid;
+    }
+
+    public BigDecimal getHighestBidEuro() {
+        return highestBidEuro;
+    }
+
+    public Date getHighestBidAt() {
+        return highestBidAt;
     }
 }
