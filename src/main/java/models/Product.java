@@ -1,6 +1,8 @@
 package models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="products")
@@ -12,6 +14,12 @@ public class Product {
 
     @Column(name = "prod_title")
     private String title;
+
+    @OneToMany(targetEntity=ProductFilterValue.class,cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "pfv_product_id", referencedColumnName = "prod_id")
+    private List<ProductFilter> attributes = new ArrayList<>();
+
 
     public Product() {
     }
@@ -30,5 +38,13 @@ public class Product {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<ProductFilter> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<ProductFilter> attributes) {
+        this.attributes = attributes;
     }
 }

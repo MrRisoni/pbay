@@ -206,11 +206,7 @@ getItem(listingId) {
                             model: self.mdls.mdlShippingForbidden,
                             as: 'shipForbidden'
                         },
-                        {
-                            model: self.mdls.mdlSellers,
-                            as: 'sellerObj',
-                            required: true
-                        }]
+                        ]
                 }]
         }).then((data) => {
             resolve(data[0].get({plain: true}));

@@ -17,7 +17,8 @@
         <mapping class="models.SellItem"/>
         <mapping class="models.Product"/>
         <mapping class="models.Seller"/>
-
+        <mapping class="models.ProductFilter"/>
+        <mapping class="models.ProductFilterValue"/>
 
     </session-factory>
 </hibernate-configuration>
