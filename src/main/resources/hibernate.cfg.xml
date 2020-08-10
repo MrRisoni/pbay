@@ -19,6 +19,9 @@
         <mapping class="models.Seller"/>
         <mapping class="models.ProductFilter"/>
         <mapping class="models.ProductFilterValue"/>
+        <mapping class="models.ShippingCost"/>
+        <mapping class="models.ShippingCostException"/>
+        <mapping class="models.ShippingCostForbidden"/>
 
     </session-factory>
 </hibernate-configuration>

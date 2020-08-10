@@ -28,6 +28,17 @@ public class SellItem
     @JoinColumn(name = " sll_seller_id")
     private Seller sellerObj;
 
+
+    @OneToMany(targetEntity=ShippingCost.class,cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "shc_selling_id", referencedColumnName = "sll_id")
+    private List<ShippingCost> shipCosts = new ArrayList<>();
+
+    @OneToMany(targetEntity=ShippingCostException.class,cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "shcx_selling_id", referencedColumnName = "sll_id")
+    private List<ShippingCostException> shipCostsExceptions = new ArrayList<>();
+
     public SellItem() {
     }
 
@@ -53,5 +64,21 @@ public class SellItem
 
     public void setSellerObj(Seller sellerObj) {
         this.sellerObj = sellerObj;
+    }
+
+    public List<ShippingCost> getShipCosts() {
+        return shipCosts;
+    }
+
+    public void setShipCosts(List<ShippingCost> shipCosts) {
+        this.shipCosts = shipCosts;
+    }
+
+    public List<ShippingCostException> getShipCostsExceptions() {
+        return shipCostsExceptions;
+    }
+
+    public void setShipCostsExceptions(List<ShippingCostException> shipCostsExceptions) {
+        this.shipCostsExceptions = shipCostsExceptions;
     }
 }
