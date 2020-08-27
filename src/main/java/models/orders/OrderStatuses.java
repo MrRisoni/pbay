@@ -1,5 +1,5 @@
 
-package models;
+package models.orders;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -34,13 +34,16 @@ public class OrderStatuses implements Serializable {
     @Basic(optional = false)
     @Column(name = "stat_id")
     private Short statId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 34)
     @Column(name = "stat_title")
     private String statTitle;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmStatusId", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmhStatusId", fetch = FetchType.LAZY)
     private Collection<OrderItemTrackHistory> orderItemTrackHistoryCollection;
 
@@ -112,7 +115,7 @@ public class OrderStatuses implements Serializable {
 
     @Override
     public String toString() {
-        return "models.OrderStatuses[ statId=" + statId + " ]";
+        return "models.orders.OrderStatuses[ statId=" + statId + " ]";
     }
     
 }

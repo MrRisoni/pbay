@@ -1,5 +1,7 @@
 
-package models;
+package models.orders;
+
+import models.users.Users;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -37,25 +39,29 @@ public class Reviews implements Serializable {
     @Basic(optional = false)
     @Column(name = "rev_id")
     private Long revId;
+
     @Basic(optional = false)
     @NotNull
     @Lob
     @Size(min = 1, max = 65535)
     @Column(name = "rev_comment")
     private String revComment;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "rev_star")
     private BigDecimal revStar;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "rev_created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date revCreatedAt;
+
     @JoinColumn(name = "rev_usr_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users revUsrId;
+
     @JoinColumn(name = "rev_ord_item_id", referencedColumnName = "itm_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private OrderItems revOrdItemId;
@@ -144,7 +150,7 @@ public class Reviews implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Reviews[ revId=" + revId + " ]";
+        return "models.orders.Reviews[ revId=" + revId + " ]";
     }
     
 }

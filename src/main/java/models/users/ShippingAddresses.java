@@ -1,5 +1,8 @@
 
-package models;
+package models.users;
+
+import models.orders.Orders;
+import models.general.Countries;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -36,47 +39,57 @@ public class ShippingAddresses implements Serializable {
     @Basic(optional = false)
     @Column(name = "shp_id")
     private Long shpId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_city")
     private String shpCity;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_region")
     private String shpRegion;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_street")
     private String shpStreet;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
     @Column(name = "shp_street_no")
     private String shpStreetNo;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 9)
     @Column(name = "shp_code")
     private String shpCode;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_surname")
     private String shpSurname;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_name")
     private String shpName;
+
     @JoinColumn(name = "shp_user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users shpUserId;
+
     @JoinColumn(name = "shp_country_id", referencedColumnName = "ctr_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Countries shpCountryId;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordShipaddressId", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
 
@@ -209,7 +222,7 @@ public class ShippingAddresses implements Serializable {
 
     @Override
     public String toString() {
-        return "models.ShippingAddresses[ shpId=" + shpId + " ]";
+        return "models.users.ShippingAddresses[ shpId=" + shpId + " ]";
     }
     
 }

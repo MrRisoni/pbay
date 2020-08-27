@@ -1,5 +1,7 @@
 
-package models;
+package models.general;
+
+import models.orders.Orders;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -34,11 +36,13 @@ public class Paymethods implements Serializable {
     @Basic(optional = false)
     @Column(name = "pm_id")
     private Short pmId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "pm_title")
     private String pmTitle;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordPaymethodId", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
 
@@ -101,7 +105,7 @@ public class Paymethods implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Paymethods[ pmId=" + pmId + " ]";
+        return "models.general.Paymethods[ pmId=" + pmId + " ]";
     }
     
 }

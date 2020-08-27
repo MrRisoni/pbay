@@ -1,5 +1,9 @@
 
-package models;
+package models.general;
+
+import models.users.BillingAddresses;
+import models.sellers.Sellers;
+import models.users.ShippingAddresses;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -36,23 +40,29 @@ public class Countries implements Serializable {
     @Basic(optional = false)
     @Column(name = "ctr_id")
     private Short ctrId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "ctr_title")
     private String ctrTitle;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
     @Column(name = "ctr_code")
     private String ctrCode;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shpCountryId", fetch = FetchType.LAZY)
     private Collection<ShippingAddresses> shippingAddressesCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "blaCountryId", fetch = FetchType.LAZY)
     private Collection<BillingAddresses> billingAddressesCollection;
+
     @JoinColumn(name = "ctr_continent_id", referencedColumnName = "con_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Continents ctrContinentId;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "selCountryId", fetch = FetchType.LAZY)
     private Collection<Sellers> sellersCollection;
 
@@ -150,7 +160,7 @@ public class Countries implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Countries[ ctrId=" + ctrId + " ]";
+        return "models.general.Countries[ ctrId=" + ctrId + " ]";
     }
     
 }

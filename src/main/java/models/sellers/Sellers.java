@@ -1,5 +1,9 @@
 
-package models;
+package models.sellers;
+
+import models.orders.OrderItems;
+import models.users.Users;
+import models.general.Countries;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -37,30 +41,37 @@ public class Sellers implements Serializable {
     @Basic(optional = false)
     @Column(name = "sel_id")
     private Integer selId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 125)
     @Column(name = "sel_title")
     private String selTitle;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
     @Column(name = "sel_ssn")
     private String selSsn;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "sel_stars_avg")
     private BigDecimal selStarsAvg;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "srwSellerId", fetch = FetchType.LAZY)
     private Collection<SellerReviews> sellerReviewsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmSellerId", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sllSellerId", fetch = FetchType.LAZY)
     private Collection<Selling> sellingCollection;
+
     @JoinColumn(name = "seller_usr_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users sellerUsrId;
+
     @JoinColumn(name = "sel_country_id", referencedColumnName = "ctr_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Countries selCountryId;
@@ -176,7 +187,7 @@ public class Sellers implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Sellers[ selId=" + selId + " ]";
+        return "models.sellers.Sellers[ selId=" + selId + " ]";
     }
     
 }

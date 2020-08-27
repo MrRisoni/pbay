@@ -1,5 +1,7 @@
 
-package models;
+package models.items;
+
+import models.sellers.Selling;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -32,11 +34,13 @@ public class ShippingCountryForbidden implements Serializable {
     @Basic(optional = false)
     @Column(name = "shf_id")
     private Integer shfId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "shf_country_code")
     private String shfCountryCode;
+
     @JoinColumn(name = "shf_selling_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling shfSellingId;
@@ -99,7 +103,7 @@ public class ShippingCountryForbidden implements Serializable {
 
     @Override
     public String toString() {
-        return "models.ShippingCountryForbidden[ shfId=" + shfId + " ]";
+        return "models.items.ShippingCountryForbidden[ shfId=" + shfId + " ]";
     }
     
 }

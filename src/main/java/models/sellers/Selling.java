@@ -1,5 +1,8 @@
 
-package models;
+package models.sellers;
+
+import models.items.*;
+import models.orders.OrderItems;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -36,29 +39,38 @@ public class Selling implements Serializable {
     @Basic(optional = false)
     @Column(name = "sll_id")
     private Integer sllId;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "sll_quantity")
     private int sllQuantity;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "sll_mailer_co")
     private String sllMailerCo;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shcxSellingId", fetch = FetchType.LAZY)
     private Collection<ShippingCostsExceptions> shippingCostsExceptionsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lisSellingId", fetch = FetchType.LAZY)
     private Collection<Listings> listingsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shcSellingId", fetch = FetchType.LAZY)
     private Collection<ShippingCosts> shippingCostsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmProductId", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
+
     @JoinColumn(name = "sll_product_id", referencedColumnName = "prod_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Products sllProductId;
+
     @JoinColumn(name = "sll_seller_id", referencedColumnName = "sel_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Sellers sllSellerId;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shfSellingId", fetch = FetchType.LAZY)
     private Collection<ShippingCountryForbidden> shippingCountryForbiddenCollection;
 
@@ -182,7 +194,7 @@ public class Selling implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Selling[ sllId=" + sllId + " ]";
+        return "models.sellers.Selling[ sllId=" + sllId + " ]";
     }
     
 }

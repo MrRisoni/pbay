@@ -1,5 +1,12 @@
 
-package models;
+package models.orders;
+
+import models.general.Currencies;
+import models.general.Paymethods;
+import models.sellers.SellerReviews;
+import models.users.BillingAddresses;
+import models.users.ShippingAddresses;
+import models.users.Users;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -40,61 +47,76 @@ public class Orders implements Serializable {
     @Basic(optional = false)
     @Column(name = "ord_id")
     private Long ordId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "ord_bank_transaction_id")
     private String ordBankTransactionId;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_total")
     private BigDecimal ordTotal;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_goods_total")
     private BigDecimal ordGoodsTotal;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_ship_total")
     private BigDecimal ordShipTotal;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_fee")
     private BigDecimal ordFee;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_rate")
     private BigDecimal ordRate;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ordCreated;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_success")
     private short ordSuccess;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_void")
     private short ordVoid;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "srwOrderId", fetch = FetchType.LAZY)
     private Collection<SellerReviews> sellerReviewsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmOrderId", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
+
     @JoinColumn(name = "ord_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Currencies ordCurrencyId;
+
     @JoinColumn(name = "ord_user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users ordUserId;
+
     @JoinColumn(name = "ord_shipaddress_id", referencedColumnName = "shp_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ShippingAddresses ordShipaddressId;
+
     @JoinColumn(name = "ord_billaddress_id", referencedColumnName = "bla_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private BillingAddresses ordBilladdressId;
+
     @JoinColumn(name = "ord_paymethod_id", referencedColumnName = "pm_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Paymethods ordPaymethodId;
@@ -279,7 +301,7 @@ public class Orders implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Orders[ ordId=" + ordId + " ]";
+        return "models.orders.Orders[ ordId=" + ordId + " ]";
     }
     
 }

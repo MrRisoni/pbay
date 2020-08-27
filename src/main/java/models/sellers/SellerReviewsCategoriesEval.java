@@ -1,5 +1,5 @@
 
-package models;
+package models.sellers;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -32,14 +32,16 @@ public class SellerReviewsCategoriesEval implements Serializable {
     @Basic(optional = false)
     @Column(name = "srce_id")
     private Integer srceId;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "srce_rating")
     private BigDecimal srceRating;
+
     @JoinColumn(name = "srce_category_id", referencedColumnName = "swrc_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private SellerReviewCategories srceCategoryId;
+
     @JoinColumn(name = "srce_review_id", referencedColumnName = "srw_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private SellerReviews srceReviewId;
@@ -110,7 +112,7 @@ public class SellerReviewsCategoriesEval implements Serializable {
 
     @Override
     public String toString() {
-        return "models.SellerReviewsCategoriesEval[ srceId=" + srceId + " ]";
+        return "models.sellers.SellerReviewsCategoriesEval[ srceId=" + srceId + " ]";
     }
     
 }

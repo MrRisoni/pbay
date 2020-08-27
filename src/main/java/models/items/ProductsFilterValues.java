@@ -1,5 +1,5 @@
 
-package models;
+package models.items;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -32,14 +32,17 @@ public class ProductsFilterValues implements Serializable {
     @Basic(optional = false)
     @Column(name = "pfv_id")
     private Integer pfvId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 88)
     @Column(name = "pfv_value")
     private String pfvValue;
+
     @JoinColumn(name = "pfv_filter_id", referencedColumnName = "fil_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ProductsFilters pfvFilterId;
+
     @JoinColumn(name = "pfv_product_id", referencedColumnName = "prod_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Products pfvProductId;
@@ -110,7 +113,7 @@ public class ProductsFilterValues implements Serializable {
 
     @Override
     public String toString() {
-        return "models.ProductsFilterValues[ pfvId=" + pfvId + " ]";
+        return "models.items.ProductsFilterValues[ pfvId=" + pfvId + " ]";
     }
     
 }

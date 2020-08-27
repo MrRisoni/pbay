@@ -1,5 +1,5 @@
 
-package models;
+package models.items;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -34,13 +34,16 @@ public class ProductsCategories implements Serializable {
     @Basic(optional = false)
     @Column(name = "cat_id")
     private Integer catId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "cat_title")
     private String catTitle;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "filProductCategory", fetch = FetchType.LAZY)
     private Collection<ProductsFilters> productsFiltersCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodCategoryId", fetch = FetchType.LAZY)
     private Collection<Products> productsCollection;
 
@@ -112,7 +115,7 @@ public class ProductsCategories implements Serializable {
 
     @Override
     public String toString() {
-        return "models.ProductsCategories[ catId=" + catId + " ]";
+        return "models.items.ProductsCategories[ catId=" + catId + " ]";
     }
     
 }

@@ -1,5 +1,5 @@
 
-package models;
+package models.general;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -32,16 +32,19 @@ public class Continents implements Serializable {
     @NotNull
     @Column(name = "con_id")
     private Short conId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "con_code")
     private String conCode;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 35)
     @Column(name = "con_title")
     private String conTitle;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ctrContinentId", fetch = FetchType.LAZY)
     private Collection<Countries> countriesCollection;
 
@@ -113,7 +116,7 @@ public class Continents implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Continents[ conId=" + conId + " ]";
+        return "models.general.Continents[ conId=" + conId + " ]";
     }
     
 }

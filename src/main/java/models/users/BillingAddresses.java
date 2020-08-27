@@ -1,5 +1,8 @@
 
-package models;
+package models.users;
+
+import models.orders.Orders;
+import models.general.Countries;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -36,47 +39,57 @@ public class BillingAddresses implements Serializable {
     @Basic(optional = false)
     @Column(name = "bla_id")
     private Long blaId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "bla_city")
     private String blaCity;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "bla_region")
     private String blaRegion;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "bla_street")
     private String blaStreet;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
     @Column(name = "bla_street_no")
     private String blaStreetNo;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 9)
     @Column(name = "bla_code")
     private String blaCode;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "bla_surname")
     private String blaSurname;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "bla_name")
     private String blaName;
+
     @JoinColumn(name = "bla_country_id", referencedColumnName = "ctr_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Countries blaCountryId;
+
     @JoinColumn(name = "bla_user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users blaUserId;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordBilladdressId", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
 
@@ -209,7 +222,7 @@ public class BillingAddresses implements Serializable {
 
     @Override
     public String toString() {
-        return "models.BillingAddresses[ blaId=" + blaId + " ]";
+        return "models.users.BillingAddresses[ blaId=" + blaId + " ]";
     }
     
 }

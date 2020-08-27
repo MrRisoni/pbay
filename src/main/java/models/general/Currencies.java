@@ -1,5 +1,10 @@
 
-package models;
+package models.general;
+
+import models.orders.Biddings;
+import models.items.Listings;
+import models.orders.OrderItems;
+import models.orders.Orders;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -35,22 +40,28 @@ public class Currencies implements Serializable {
     @Basic(optional = false)
     @Column(name = "cur_id")
     private Short curId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "cur_code")
     private String curCode;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "cur_rate")
     private BigDecimal curRate;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lisCurrencyId", fetch = FetchType.LAZY)
     private Collection<Listings> listingsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmCurrencyId", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bidCurrencyId", fetch = FetchType.LAZY)
     private Collection<Biddings> biddingsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordCurrencyId", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
 
@@ -149,7 +160,7 @@ public class Currencies implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Currencies[ curId=" + curId + " ]";
+        return "models.general.Currencies[ curId=" + curId + " ]";
     }
     
 }

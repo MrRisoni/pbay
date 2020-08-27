@@ -2,33 +2,33 @@
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence">
   <persistence-unit name="ebaydb">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    <class>models.Currencies</class>
-    <class>models.Users</class>
-    <class>models.Reviews</class>
-    <class>models.Countries</class>
-    <class>models.Biddings</class>
-    <class>models.SellerReviewCategories</class>
-    <class>models.Continents</class>
-    <class>models.SellerReviews</class>
-    <class>models.SellerReviewsCategoriesEval</class>
-    <class>models.Orders</class>
-    <class>models.ListingWatching</class>
-    <class>models.ShippingAddresses</class>
-    <class>models.OrderStatuses</class>
-    <class>models.BillingAddresses</class>
-    <class>models.Paymethods</class>
-    <class>models.ProductsCategories</class>
-    <class>models.OrderItemTrackHistory</class>
-    <class>models.OrderItems</class>
-    <class>models.Selling</class>
-    <class>models.ShippingCosts</class>
-    <class>models.ProductsFilterValues</class>
-    <class>models.Sellers</class>
-    <class>models.ProductsFilters</class>
-    <class>models.Products</class>
-    <class>models.Listings</class>
-    <class>models.ShippingCostsExceptions</class>
-    <class>models.ShippingCountryForbidden</class>
+    <class>models.general.Currencies</class>
+    <class>models.users.Users</class>
+    <class>models.orders.Reviews</class>
+    <class>models.general.Countries</class>
+    <class>models.orders.Biddings</class>
+    <class>models.sellers.SellerReviewCategories</class>
+    <class>models.general.Continents</class>
+    <class>models.sellers.SellerReviews</class>
+    <class>models.sellers.SellerReviewsCategoriesEval</class>
+    <class>models.orders.Orders</class>
+    <class>models.items.ListingWatching</class>
+    <class>models.users.ShippingAddresses</class>
+    <class>models.orders.OrderStatuses</class>
+    <class>models.users.BillingAddresses</class>
+    <class>models.general.Paymethods</class>
+    <class>models.items.ProductsCategories</class>
+    <class>models.orders.OrderItemTrackHistory</class>
+    <class>models.orders.OrderItems</class>
+    <class>models.sellers.Selling</class>
+    <class>models.items.ShippingCosts</class>
+    <class>models.items.ProductsFilterValues</class>
+    <class>models.sellers.Sellers</class>
+    <class>models.items.ProductsFilters</class>
+    <class>models.items.Products</class>
+    <class>models.items.Listings</class>
+    <class>models.items.ShippingCostsExceptions</class>
+    <class>models.items.ShippingCountryForbidden</class>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

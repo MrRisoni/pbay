@@ -1,5 +1,9 @@
 
-package models;
+package models.items;
+
+import models.general.Currencies;
+import models.orders.Biddings;
+import models.sellers.Selling;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -39,39 +43,48 @@ public class Listings implements Serializable {
     @Basic(optional = false)
     @Column(name = "lis_id")
     private Long lisId;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_price")
     private BigDecimal lisPrice;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_fee_eur")
+
     private BigDecimal lisFeeEur;
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_from")
     @Temporal(TemporalType.DATE)
     private Date lisFrom;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_to")
     @Temporal(TemporalType.DATE)
     private Date lisTo;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_watching")
     private short lisWatching;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_is_auction")
     private short lisIsAuction;
+
     @JoinColumn(name = "lis_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Currencies lisCurrencyId;
+
     @JoinColumn(name = "lis_selling_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling lisSellingId;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bidListingId", fetch = FetchType.LAZY)
     private Collection<Biddings> biddingsCollection;
 
@@ -195,7 +208,7 @@ public class Listings implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Listings[ lisId=" + lisId + " ]";
+        return "models.items.Listings[ lisId=" + lisId + " ]";
     }
     
 }

@@ -1,5 +1,11 @@
 
-package models;
+package models.users;
+
+import models.orders.Biddings;
+import models.orders.Orders;
+import models.orders.Reviews;
+import models.sellers.SellerReviews;
+import models.sellers.Sellers;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -37,43 +43,56 @@ public class Users implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Long id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
+
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "email")
     private String email;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
+
     @Size(max = 100)
     @Column(name = "remember_token")
     private String rememberToken;
+
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "srwUserId", fetch = FetchType.LAZY)
     private Collection<SellerReviews> sellerReviewsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shpUserId", fetch = FetchType.LAZY)
     private Collection<ShippingAddresses> shippingAddressesCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "revUsrId", fetch = FetchType.LAZY)
     private Collection<Reviews> reviewsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bidUserId", fetch = FetchType.LAZY)
     private Collection<Biddings> biddingsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "blaUserId", fetch = FetchType.LAZY)
     private Collection<BillingAddresses> billingAddressesCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordUserId", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellerUsrId", fetch = FetchType.LAZY)
     private Collection<Sellers> sellersCollection;
 
@@ -232,7 +251,7 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Users[ id=" + id + " ]";
+        return "models.users.Users[ id=" + id + " ]";
     }
     
 }

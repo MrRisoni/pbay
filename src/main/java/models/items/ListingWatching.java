@@ -1,5 +1,5 @@
 
-package models;
+package models.items;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -28,10 +28,12 @@ public class ListingWatching implements Serializable {
     @Basic(optional = false)
     @Column(name = "lwi_id")
     private Integer lwiId;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "lwi_user_ud")
     private long lwiUserUd;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "lwi_listing_id")
@@ -96,7 +98,7 @@ public class ListingWatching implements Serializable {
 
     @Override
     public String toString() {
-        return "models.ListingWatching[ lwiId=" + lwiId + " ]";
+        return "models.items.ListingWatching[ lwiId=" + lwiId + " ]";
     }
     
 }

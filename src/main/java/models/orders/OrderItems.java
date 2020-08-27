@@ -1,5 +1,9 @@
 
-package models;
+package models.orders;
+
+import models.general.Currencies;
+import models.sellers.Sellers;
+import models.sellers.Selling;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -37,49 +41,61 @@ public class OrderItems implements Serializable {
     @Basic(optional = false)
     @Column(name = "itm_id")
     private Long itmId;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_quantity")
     private short itmQuantity;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 225)
     @Column(name = "itm_tracking_nums")
     private String itmTrackingNums;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_total")
     private BigDecimal itmTotal;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_goods_total")
     private BigDecimal itmGoodsTotal;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_ship_total")
     private BigDecimal itmShipTotal;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_void")
     private short itmVoid;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "revOrdItemId", fetch = FetchType.LAZY)
     private Collection<Reviews> reviewsCollection;
+
     @JoinColumn(name = "itm_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Currencies itmCurrencyId;
+
     @JoinColumn(name = "itm_order_id", referencedColumnName = "ord_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Orders itmOrderId;
+
     @JoinColumn(name = "itm_product_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling itmProductId;
+
     @JoinColumn(name = "itm_seller_id", referencedColumnName = "sel_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Sellers itmSellerId;
+
     @JoinColumn(name = "itm_status_id", referencedColumnName = "stat_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private OrderStatuses itmStatusId;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmhItemId", fetch = FetchType.LAZY)
     private Collection<OrderItemTrackHistory> orderItemTrackHistoryCollection;
 
@@ -236,7 +252,7 @@ public class OrderItems implements Serializable {
 
     @Override
     public String toString() {
-        return "models.OrderItems[ itmId=" + itmId + " ]";
+        return "models.orders.OrderItems[ itmId=" + itmId + " ]";
     }
     
 }

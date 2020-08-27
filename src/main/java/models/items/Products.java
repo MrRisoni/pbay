@@ -1,5 +1,7 @@
 
-package models;
+package models.items;
+
+import models.sellers.Selling;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -37,31 +39,38 @@ public class Products implements Serializable {
     @Basic(optional = false)
     @Column(name = "prod_id")
     private Integer prodId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "prod_title")
     private String prodTitle;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "prod_other_title")
     private String prodOtherTitle;
+
     @Basic(optional = false)
     @NotNull
     @Lob
     @Size(min = 1, max = 65535)
     @Column(name = "prod_descr")
     private String prodDescr;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "prod_preowned")
     private short prodPreowned;
+
     @JoinColumn(name = "prod_category_id", referencedColumnName = "cat_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ProductsCategories prodCategoryId;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pfvProductId", fetch = FetchType.LAZY)
     private Collection<ProductsFilterValues> productsFilterValuesCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sllProductId", fetch = FetchType.LAZY)
     private Collection<Selling> sellingCollection;
 
@@ -168,7 +177,7 @@ public class Products implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Products[ prodId=" + prodId + " ]";
+        return "models.items.Products[ prodId=" + prodId + " ]";
     }
     
 }

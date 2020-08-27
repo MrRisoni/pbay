@@ -1,5 +1,8 @@
 
-package models;
+package models.sellers;
+
+import models.orders.Orders;
+import models.users.Users;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -40,30 +43,37 @@ public class SellerReviews implements Serializable {
     @Basic(optional = false)
     @Column(name = "srw_id")
     private Integer srwId;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "srw_opinion")
     private short srwOpinion;
+
     @Basic(optional = false)
     @NotNull
     @Lob
     @Size(min = 1, max = 65535)
     @Column(name = "srw_comment")
     private String srwComment;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "srw_created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date srwCreatedAt;
+
     @JoinColumn(name = "srw_user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users srwUserId;
+
     @JoinColumn(name = "srw_seller_id", referencedColumnName = "sel_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Sellers srwSellerId;
+
     @JoinColumn(name = "srw_order_id", referencedColumnName = "ord_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Orders srwOrderId;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "srceReviewId", fetch = FetchType.LAZY)
     private Collection<SellerReviewsCategoriesEval> sellerReviewsCategoriesEvalCollection;
 
@@ -168,7 +178,7 @@ public class SellerReviews implements Serializable {
 
     @Override
     public String toString() {
-        return "models.SellerReviews[ srwId=" + srwId + " ]";
+        return "models.sellers.SellerReviews[ srwId=" + srwId + " ]";
     }
     
 }

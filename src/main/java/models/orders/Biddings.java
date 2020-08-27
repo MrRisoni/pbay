@@ -1,5 +1,9 @@
 
-package models;
+package models.orders;
+
+import models.items.Listings;
+import models.general.Currencies;
+import models.users.Users;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -35,30 +39,36 @@ public class Biddings implements Serializable {
     @Basic(optional = false)
     @Column(name = "bid_id")
     private Integer bidId;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "bid_price")
     private BigDecimal bidPrice;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "bid_price_eur")
     private BigDecimal bidPriceEur;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "bid_created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date bidCreatedAt;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "bid_active")
     private short bidActive;
+
     @JoinColumn(name = "bid_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Currencies bidCurrencyId;
+
     @JoinColumn(name = "bid_listing_id", referencedColumnName = "lis_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Listings bidListingId;
+
     @JoinColumn(name = "bid_user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users bidUserId;
@@ -164,7 +174,7 @@ public class Biddings implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Biddings[ bidId=" + bidId + " ]";
+        return "models.orders.Biddings[ bidId=" + bidId + " ]";
     }
     
 }

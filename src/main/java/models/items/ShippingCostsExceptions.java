@@ -1,5 +1,7 @@
 
-package models;
+package models.items;
+
+import models.sellers.Selling;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -33,16 +35,18 @@ public class ShippingCostsExceptions implements Serializable {
     @Basic(optional = false)
     @Column(name = "shcx_id")
     private Integer shcxId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "shcx_country_code")
     private String shcxCountryCode;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "shcx_cost")
     private BigDecimal shcxCost;
+
     @JoinColumn(name = "shcx_selling_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling shcxSellingId;
@@ -114,7 +118,7 @@ public class ShippingCostsExceptions implements Serializable {
 
     @Override
     public String toString() {
-        return "models.ShippingCostsExceptions[ shcxId=" + shcxId + " ]";
+        return "models.items.ShippingCostsExceptions[ shcxId=" + shcxId + " ]";
     }
     
 }

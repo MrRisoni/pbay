@@ -1,5 +1,5 @@
 
-package models;
+package models.sellers;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -34,11 +34,13 @@ public class SellerReviewCategories implements Serializable {
     @Basic(optional = false)
     @Column(name = "swrc_id")
     private Short swrcId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "swrc_title")
     private String swrcTitle;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "srceCategoryId", fetch = FetchType.LAZY)
     private Collection<SellerReviewsCategoriesEval> sellerReviewsCategoriesEvalCollection;
 
@@ -101,7 +103,7 @@ public class SellerReviewCategories implements Serializable {
 
     @Override
     public String toString() {
-        return "models.SellerReviewCategories[ swrcId=" + swrcId + " ]";
+        return "models.sellers.SellerReviewCategories[ swrcId=" + swrcId + " ]";
     }
     
 }

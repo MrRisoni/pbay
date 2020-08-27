@@ -1,5 +1,5 @@
 
-package models;
+package models.orders;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -34,14 +34,17 @@ public class OrderItemTrackHistory implements Serializable {
     @Basic(optional = false)
     @Column(name = "itmh_id")
     private Long itmhId;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "itmh_created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date itmhCreatedAt;
+
     @JoinColumn(name = "itmh_item_id", referencedColumnName = "itm_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private OrderItems itmhItemId;
+
     @JoinColumn(name = "itmh_status_id", referencedColumnName = "stat_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private OrderStatuses itmhStatusId;
@@ -112,7 +115,7 @@ public class OrderItemTrackHistory implements Serializable {
 
     @Override
     public String toString() {
-        return "models.OrderItemTrackHistory[ itmhId=" + itmhId + " ]";
+        return "models.orders.OrderItemTrackHistory[ itmhId=" + itmhId + " ]";
     }
     
 }
