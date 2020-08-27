@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Aug 27, 2020 at 05:29 AM
+-- Host: 127.0.0.1
+-- Generation Time: Aug 27, 2020 at 05:06 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -146,28 +145,6 @@ INSERT INTO `currencies` (`cur_id`, `cur_code`, `cur_rate`) VALUES
 (2, 'USD', '1.28'),
 (3, 'CHF', '1.98'),
 (4, 'DKK', '75.00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `custom_products_filters_values`
---
-
-CREATE TABLE `custom_products_filters_values` (
-  `csp_id` int(10) UNSIGNED NOT NULL,
-  `csp_selling_id` int(10) UNSIGNED NOT NULL,
-  `csp_filter_id` int(10) UNSIGNED NOT NULL,
-  `csp_value` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `custom_products_filters_values`
---
-
-INSERT INTO `custom_products_filters_values` (`csp_id`, `csp_selling_id`, `csp_filter_id`, `csp_value`) VALUES
-(1, 2, 4, '1878'),
-(2, 1, 4, '2011'),
-(3, 1, 6, '445gh787687444');
 
 -- --------------------------------------------------------
 
@@ -382,7 +359,9 @@ INSERT INTO `products_categories` (`cat_id`, `cat_title`) VALUES
 (1, 'All'),
 (2, 'Books'),
 (3, 'Kitchen utensils'),
-(4, 'DVD');
+(4, 'DVD'),
+(5, 'Musical Instruments'),
+(6, 'Brass instruments');
 
 -- --------------------------------------------------------
 
@@ -488,6 +467,56 @@ INSERT INTO `sellers` (`sel_id`, `seller_usr_id`, `sel_title`, `sel_country_id`,
 (1, 1, 'Scandinavian World', 1, '', '0.00'),
 (2, 3, 'Asian Delight', 1, '', '0.00'),
 (3, 4, '', 2, '', '0.00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `seller_reviews`
+--
+
+CREATE TABLE `seller_reviews` (
+  `srw_id` int(10) UNSIGNED NOT NULL,
+  `srw_seller_id` int(10) UNSIGNED NOT NULL,
+  `srw_user_id` bigint(20) UNSIGNED NOT NULL,
+  `srw_order_id` bigint(10) UNSIGNED NOT NULL,
+  `srw_opinion` tinyint(3) UNSIGNED NOT NULL COMMENT '-1 negative , 0 neutral, 1 positive',
+  `srw_comment` text NOT NULL,
+  `srw_created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `seller_reviews_categories_eval`
+--
+
+CREATE TABLE `seller_reviews_categories_eval` (
+  `srce_id` int(10) UNSIGNED NOT NULL,
+  `srce_review_id` int(10) UNSIGNED NOT NULL,
+  `srce_category_id` tinyint(3) UNSIGNED NOT NULL,
+  `srce_rating` decimal(2,1) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `seller_review_categories`
+--
+
+CREATE TABLE `seller_review_categories` (
+  `swrc_id` tinyint(3) UNSIGNED NOT NULL,
+  `swrc_title` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `seller_review_categories`
+--
+
+INSERT INTO `seller_review_categories` (`swrc_id`, `swrc_title`) VALUES
+(1, 'Accurate description'),
+(2, 'Shipping speed'),
+(3, ' Reasonable shipping cost'),
+(4, 'Communication');
 
 -- --------------------------------------------------------
 
@@ -685,14 +714,6 @@ ALTER TABLE `currencies`
   ADD UNIQUE KEY `cur_title` (`cur_code`);
 
 --
--- Indexes for table `custom_products_filters_values`
---
-ALTER TABLE `custom_products_filters_values`
-  ADD PRIMARY KEY (`csp_id`),
-  ADD KEY `csp_selling_id` (`csp_selling_id`),
-  ADD KEY `csp_filter_id` (`csp_filter_id`);
-
---
 -- Indexes for table `listings`
 --
 ALTER TABLE `listings`
@@ -798,6 +819,29 @@ ALTER TABLE `sellers`
   ADD KEY `sel_country_id` (`sel_country_id`);
 
 --
+-- Indexes for table `seller_reviews`
+--
+ALTER TABLE `seller_reviews`
+  ADD PRIMARY KEY (`srw_id`),
+  ADD KEY `srw_seller_id` (`srw_seller_id`),
+  ADD KEY `srw_user_id` (`srw_user_id`),
+  ADD KEY `srw_order_id` (`srw_order_id`);
+
+--
+-- Indexes for table `seller_reviews_categories_eval`
+--
+ALTER TABLE `seller_reviews_categories_eval`
+  ADD PRIMARY KEY (`srce_id`),
+  ADD KEY `srce_review_id` (`srce_review_id`),
+  ADD KEY `srce_category_id` (`srce_category_id`);
+
+--
+-- Indexes for table `seller_review_categories`
+--
+ALTER TABLE `seller_review_categories`
+  ADD PRIMARY KEY (`swrc_id`);
+
+--
 -- Indexes for table `selling`
 --
 ALTER TABLE `selling`
@@ -869,12 +913,6 @@ ALTER TABLE `currencies`
   MODIFY `cur_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `custom_products_filters_values`
---
-ALTER TABLE `custom_products_filters_values`
-  MODIFY `csp_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT for table `listings`
 --
 ALTER TABLE `listings`
@@ -926,7 +964,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `products_categories`
 --
 ALTER TABLE `products_categories`
-  MODIFY `cat_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cat_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `products_filters`
@@ -951,6 +989,24 @@ ALTER TABLE `reviews`
 --
 ALTER TABLE `sellers`
   MODIFY `sel_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `seller_reviews`
+--
+ALTER TABLE `seller_reviews`
+  MODIFY `srw_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `seller_reviews_categories_eval`
+--
+ALTER TABLE `seller_reviews_categories_eval`
+  MODIFY `srce_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `seller_review_categories`
+--
+ALTER TABLE `seller_review_categories`
+  MODIFY `swrc_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `selling`
@@ -1012,13 +1068,6 @@ ALTER TABLE `billing_addresses`
 --
 ALTER TABLE `countries`
   ADD CONSTRAINT `countries_ibfk_1` FOREIGN KEY (`ctr_continent_id`) REFERENCES `continents` (`con_id`);
-
---
--- Constraints for table `custom_products_filters_values`
---
-ALTER TABLE `custom_products_filters_values`
-  ADD CONSTRAINT `custom_products_filters_values_ibfk_1` FOREIGN KEY (`csp_filter_id`) REFERENCES `products_filters` (`fil_id`),
-  ADD CONSTRAINT `custom_products_filters_values_ibfk_2` FOREIGN KEY (`csp_selling_id`) REFERENCES `selling` (`sll_id`);
 
 --
 -- Constraints for table `listings`
@@ -1086,6 +1135,21 @@ ALTER TABLE `reviews`
 ALTER TABLE `sellers`
   ADD CONSTRAINT `sellers_ibfk_1` FOREIGN KEY (`seller_usr_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `sellers_ibfk_2` FOREIGN KEY (`sel_country_id`) REFERENCES `countries` (`ctr_id`);
+
+--
+-- Constraints for table `seller_reviews`
+--
+ALTER TABLE `seller_reviews`
+  ADD CONSTRAINT `seller_reviews_ibfk_1` FOREIGN KEY (`srw_user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `seller_reviews_ibfk_2` FOREIGN KEY (`srw_seller_id`) REFERENCES `sellers` (`sel_id`),
+  ADD CONSTRAINT `seller_reviews_ibfk_3` FOREIGN KEY (`srw_order_id`) REFERENCES `orders` (`ord_id`);
+
+--
+-- Constraints for table `seller_reviews_categories_eval`
+--
+ALTER TABLE `seller_reviews_categories_eval`
+  ADD CONSTRAINT `seller_reviews_categories_eval_ibfk_1` FOREIGN KEY (`srce_category_id`) REFERENCES `seller_review_categories` (`swrc_id`),
+  ADD CONSTRAINT `seller_reviews_categories_eval_ibfk_2` FOREIGN KEY (`srce_review_id`) REFERENCES `seller_reviews` (`srw_id`);
 
 --
 -- Constraints for table `selling`

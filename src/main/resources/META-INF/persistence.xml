@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
-    <persistence-unit name="ebaydb">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-
-        <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.use_sql_comments" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="none"/>
-        </properties>
-    </persistence-unit>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence">
+  <persistence-unit name="ebaydb">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <class>models.Currencies</class>
+    <class>models.Users</class>
+    <class>models.Reviews</class>
+    <class>models.Countries</class>
+    <class>models.Biddings</class>
+    <class>models.SellerReviewCategories</class>
+    <class>models.Continents</class>
+    <class>models.SellerReviews</class>
+    <class>models.SellerReviewsCategoriesEval</class>
+    <class>models.Orders</class>
+    <class>models.ListingWatching</class>
+    <class>models.ShippingAddresses</class>
+    <class>models.OrderStatuses</class>
+    <class>models.BillingAddresses</class>
+    <class>models.Paymethods</class>
+    <class>models.ProductsCategories</class>
+    <class>models.OrderItemTrackHistory</class>
+    <class>models.OrderItems</class>
+    <class>models.Selling</class>
+    <class>models.ShippingCosts</class>
+    <class>models.ProductsFilterValues</class>
+    <class>models.Sellers</class>
+    <class>models.ProductsFilters</class>
+    <class>models.Products</class>
+    <class>models.Listings</class>
+    <class>models.ShippingCostsExceptions</class>
+    <class>models.ShippingCountryForbidden</class>
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.use_sql_comments" value="true"/>
+      <property name="hibernate.hbm2ddl.auto" value="none"/>
+    </properties>
+  </persistence-unit>
 </persistence>
