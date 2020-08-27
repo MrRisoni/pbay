@@ -39,19 +39,19 @@ public class Countries implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ctr_id")
-    private Short ctrId;
+    private Short id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "ctr_title")
-    private String ctrTitle;
+    private String title;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
     @Column(name = "ctr_code")
-    private String ctrCode;
+    private String code;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shpCountryId", fetch = FetchType.LAZY)
     private Collection<ShippingAddresses> shippingAddressesCollection;
@@ -69,38 +69,38 @@ public class Countries implements Serializable {
     public Countries() {
     }
 
-    public Countries(Short ctrId) {
-        this.ctrId = ctrId;
+    public Countries(Short id) {
+        this.id = id;
     }
 
-    public Countries(Short ctrId, String ctrTitle, String ctrCode) {
-        this.ctrId = ctrId;
-        this.ctrTitle = ctrTitle;
-        this.ctrCode = ctrCode;
+    public Countries(Short id, String ctrTitle, String ctrCode) {
+        this.id = id;
+        this.title = ctrTitle;
+        this.code = ctrCode;
     }
 
-    public Short getCtrId() {
-        return ctrId;
+    public Short getId() {
+        return id;
     }
 
-    public void setCtrId(Short ctrId) {
-        this.ctrId = ctrId;
+    public void setId(Short id) {
+        this.id = id;
     }
 
-    public String getCtrTitle() {
-        return ctrTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCtrTitle(String ctrTitle) {
-        this.ctrTitle = ctrTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getCtrCode() {
-        return ctrCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setCtrCode(String ctrCode) {
-        this.ctrCode = ctrCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @XmlTransient
@@ -141,7 +141,7 @@ public class Countries implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (ctrId != null ? ctrId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -152,7 +152,7 @@ public class Countries implements Serializable {
             return false;
         }
         Countries other = (Countries) object;
-        if ((this.ctrId == null && other.ctrId != null) || (this.ctrId != null && !this.ctrId.equals(other.ctrId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -160,7 +160,7 @@ public class Countries implements Serializable {
 
     @Override
     public String toString() {
-        return "models.general.Countries[ ctrId=" + ctrId + " ]";
+        return "models.general.Countries[ ctrId=" + id + " ]";
     }
     
 }

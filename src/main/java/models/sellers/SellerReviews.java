@@ -42,37 +42,37 @@ public class SellerReviews implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "srw_id")
-    private Integer srwId;
+    private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "srw_opinion")
-    private short srwOpinion;
+    private short opinion;
 
     @Basic(optional = false)
     @NotNull
     @Lob
     @Size(min = 1, max = 65535)
     @Column(name = "srw_comment")
-    private String srwComment;
+    private String comment;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "srw_created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date srwCreatedAt;
+    private Date createdAt;
 
     @JoinColumn(name = "srw_user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Users srwUserId;
+    private Users userObj;
 
     @JoinColumn(name = "srw_seller_id", referencedColumnName = "sel_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Sellers srwSellerId;
+    private Sellers sellerObj;
 
     @JoinColumn(name = "srw_order_id", referencedColumnName = "ord_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Orders srwOrderId;
+    private Orders orderObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "srceReviewId", fetch = FetchType.LAZY)
     private Collection<SellerReviewsCategoriesEval> sellerReviewsCategoriesEvalCollection;
@@ -81,70 +81,70 @@ public class SellerReviews implements Serializable {
     }
 
     public SellerReviews(Integer srwId) {
-        this.srwId = srwId;
+        this.id = srwId;
     }
 
     public SellerReviews(Integer srwId, short srwOpinion, String srwComment, Date srwCreatedAt) {
-        this.srwId = srwId;
-        this.srwOpinion = srwOpinion;
-        this.srwComment = srwComment;
-        this.srwCreatedAt = srwCreatedAt;
+        this.id = srwId;
+        this.opinion = srwOpinion;
+        this.comment = srwComment;
+        this.createdAt = srwCreatedAt;
     }
 
-    public Integer getSrwId() {
-        return srwId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSrwId(Integer srwId) {
-        this.srwId = srwId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public short getSrwOpinion() {
-        return srwOpinion;
+    public short getOpinion() {
+        return opinion;
     }
 
-    public void setSrwOpinion(short srwOpinion) {
-        this.srwOpinion = srwOpinion;
+    public void setOpinion(short opinion) {
+        this.opinion = opinion;
     }
 
-    public String getSrwComment() {
-        return srwComment;
+    public String getComment() {
+        return comment;
     }
 
-    public void setSrwComment(String srwComment) {
-        this.srwComment = srwComment;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public Date getSrwCreatedAt() {
-        return srwCreatedAt;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setSrwCreatedAt(Date srwCreatedAt) {
-        this.srwCreatedAt = srwCreatedAt;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Users getSrwUserId() {
-        return srwUserId;
+    public Users getUserObj() {
+        return userObj;
     }
 
-    public void setSrwUserId(Users srwUserId) {
-        this.srwUserId = srwUserId;
+    public void setUserObj(Users userObj) {
+        this.userObj = userObj;
     }
 
-    public Sellers getSrwSellerId() {
-        return srwSellerId;
+    public Sellers getSellerObj() {
+        return sellerObj;
     }
 
-    public void setSrwSellerId(Sellers srwSellerId) {
-        this.srwSellerId = srwSellerId;
+    public void setSellerObj(Sellers sellerObj) {
+        this.sellerObj = sellerObj;
     }
 
-    public Orders getSrwOrderId() {
-        return srwOrderId;
+    public Orders getOrderObj() {
+        return orderObj;
     }
 
-    public void setSrwOrderId(Orders srwOrderId) {
-        this.srwOrderId = srwOrderId;
+    public void setOrderObj(Orders orderObj) {
+        this.orderObj = orderObj;
     }
 
     @XmlTransient
@@ -159,7 +159,7 @@ public class SellerReviews implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (srwId != null ? srwId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -170,7 +170,7 @@ public class SellerReviews implements Serializable {
             return false;
         }
         SellerReviews other = (SellerReviews) object;
-        if ((this.srwId == null && other.srwId != null) || (this.srwId != null && !this.srwId.equals(other.srwId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -178,7 +178,7 @@ public class SellerReviews implements Serializable {
 
     @Override
     public String toString() {
-        return "models.sellers.SellerReviews[ srwId=" + srwId + " ]";
+        return "models.sellers.SellerReviews[ srwId=" + id + " ]";
     }
     
 }

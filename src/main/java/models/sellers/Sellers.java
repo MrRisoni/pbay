@@ -40,24 +40,24 @@ public class Sellers implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "sel_id")
-    private Integer selId;
+    private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 125)
     @Column(name = "sel_title")
-    private String selTitle;
+    private String title;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
     @Column(name = "sel_ssn")
-    private String selSsn;
+    private String ssn;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "sel_stars_avg")
-    private BigDecimal selStarsAvg;
+    private BigDecimal avgStars;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "srwSellerId", fetch = FetchType.LAZY)
     private Collection<SellerReviews> sellerReviewsCollection;
@@ -70,56 +70,56 @@ public class Sellers implements Serializable {
 
     @JoinColumn(name = "seller_usr_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Users sellerUsrId;
+    private Users userObj;
 
     @JoinColumn(name = "sel_country_id", referencedColumnName = "ctr_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Countries selCountryId;
+    private Countries countryObj;
 
     public Sellers() {
     }
 
     public Sellers(Integer selId) {
-        this.selId = selId;
+        this.id = selId;
     }
 
     public Sellers(Integer selId, String selTitle, String selSsn, BigDecimal selStarsAvg) {
-        this.selId = selId;
-        this.selTitle = selTitle;
-        this.selSsn = selSsn;
-        this.selStarsAvg = selStarsAvg;
+        this.id = selId;
+        this.title = selTitle;
+        this.ssn = selSsn;
+        this.avgStars = selStarsAvg;
     }
 
-    public Integer getSelId() {
-        return selId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSelId(Integer selId) {
-        this.selId = selId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getSelTitle() {
-        return selTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setSelTitle(String selTitle) {
-        this.selTitle = selTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getSelSsn() {
-        return selSsn;
+    public String getSsn() {
+        return ssn;
     }
 
-    public void setSelSsn(String selSsn) {
-        this.selSsn = selSsn;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 
-    public BigDecimal getSelStarsAvg() {
-        return selStarsAvg;
+    public BigDecimal getAvgStars() {
+        return avgStars;
     }
 
-    public void setSelStarsAvg(BigDecimal selStarsAvg) {
-        this.selStarsAvg = selStarsAvg;
+    public void setAvgStars(BigDecimal avgStars) {
+        this.avgStars = avgStars;
     }
 
     @XmlTransient
@@ -149,26 +149,26 @@ public class Sellers implements Serializable {
         this.sellingCollection = sellingCollection;
     }
 
-    public Users getSellerUsrId() {
-        return sellerUsrId;
+    public Users getUserObj() {
+        return userObj;
     }
 
-    public void setSellerUsrId(Users sellerUsrId) {
-        this.sellerUsrId = sellerUsrId;
+    public void setUserObj(Users userObj) {
+        this.userObj = userObj;
     }
 
-    public Countries getSelCountryId() {
-        return selCountryId;
+    public Countries getCountryObj() {
+        return countryObj;
     }
 
-    public void setSelCountryId(Countries selCountryId) {
-        this.selCountryId = selCountryId;
+    public void setCountryObj(Countries countryObj) {
+        this.countryObj = countryObj;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (selId != null ? selId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -179,7 +179,7 @@ public class Sellers implements Serializable {
             return false;
         }
         Sellers other = (Sellers) object;
-        if ((this.selId == null && other.selId != null) || (this.selId != null && !this.selId.equals(other.selId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -187,7 +187,7 @@ public class Sellers implements Serializable {
 
     @Override
     public String toString() {
-        return "models.sellers.Sellers[ selId=" + selId + " ]";
+        return "models.sellers.Sellers[ selId=" + id + " ]";
     }
     
 }

@@ -33,70 +33,70 @@ public class OrderItemTrackHistory implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "itmh_id")
-    private Long itmhId;
+    private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "itmh_created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date itmhCreatedAt;
+    private Date createdAt;
 
     @JoinColumn(name = "itmh_item_id", referencedColumnName = "itm_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private OrderItems itmhItemId;
+    private OrderItems itemObj;
 
     @JoinColumn(name = "itmh_status_id", referencedColumnName = "stat_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private OrderStatuses itmhStatusId;
+    private OrderStatuses statusObj;
 
     public OrderItemTrackHistory() {
     }
 
     public OrderItemTrackHistory(Long itmhId) {
-        this.itmhId = itmhId;
+        this.id = itmhId;
     }
 
     public OrderItemTrackHistory(Long itmhId, Date itmhCreatedAt) {
-        this.itmhId = itmhId;
-        this.itmhCreatedAt = itmhCreatedAt;
+        this.id = itmhId;
+        this.createdAt = itmhCreatedAt;
     }
 
-    public Long getItmhId() {
-        return itmhId;
+    public Long getId() {
+        return id;
     }
 
-    public void setItmhId(Long itmhId) {
-        this.itmhId = itmhId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Date getItmhCreatedAt() {
-        return itmhCreatedAt;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setItmhCreatedAt(Date itmhCreatedAt) {
-        this.itmhCreatedAt = itmhCreatedAt;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public OrderItems getItmhItemId() {
-        return itmhItemId;
+    public OrderItems getItemObj() {
+        return itemObj;
     }
 
-    public void setItmhItemId(OrderItems itmhItemId) {
-        this.itmhItemId = itmhItemId;
+    public void setItemObj(OrderItems itemObj) {
+        this.itemObj = itemObj;
     }
 
-    public OrderStatuses getItmhStatusId() {
-        return itmhStatusId;
+    public OrderStatuses getStatusObj() {
+        return statusObj;
     }
 
-    public void setItmhStatusId(OrderStatuses itmhStatusId) {
-        this.itmhStatusId = itmhStatusId;
+    public void setStatusObj(OrderStatuses statusObj) {
+        this.statusObj = statusObj;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (itmhId != null ? itmhId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -107,7 +107,7 @@ public class OrderItemTrackHistory implements Serializable {
             return false;
         }
         OrderItemTrackHistory other = (OrderItemTrackHistory) object;
-        if ((this.itmhId == null && other.itmhId != null) || (this.itmhId != null && !this.itmhId.equals(other.itmhId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -115,7 +115,7 @@ public class OrderItemTrackHistory implements Serializable {
 
     @Override
     public String toString() {
-        return "models.orders.OrderItemTrackHistory[ itmhId=" + itmhId + " ]";
+        return "models.orders.OrderItemTrackHistory[ itmhId=" + id + " ]";
     }
     
 }

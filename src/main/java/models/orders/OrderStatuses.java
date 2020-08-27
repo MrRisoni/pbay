@@ -33,13 +33,13 @@ public class OrderStatuses implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "stat_id")
-    private Short statId;
+    private Short id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 34)
     @Column(name = "stat_title")
-    private String statTitle;
+    private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmStatusId", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
@@ -51,28 +51,28 @@ public class OrderStatuses implements Serializable {
     }
 
     public OrderStatuses(Short statId) {
-        this.statId = statId;
+        this.id = statId;
     }
 
     public OrderStatuses(Short statId, String statTitle) {
-        this.statId = statId;
-        this.statTitle = statTitle;
+        this.id = statId;
+        this.title = statTitle;
     }
 
-    public Short getStatId() {
-        return statId;
+    public Short getId() {
+        return id;
     }
 
-    public void setStatId(Short statId) {
-        this.statId = statId;
+    public void setId(Short id) {
+        this.id = id;
     }
 
-    public String getStatTitle() {
-        return statTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setStatTitle(String statTitle) {
-        this.statTitle = statTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @XmlTransient
@@ -96,7 +96,7 @@ public class OrderStatuses implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (statId != null ? statId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -107,7 +107,7 @@ public class OrderStatuses implements Serializable {
             return false;
         }
         OrderStatuses other = (OrderStatuses) object;
-        if ((this.statId == null && other.statId != null) || (this.statId != null && !this.statId.equals(other.statId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -115,7 +115,7 @@ public class OrderStatuses implements Serializable {
 
     @Override
     public String toString() {
-        return "models.orders.OrderStatuses[ statId=" + statId + " ]";
+        return "models.orders.OrderStatuses[ statId=" + id + " ]";
     }
     
 }

@@ -34,72 +34,72 @@ public class ShippingCostsExceptions implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "shcx_id")
-    private Integer shcxId;
+    private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "shcx_country_code")
-    private String shcxCountryCode;
+    private String countryCode;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "shcx_cost")
-    private BigDecimal shcxCost;
+    private BigDecimal cost;
 
     @JoinColumn(name = "shcx_selling_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Selling shcxSellingId;
+    private Selling sellingObj;
 
     public ShippingCostsExceptions() {
     }
 
     public ShippingCostsExceptions(Integer shcxId) {
-        this.shcxId = shcxId;
+        this.id = shcxId;
     }
 
     public ShippingCostsExceptions(Integer shcxId, String shcxCountryCode, BigDecimal shcxCost) {
-        this.shcxId = shcxId;
-        this.shcxCountryCode = shcxCountryCode;
-        this.shcxCost = shcxCost;
+        this.id = shcxId;
+        this.countryCode = shcxCountryCode;
+        this.cost = shcxCost;
     }
 
-    public Integer getShcxId() {
-        return shcxId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setShcxId(Integer shcxId) {
-        this.shcxId = shcxId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getShcxCountryCode() {
-        return shcxCountryCode;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setShcxCountryCode(String shcxCountryCode) {
-        this.shcxCountryCode = shcxCountryCode;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
-    public BigDecimal getShcxCost() {
-        return shcxCost;
+    public BigDecimal getCost() {
+        return cost;
     }
 
-    public void setShcxCost(BigDecimal shcxCost) {
-        this.shcxCost = shcxCost;
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
     }
 
-    public Selling getShcxSellingId() {
-        return shcxSellingId;
+    public Selling getSellingObj() {
+        return sellingObj;
     }
 
-    public void setShcxSellingId(Selling shcxSellingId) {
-        this.shcxSellingId = shcxSellingId;
+    public void setSellingObj(Selling sellingObj) {
+        this.sellingObj = sellingObj;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (shcxId != null ? shcxId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -110,7 +110,7 @@ public class ShippingCostsExceptions implements Serializable {
             return false;
         }
         ShippingCostsExceptions other = (ShippingCostsExceptions) object;
-        if ((this.shcxId == null && other.shcxId != null) || (this.shcxId != null && !this.shcxId.equals(other.shcxId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -118,7 +118,7 @@ public class ShippingCostsExceptions implements Serializable {
 
     @Override
     public String toString() {
-        return "models.items.ShippingCostsExceptions[ shcxId=" + shcxId + " ]";
+        return "models.items.ShippingCostsExceptions[ shcxId=" + id + " ]";
     }
     
 }

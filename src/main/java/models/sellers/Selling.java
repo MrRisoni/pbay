@@ -38,12 +38,12 @@ public class Selling implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "sll_id")
-    private Integer sllId;
+    private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "sll_quantity")
-    private int sllQuantity;
+    private int quantity;
 
     @Basic(optional = false)
     @NotNull
@@ -65,11 +65,11 @@ public class Selling implements Serializable {
 
     @JoinColumn(name = "sll_product_id", referencedColumnName = "prod_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Products sllProductId;
+    private Products productObj;
 
     @JoinColumn(name = "sll_seller_id", referencedColumnName = "sel_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Sellers sllSellerId;
+    private Sellers sellerObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shfSellingId", fetch = FetchType.LAZY)
     private Collection<ShippingCountryForbidden> shippingCountryForbiddenCollection;
@@ -78,29 +78,29 @@ public class Selling implements Serializable {
     }
 
     public Selling(Integer sllId) {
-        this.sllId = sllId;
+        this.id = sllId;
     }
 
     public Selling(Integer sllId, int sllQuantity, String sllMailerCo) {
-        this.sllId = sllId;
-        this.sllQuantity = sllQuantity;
+        this.id = sllId;
+        this.quantity = sllQuantity;
         this.sllMailerCo = sllMailerCo;
     }
 
-    public Integer getSllId() {
-        return sllId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSllId(Integer sllId) {
-        this.sllId = sllId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public int getSllQuantity() {
-        return sllQuantity;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setSllQuantity(int sllQuantity) {
-        this.sllQuantity = sllQuantity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getSllMailerCo() {
@@ -147,20 +147,20 @@ public class Selling implements Serializable {
         this.orderItemsCollection = orderItemsCollection;
     }
 
-    public Products getSllProductId() {
-        return sllProductId;
+    public Products getProductObj() {
+        return productObj;
     }
 
-    public void setSllProductId(Products sllProductId) {
-        this.sllProductId = sllProductId;
+    public void setProductObj(Products productObj) {
+        this.productObj = productObj;
     }
 
-    public Sellers getSllSellerId() {
-        return sllSellerId;
+    public Sellers getSellerObj() {
+        return sellerObj;
     }
 
-    public void setSllSellerId(Sellers sllSellerId) {
-        this.sllSellerId = sllSellerId;
+    public void setSellerObj(Sellers sellerObj) {
+        this.sellerObj = sellerObj;
     }
 
     @XmlTransient
@@ -175,7 +175,7 @@ public class Selling implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (sllId != null ? sllId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -186,7 +186,7 @@ public class Selling implements Serializable {
             return false;
         }
         Selling other = (Selling) object;
-        if ((this.sllId == null && other.sllId != null) || (this.sllId != null && !this.sllId.equals(other.sllId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -194,7 +194,7 @@ public class Selling implements Serializable {
 
     @Override
     public String toString() {
-        return "models.sellers.Selling[ sllId=" + sllId + " ]";
+        return "models.sellers.Selling[ sllId=" + id + " ]";
     }
     
 }

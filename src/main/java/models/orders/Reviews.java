@@ -38,100 +38,100 @@ public class Reviews implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "rev_id")
-    private Long revId;
+    private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Lob
     @Size(min = 1, max = 65535)
     @Column(name = "rev_comment")
-    private String revComment;
+    private String comment;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "rev_star")
-    private BigDecimal revStar;
+    private BigDecimal stars;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "rev_created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date revCreatedAt;
+    private Date createdAt;
 
     @JoinColumn(name = "rev_usr_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Users revUsrId;
+    private Users userObj;
 
     @JoinColumn(name = "rev_ord_item_id", referencedColumnName = "itm_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private OrderItems revOrdItemId;
+    private OrderItems orderItemObj;
 
     public Reviews() {
     }
 
     public Reviews(Long revId) {
-        this.revId = revId;
+        this.id = revId;
     }
 
     public Reviews(Long revId, String revComment, BigDecimal revStar, Date revCreatedAt) {
-        this.revId = revId;
-        this.revComment = revComment;
-        this.revStar = revStar;
-        this.revCreatedAt = revCreatedAt;
+        this.id = revId;
+        this.comment = revComment;
+        this.stars = revStar;
+        this.createdAt = revCreatedAt;
     }
 
-    public Long getRevId() {
-        return revId;
+    public Long getId() {
+        return id;
     }
 
-    public void setRevId(Long revId) {
-        this.revId = revId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getRevComment() {
-        return revComment;
+    public String getComment() {
+        return comment;
     }
 
-    public void setRevComment(String revComment) {
-        this.revComment = revComment;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public BigDecimal getRevStar() {
-        return revStar;
+    public BigDecimal getStars() {
+        return stars;
     }
 
-    public void setRevStar(BigDecimal revStar) {
-        this.revStar = revStar;
+    public void setStars(BigDecimal stars) {
+        this.stars = stars;
     }
 
-    public Date getRevCreatedAt() {
-        return revCreatedAt;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setRevCreatedAt(Date revCreatedAt) {
-        this.revCreatedAt = revCreatedAt;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Users getRevUsrId() {
-        return revUsrId;
+    public Users getUserObj() {
+        return userObj;
     }
 
-    public void setRevUsrId(Users revUsrId) {
-        this.revUsrId = revUsrId;
+    public void setUserObj(Users userObj) {
+        this.userObj = userObj;
     }
 
-    public OrderItems getRevOrdItemId() {
-        return revOrdItemId;
+    public OrderItems getOrderItemObj() {
+        return orderItemObj;
     }
 
-    public void setRevOrdItemId(OrderItems revOrdItemId) {
-        this.revOrdItemId = revOrdItemId;
+    public void setOrderItemObj(OrderItems orderItemObj) {
+        this.orderItemObj = orderItemObj;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (revId != null ? revId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -142,7 +142,7 @@ public class Reviews implements Serializable {
             return false;
         }
         Reviews other = (Reviews) object;
-        if ((this.revId == null && other.revId != null) || (this.revId != null && !this.revId.equals(other.revId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -150,7 +150,7 @@ public class Reviews implements Serializable {
 
     @Override
     public String toString() {
-        return "models.orders.Reviews[ revId=" + revId + " ]";
+        return "models.orders.Reviews[ revId=" + id + " ]";
     }
     
 }

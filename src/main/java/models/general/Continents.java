@@ -3,21 +3,9 @@ package models.general;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import javax.xml.bind.annotation.*;
 
 @Entity
 @Table(name = "continents")
@@ -31,19 +19,19 @@ public class Continents implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "con_id")
-    private Short conId;
+    private Short id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "con_code")
-    private String conCode;
+    private String code;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 35)
     @Column(name = "con_title")
-    private String conTitle;
+    private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ctrContinentId", fetch = FetchType.LAZY)
     private Collection<Countries> countriesCollection;
@@ -52,37 +40,37 @@ public class Continents implements Serializable {
     }
 
     public Continents(Short conId) {
-        this.conId = conId;
+        this.id = conId;
     }
 
     public Continents(Short conId, String conCode, String conTitle) {
-        this.conId = conId;
-        this.conCode = conCode;
-        this.conTitle = conTitle;
+        this.id = conId;
+        this.code = conCode;
+        this.title = conTitle;
     }
 
-    public Short getConId() {
-        return conId;
+    public Short getId() {
+        return id;
     }
 
-    public void setConId(Short conId) {
-        this.conId = conId;
+    public void setId(Short id) {
+        this.id = id;
     }
 
-    public String getConCode() {
-        return conCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setConCode(String conCode) {
-        this.conCode = conCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getConTitle() {
-        return conTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setConTitle(String conTitle) {
-        this.conTitle = conTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @XmlTransient
@@ -97,7 +85,7 @@ public class Continents implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (conId != null ? conId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -108,7 +96,7 @@ public class Continents implements Serializable {
             return false;
         }
         Continents other = (Continents) object;
-        if ((this.conId == null && other.conId != null) || (this.conId != null && !this.conId.equals(other.conId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -116,7 +104,7 @@ public class Continents implements Serializable {
 
     @Override
     public String toString() {
-        return "models.general.Continents[ conId=" + conId + " ]";
+        return "models.general.Continents[ conId=" + id + " ]";
     }
     
 }

@@ -39,19 +39,18 @@ public class Currencies implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "cur_id")
-    private Short curId;
+    private Short id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "cur_code")
-    private String curCode;
-
+    private String code;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "cur_rate")
-    private BigDecimal curRate;
+    private BigDecimal rate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lisCurrencyId", fetch = FetchType.LAZY)
     private Collection<Listings> listingsCollection;
@@ -69,37 +68,37 @@ public class Currencies implements Serializable {
     }
 
     public Currencies(Short curId) {
-        this.curId = curId;
+        this.id = curId;
     }
 
     public Currencies(Short curId, String curCode, BigDecimal curRate) {
-        this.curId = curId;
-        this.curCode = curCode;
-        this.curRate = curRate;
+        this.id = curId;
+        this.code = curCode;
+        this.rate = curRate;
     }
 
-    public Short getCurId() {
-        return curId;
+    public Short getId() {
+        return id;
     }
 
-    public void setCurId(Short curId) {
-        this.curId = curId;
+    public void setId(Short id) {
+        this.id = id;
     }
 
-    public String getCurCode() {
-        return curCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setCurCode(String curCode) {
-        this.curCode = curCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public BigDecimal getCurRate() {
-        return curRate;
+    public BigDecimal getRate() {
+        return rate;
     }
 
-    public void setCurRate(BigDecimal curRate) {
-        this.curRate = curRate;
+    public void setRate(BigDecimal rate) {
+        this.rate = rate;
     }
 
     @XmlTransient
@@ -141,7 +140,7 @@ public class Currencies implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (curId != null ? curId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -152,7 +151,7 @@ public class Currencies implements Serializable {
             return false;
         }
         Currencies other = (Currencies) object;
-        if ((this.curId == null && other.curId != null) || (this.curId != null && !this.curId.equals(other.curId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -160,7 +159,7 @@ public class Currencies implements Serializable {
 
     @Override
     public String toString() {
-        return "models.general.Currencies[ curId=" + curId + " ]";
+        return "models.general.Currencies[ curId=" + id + " ]";
     }
     
 }

@@ -31,69 +31,69 @@ public class SellerReviewsCategoriesEval implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "srce_id")
-    private Integer srceId;
+    private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "srce_rating")
-    private BigDecimal srceRating;
+    private BigDecimal rating;
 
     @JoinColumn(name = "srce_category_id", referencedColumnName = "swrc_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private SellerReviewCategories srceCategoryId;
+    private SellerReviewCategories categoryObj;
 
     @JoinColumn(name = "srce_review_id", referencedColumnName = "srw_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private SellerReviews srceReviewId;
+    private SellerReviews reviewObj;
 
     public SellerReviewsCategoriesEval() {
     }
 
     public SellerReviewsCategoriesEval(Integer srceId) {
-        this.srceId = srceId;
+        this.id = srceId;
     }
 
     public SellerReviewsCategoriesEval(Integer srceId, BigDecimal srceRating) {
-        this.srceId = srceId;
-        this.srceRating = srceRating;
+        this.id = srceId;
+        this.rating = srceRating;
     }
 
-    public Integer getSrceId() {
-        return srceId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSrceId(Integer srceId) {
-        this.srceId = srceId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public BigDecimal getSrceRating() {
-        return srceRating;
+    public BigDecimal getRating() {
+        return rating;
     }
 
-    public void setSrceRating(BigDecimal srceRating) {
-        this.srceRating = srceRating;
+    public void setRating(BigDecimal rating) {
+        this.rating = rating;
     }
 
-    public SellerReviewCategories getSrceCategoryId() {
-        return srceCategoryId;
+    public SellerReviewCategories getCategoryObj() {
+        return categoryObj;
     }
 
-    public void setSrceCategoryId(SellerReviewCategories srceCategoryId) {
-        this.srceCategoryId = srceCategoryId;
+    public void setCategoryObj(SellerReviewCategories categoryObj) {
+        this.categoryObj = categoryObj;
     }
 
-    public SellerReviews getSrceReviewId() {
-        return srceReviewId;
+    public SellerReviews getReviewObj() {
+        return reviewObj;
     }
 
-    public void setSrceReviewId(SellerReviews srceReviewId) {
-        this.srceReviewId = srceReviewId;
+    public void setReviewObj(SellerReviews reviewObj) {
+        this.reviewObj = reviewObj;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (srceId != null ? srceId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -104,7 +104,7 @@ public class SellerReviewsCategoriesEval implements Serializable {
             return false;
         }
         SellerReviewsCategoriesEval other = (SellerReviewsCategoriesEval) object;
-        if ((this.srceId == null && other.srceId != null) || (this.srceId != null && !this.srceId.equals(other.srceId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -112,7 +112,7 @@ public class SellerReviewsCategoriesEval implements Serializable {
 
     @Override
     public String toString() {
-        return "models.sellers.SellerReviewsCategoriesEval[ srceId=" + srceId + " ]";
+        return "models.sellers.SellerReviewsCategoriesEval[ srceId=" + id + " ]";
     }
     
 }

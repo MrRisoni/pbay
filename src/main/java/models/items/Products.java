@@ -38,35 +38,35 @@ public class Products implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "prod_id")
-    private Integer prodId;
+    private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "prod_title")
-    private String prodTitle;
+    private String title;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "prod_other_title")
-    private String prodOtherTitle;
+    private String otherTitle;
 
     @Basic(optional = false)
     @NotNull
     @Lob
     @Size(min = 1, max = 65535)
     @Column(name = "prod_descr")
-    private String prodDescr;
+    private String description;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "prod_preowned")
-    private short prodPreowned;
+    private short isPreOwned;
 
     @JoinColumn(name = "prod_category_id", referencedColumnName = "cat_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private ProductsCategories prodCategoryId;
+    private ProductsCategories categoryObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pfvProductId", fetch = FetchType.LAZY)
     private Collection<ProductsFilterValues> productsFilterValuesCollection;
@@ -78,63 +78,63 @@ public class Products implements Serializable {
     }
 
     public Products(Integer prodId) {
-        this.prodId = prodId;
+        this.id = prodId;
     }
 
     public Products(Integer prodId, String prodTitle, String prodOtherTitle, String prodDescr, short prodPreowned) {
-        this.prodId = prodId;
-        this.prodTitle = prodTitle;
-        this.prodOtherTitle = prodOtherTitle;
-        this.prodDescr = prodDescr;
-        this.prodPreowned = prodPreowned;
+        this.id = prodId;
+        this.title = prodTitle;
+        this.otherTitle = prodOtherTitle;
+        this.description = prodDescr;
+        this.isPreOwned = prodPreowned;
     }
 
-    public Integer getProdId() {
-        return prodId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setProdId(Integer prodId) {
-        this.prodId = prodId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getProdTitle() {
-        return prodTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setProdTitle(String prodTitle) {
-        this.prodTitle = prodTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getProdOtherTitle() {
-        return prodOtherTitle;
+    public String getOtherTitle() {
+        return otherTitle;
     }
 
-    public void setProdOtherTitle(String prodOtherTitle) {
-        this.prodOtherTitle = prodOtherTitle;
+    public void setOtherTitle(String otherTitle) {
+        this.otherTitle = otherTitle;
     }
 
-    public String getProdDescr() {
-        return prodDescr;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProdDescr(String prodDescr) {
-        this.prodDescr = prodDescr;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public short getProdPreowned() {
-        return prodPreowned;
+    public short getIsPreOwned() {
+        return isPreOwned;
     }
 
-    public void setProdPreowned(short prodPreowned) {
-        this.prodPreowned = prodPreowned;
+    public void setIsPreOwned(short isPreOwned) {
+        this.isPreOwned = isPreOwned;
     }
 
-    public ProductsCategories getProdCategoryId() {
-        return prodCategoryId;
+    public ProductsCategories getCategoryObj() {
+        return categoryObj;
     }
 
-    public void setProdCategoryId(ProductsCategories prodCategoryId) {
-        this.prodCategoryId = prodCategoryId;
+    public void setCategoryObj(ProductsCategories categoryObj) {
+        this.categoryObj = categoryObj;
     }
 
     @XmlTransient
@@ -158,7 +158,7 @@ public class Products implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (prodId != null ? prodId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -169,7 +169,7 @@ public class Products implements Serializable {
             return false;
         }
         Products other = (Products) object;
-        if ((this.prodId == null && other.prodId != null) || (this.prodId != null && !this.prodId.equals(other.prodId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -177,7 +177,7 @@ public class Products implements Serializable {
 
     @Override
     public String toString() {
-        return "models.items.Products[ prodId=" + prodId + " ]";
+        return "models.items.Products[ prodId=" + id + " ]";
     }
     
 }

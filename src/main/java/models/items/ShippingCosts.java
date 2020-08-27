@@ -34,72 +34,72 @@ public class ShippingCosts implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "shc_id")
-    private Integer shcId;
+    private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "shc_continent_code")
-    private String shcContinentCode;
+    private String continentCode;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "shc_cost")
-    private BigDecimal shcCost;
+    private BigDecimal cost;
 
     @JoinColumn(name = "shc_selling_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Selling shcSellingId;
+    private Selling sellingObj;
 
     public ShippingCosts() {
     }
 
     public ShippingCosts(Integer shcId) {
-        this.shcId = shcId;
+        this.id = shcId;
     }
 
     public ShippingCosts(Integer shcId, String shcContinentCode, BigDecimal shcCost) {
-        this.shcId = shcId;
-        this.shcContinentCode = shcContinentCode;
-        this.shcCost = shcCost;
+        this.id = shcId;
+        this.continentCode = shcContinentCode;
+        this.cost = shcCost;
     }
 
-    public Integer getShcId() {
-        return shcId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setShcId(Integer shcId) {
-        this.shcId = shcId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getShcContinentCode() {
-        return shcContinentCode;
+    public String getContinentCode() {
+        return continentCode;
     }
 
-    public void setShcContinentCode(String shcContinentCode) {
-        this.shcContinentCode = shcContinentCode;
+    public void setContinentCode(String continentCode) {
+        this.continentCode = continentCode;
     }
 
-    public BigDecimal getShcCost() {
-        return shcCost;
+    public BigDecimal getCost() {
+        return cost;
     }
 
-    public void setShcCost(BigDecimal shcCost) {
-        this.shcCost = shcCost;
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
     }
 
-    public Selling getShcSellingId() {
-        return shcSellingId;
+    public Selling getSellingObj() {
+        return sellingObj;
     }
 
-    public void setShcSellingId(Selling shcSellingId) {
-        this.shcSellingId = shcSellingId;
+    public void setSellingObj(Selling sellingObj) {
+        this.sellingObj = sellingObj;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (shcId != null ? shcId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -110,7 +110,7 @@ public class ShippingCosts implements Serializable {
             return false;
         }
         ShippingCosts other = (ShippingCosts) object;
-        if ((this.shcId == null && other.shcId != null) || (this.shcId != null && !this.shcId.equals(other.shcId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -118,7 +118,7 @@ public class ShippingCosts implements Serializable {
 
     @Override
     public String toString() {
-        return "models.items.ShippingCosts[ shcId=" + shcId + " ]";
+        return "models.items.ShippingCosts[ shcId=" + id + " ]";
     }
     
 }

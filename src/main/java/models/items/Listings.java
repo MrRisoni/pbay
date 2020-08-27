@@ -42,48 +42,47 @@ public class Listings implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "lis_id")
-    private Long lisId;
-
+    private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_price")
-    private BigDecimal lisPrice;
+    private BigDecimal price;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_fee_eur")
+    private BigDecimal feeEuro;
 
-    private BigDecimal lisFeeEur;
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_from")
     @Temporal(TemporalType.DATE)
-    private Date lisFrom;
+    private Date activeFrom;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_to")
     @Temporal(TemporalType.DATE)
-    private Date lisTo;
+    private Date activeUntil;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_watching")
-    private short lisWatching;
+    private short numWatchers;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_is_auction")
-    private short lisIsAuction;
+    private short isAuction;
 
     @JoinColumn(name = "lis_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Currencies lisCurrencyId;
+    private Currencies currencyObj;
 
     @JoinColumn(name = "lis_selling_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Selling lisSellingId;
+    private Selling sellingObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bidListingId", fetch = FetchType.LAZY)
     private Collection<Biddings> biddingsCollection;
@@ -92,89 +91,89 @@ public class Listings implements Serializable {
     }
 
     public Listings(Long lisId) {
-        this.lisId = lisId;
+        this.id = lisId;
     }
 
     public Listings(Long lisId, BigDecimal lisPrice, BigDecimal lisFeeEur, Date lisFrom, Date lisTo, short lisWatching, short lisIsAuction) {
-        this.lisId = lisId;
-        this.lisPrice = lisPrice;
-        this.lisFeeEur = lisFeeEur;
-        this.lisFrom = lisFrom;
-        this.lisTo = lisTo;
-        this.lisWatching = lisWatching;
-        this.lisIsAuction = lisIsAuction;
+        this.id = lisId;
+        this.price = lisPrice;
+        this.feeEuro = lisFeeEur;
+        this.activeFrom = lisFrom;
+        this.activeUntil = lisTo;
+        this.numWatchers = lisWatching;
+        this.isAuction = lisIsAuction;
     }
 
-    public Long getLisId() {
-        return lisId;
+    public Long getId() {
+        return id;
     }
 
-    public void setLisId(Long lisId) {
-        this.lisId = lisId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public BigDecimal getLisPrice() {
-        return lisPrice;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setLisPrice(BigDecimal lisPrice) {
-        this.lisPrice = lisPrice;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public BigDecimal getLisFeeEur() {
-        return lisFeeEur;
+    public BigDecimal getFeeEuro() {
+        return feeEuro;
     }
 
-    public void setLisFeeEur(BigDecimal lisFeeEur) {
-        this.lisFeeEur = lisFeeEur;
+    public void setFeeEuro(BigDecimal feeEuro) {
+        this.feeEuro = feeEuro;
     }
 
-    public Date getLisFrom() {
-        return lisFrom;
+    public Date getActiveFrom() {
+        return activeFrom;
     }
 
-    public void setLisFrom(Date lisFrom) {
-        this.lisFrom = lisFrom;
+    public void setActiveFrom(Date activeFrom) {
+        this.activeFrom = activeFrom;
     }
 
-    public Date getLisTo() {
-        return lisTo;
+    public Date getActiveUntil() {
+        return activeUntil;
     }
 
-    public void setLisTo(Date lisTo) {
-        this.lisTo = lisTo;
+    public void setActiveUntil(Date activeUntil) {
+        this.activeUntil = activeUntil;
     }
 
-    public short getLisWatching() {
-        return lisWatching;
+    public short getNumWatchers() {
+        return numWatchers;
     }
 
-    public void setLisWatching(short lisWatching) {
-        this.lisWatching = lisWatching;
+    public void setNumWatchers(short numWatchers) {
+        this.numWatchers = numWatchers;
     }
 
-    public short getLisIsAuction() {
-        return lisIsAuction;
+    public short getIsAuction() {
+        return isAuction;
     }
 
-    public void setLisIsAuction(short lisIsAuction) {
-        this.lisIsAuction = lisIsAuction;
+    public void setIsAuction(short isAuction) {
+        this.isAuction = isAuction;
     }
 
-    public Currencies getLisCurrencyId() {
-        return lisCurrencyId;
+    public Currencies getCurrencyObj() {
+        return currencyObj;
     }
 
-    public void setLisCurrencyId(Currencies lisCurrencyId) {
-        this.lisCurrencyId = lisCurrencyId;
+    public void setCurrencyObj(Currencies currencyObj) {
+        this.currencyObj = currencyObj;
     }
 
-    public Selling getLisSellingId() {
-        return lisSellingId;
+    public Selling getSellingObj() {
+        return sellingObj;
     }
 
-    public void setLisSellingId(Selling lisSellingId) {
-        this.lisSellingId = lisSellingId;
+    public void setSellingObj(Selling sellingObj) {
+        this.sellingObj = sellingObj;
     }
 
     @XmlTransient
@@ -189,7 +188,7 @@ public class Listings implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (lisId != null ? lisId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -200,7 +199,7 @@ public class Listings implements Serializable {
             return false;
         }
         Listings other = (Listings) object;
-        if ((this.lisId == null && other.lisId != null) || (this.lisId != null && !this.lisId.equals(other.lisId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -208,7 +207,7 @@ public class Listings implements Serializable {
 
     @Override
     public String toString() {
-        return "models.items.Listings[ lisId=" + lisId + " ]";
+        return "models.items.Listings[ lisId=" + id + " ]";
     }
     
 }

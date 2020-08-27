@@ -56,39 +56,39 @@ public class BillingAddresses implements Serializable {
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "bla_street")
-    private String blaStreet;
+    private String streetNam;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
     @Column(name = "bla_street_no")
-    private String blaStreetNo;
+    private String streetNo;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 9)
     @Column(name = "bla_code")
-    private String blaCode;
+    private String code;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "bla_surname")
-    private String blaSurname;
+    private String surname;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "bla_name")
-    private String blaName;
+    private String name;
 
     @JoinColumn(name = "bla_country_id", referencedColumnName = "ctr_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Countries blaCountryId;
+    private Countries countryObj;
 
     @JoinColumn(name = "bla_user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Users blaUserId;
+    private Users userObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordBilladdressId", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
@@ -104,11 +104,11 @@ public class BillingAddresses implements Serializable {
         this.blaId = blaId;
         this.blaCity = blaCity;
         this.blaRegion = blaRegion;
-        this.blaStreet = blaStreet;
-        this.blaStreetNo = blaStreetNo;
-        this.blaCode = blaCode;
-        this.blaSurname = blaSurname;
-        this.blaName = blaName;
+        this.streetNam = blaStreet;
+        this.streetNo = blaStreetNo;
+        this.code = blaCode;
+        this.surname = blaSurname;
+        this.name = blaName;
     }
 
     public Long getBlaId() {
@@ -135,60 +135,60 @@ public class BillingAddresses implements Serializable {
         this.blaRegion = blaRegion;
     }
 
-    public String getBlaStreet() {
-        return blaStreet;
+    public String getStreetNam() {
+        return streetNam;
     }
 
-    public void setBlaStreet(String blaStreet) {
-        this.blaStreet = blaStreet;
+    public void setStreetNam(String streetNam) {
+        this.streetNam = streetNam;
     }
 
-    public String getBlaStreetNo() {
-        return blaStreetNo;
+    public String getStreetNo() {
+        return streetNo;
     }
 
-    public void setBlaStreetNo(String blaStreetNo) {
-        this.blaStreetNo = blaStreetNo;
+    public void setStreetNo(String streetNo) {
+        this.streetNo = streetNo;
     }
 
-    public String getBlaCode() {
-        return blaCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setBlaCode(String blaCode) {
-        this.blaCode = blaCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getBlaSurname() {
-        return blaSurname;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setBlaSurname(String blaSurname) {
-        this.blaSurname = blaSurname;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public String getBlaName() {
-        return blaName;
+    public String getName() {
+        return name;
     }
 
-    public void setBlaName(String blaName) {
-        this.blaName = blaName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Countries getBlaCountryId() {
-        return blaCountryId;
+    public Countries getCountryObj() {
+        return countryObj;
     }
 
-    public void setBlaCountryId(Countries blaCountryId) {
-        this.blaCountryId = blaCountryId;
+    public void setCountryObj(Countries countryObj) {
+        this.countryObj = countryObj;
     }
 
-    public Users getBlaUserId() {
-        return blaUserId;
+    public Users getUserObj() {
+        return userObj;
     }
 
-    public void setBlaUserId(Users blaUserId) {
-        this.blaUserId = blaUserId;
+    public void setUserObj(Users userObj) {
+        this.userObj = userObj;
     }
 
     @XmlTransient

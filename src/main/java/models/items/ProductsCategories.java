@@ -33,13 +33,13 @@ public class ProductsCategories implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "cat_id")
-    private Integer catId;
+    private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "cat_title")
-    private String catTitle;
+    private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "filProductCategory", fetch = FetchType.LAZY)
     private Collection<ProductsFilters> productsFiltersCollection;
@@ -51,28 +51,28 @@ public class ProductsCategories implements Serializable {
     }
 
     public ProductsCategories(Integer catId) {
-        this.catId = catId;
+        this.id = catId;
     }
 
     public ProductsCategories(Integer catId, String catTitle) {
-        this.catId = catId;
-        this.catTitle = catTitle;
+        this.id = catId;
+        this.title = catTitle;
     }
 
-    public Integer getCatId() {
-        return catId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCatId(Integer catId) {
-        this.catId = catId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getCatTitle() {
-        return catTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCatTitle(String catTitle) {
-        this.catTitle = catTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @XmlTransient
@@ -96,7 +96,7 @@ public class ProductsCategories implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (catId != null ? catId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -107,7 +107,7 @@ public class ProductsCategories implements Serializable {
             return false;
         }
         ProductsCategories other = (ProductsCategories) object;
-        if ((this.catId == null && other.catId != null) || (this.catId != null && !this.catId.equals(other.catId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -115,7 +115,7 @@ public class ProductsCategories implements Serializable {
 
     @Override
     public String toString() {
-        return "models.items.ProductsCategories[ catId=" + catId + " ]";
+        return "models.items.ProductsCategories[ catId=" + id + " ]";
     }
     
 }

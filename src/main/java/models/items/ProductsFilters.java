@@ -35,17 +35,17 @@ public class ProductsFilters implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "fil_id")
-    private Integer filId;
+    private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "fil_title")
-    private String filTitle;
+    private String title;
 
     @JoinColumn(name = "fil_product_category", referencedColumnName = "cat_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private ProductsCategories filProductCategory;
+    private ProductsCategories categoryObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pfvFilterId", fetch = FetchType.LAZY)
     private Collection<ProductsFilterValues> productsFilterValuesCollection;
@@ -54,36 +54,36 @@ public class ProductsFilters implements Serializable {
     }
 
     public ProductsFilters(Integer filId) {
-        this.filId = filId;
+        this.id = filId;
     }
 
     public ProductsFilters(Integer filId, String filTitle) {
-        this.filId = filId;
-        this.filTitle = filTitle;
+        this.id = filId;
+        this.title = filTitle;
     }
 
-    public Integer getFilId() {
-        return filId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setFilId(Integer filId) {
-        this.filId = filId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getFilTitle() {
-        return filTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setFilTitle(String filTitle) {
-        this.filTitle = filTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public ProductsCategories getFilProductCategory() {
-        return filProductCategory;
+    public ProductsCategories getCategoryObj() {
+        return categoryObj;
     }
 
-    public void setFilProductCategory(ProductsCategories filProductCategory) {
-        this.filProductCategory = filProductCategory;
+    public void setCategoryObj(ProductsCategories categoryObj) {
+        this.categoryObj = categoryObj;
     }
 
     @XmlTransient
@@ -98,7 +98,7 @@ public class ProductsFilters implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (filId != null ? filId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -109,7 +109,7 @@ public class ProductsFilters implements Serializable {
             return false;
         }
         ProductsFilters other = (ProductsFilters) object;
-        if ((this.filId == null && other.filId != null) || (this.filId != null && !this.filId.equals(other.filId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -117,7 +117,7 @@ public class ProductsFilters implements Serializable {
 
     @Override
     public String toString() {
-        return "models.items.ProductsFilters[ filId=" + filId + " ]";
+        return "models.items.ProductsFilters[ filId=" + id + " ]";
     }
     
 }

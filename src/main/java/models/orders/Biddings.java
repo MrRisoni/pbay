@@ -38,7 +38,7 @@ public class Biddings implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "bid_id")
-    private Integer bidId;
+    private Integer id;
 
     @Basic(optional = false)
     @NotNull
@@ -54,46 +54,46 @@ public class Biddings implements Serializable {
     @NotNull
     @Column(name = "bid_created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date bidCreatedAt;
+    private Date createdAt;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "bid_active")
-    private short bidActive;
+    private short isActive;
 
     @JoinColumn(name = "bid_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Currencies bidCurrencyId;
+    private Currencies currencyObj;
 
     @JoinColumn(name = "bid_listing_id", referencedColumnName = "lis_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Listings bidListingId;
+    private Listings listingObj;
 
     @JoinColumn(name = "bid_user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Users bidUserId;
+    private Users userObj;
 
     public Biddings() {
     }
 
     public Biddings(Integer bidId) {
-        this.bidId = bidId;
+        this.id = bidId;
     }
 
     public Biddings(Integer bidId, BigDecimal bidPrice, BigDecimal bidPriceEur, Date bidCreatedAt, short bidActive) {
-        this.bidId = bidId;
+        this.id = bidId;
         this.bidPrice = bidPrice;
         this.bidPriceEur = bidPriceEur;
-        this.bidCreatedAt = bidCreatedAt;
-        this.bidActive = bidActive;
+        this.createdAt = bidCreatedAt;
+        this.isActive = bidActive;
     }
 
-    public Integer getBidId() {
-        return bidId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setBidId(Integer bidId) {
-        this.bidId = bidId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public BigDecimal getBidPrice() {
@@ -112,50 +112,50 @@ public class Biddings implements Serializable {
         this.bidPriceEur = bidPriceEur;
     }
 
-    public Date getBidCreatedAt() {
-        return bidCreatedAt;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setBidCreatedAt(Date bidCreatedAt) {
-        this.bidCreatedAt = bidCreatedAt;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public short getBidActive() {
-        return bidActive;
+    public short getIsActive() {
+        return isActive;
     }
 
-    public void setBidActive(short bidActive) {
-        this.bidActive = bidActive;
+    public void setIsActive(short isActive) {
+        this.isActive = isActive;
     }
 
-    public Currencies getBidCurrencyId() {
-        return bidCurrencyId;
+    public Currencies getCurrencyObj() {
+        return currencyObj;
     }
 
-    public void setBidCurrencyId(Currencies bidCurrencyId) {
-        this.bidCurrencyId = bidCurrencyId;
+    public void setCurrencyObj(Currencies currencyObj) {
+        this.currencyObj = currencyObj;
     }
 
-    public Listings getBidListingId() {
-        return bidListingId;
+    public Listings getListingObj() {
+        return listingObj;
     }
 
-    public void setBidListingId(Listings bidListingId) {
-        this.bidListingId = bidListingId;
+    public void setListingObj(Listings listingObj) {
+        this.listingObj = listingObj;
     }
 
-    public Users getBidUserId() {
-        return bidUserId;
+    public Users getUserObj() {
+        return userObj;
     }
 
-    public void setBidUserId(Users bidUserId) {
-        this.bidUserId = bidUserId;
+    public void setUserObj(Users userObj) {
+        this.userObj = userObj;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (bidId != null ? bidId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -166,7 +166,7 @@ public class Biddings implements Serializable {
             return false;
         }
         Biddings other = (Biddings) object;
-        if ((this.bidId == null && other.bidId != null) || (this.bidId != null && !this.bidId.equals(other.bidId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -174,7 +174,7 @@ public class Biddings implements Serializable {
 
     @Override
     public String toString() {
-        return "models.orders.Biddings[ bidId=" + bidId + " ]";
+        return "models.orders.Biddings[ bidId=" + id + " ]";
     }
     
 }

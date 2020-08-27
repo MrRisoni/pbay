@@ -35,13 +35,13 @@ public class Paymethods implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "pm_id")
-    private Short pmId;
+    private Short id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "pm_title")
-    private String pmTitle;
+    private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordPaymethodId", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
@@ -50,28 +50,28 @@ public class Paymethods implements Serializable {
     }
 
     public Paymethods(Short pmId) {
-        this.pmId = pmId;
+        this.id = pmId;
     }
 
     public Paymethods(Short pmId, String pmTitle) {
-        this.pmId = pmId;
-        this.pmTitle = pmTitle;
+        this.id = pmId;
+        this.title = pmTitle;
     }
 
-    public Short getPmId() {
-        return pmId;
+    public Short getId() {
+        return id;
     }
 
-    public void setPmId(Short pmId) {
-        this.pmId = pmId;
+    public void setId(Short id) {
+        this.id = id;
     }
 
-    public String getPmTitle() {
-        return pmTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setPmTitle(String pmTitle) {
-        this.pmTitle = pmTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @XmlTransient
@@ -86,7 +86,7 @@ public class Paymethods implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (pmId != null ? pmId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -97,7 +97,7 @@ public class Paymethods implements Serializable {
             return false;
         }
         Paymethods other = (Paymethods) object;
-        if ((this.pmId == null && other.pmId != null) || (this.pmId != null && !this.pmId.equals(other.pmId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -105,7 +105,7 @@ public class Paymethods implements Serializable {
 
     @Override
     public String toString() {
-        return "models.general.Paymethods[ pmId=" + pmId + " ]";
+        return "models.general.Paymethods[ pmId=" + id + " ]";
     }
     
 }

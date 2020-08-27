@@ -46,54 +46,54 @@ public class Orders implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ord_id")
-    private Long ordId;
+    private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "ord_bank_transaction_id")
-    private String ordBankTransactionId;
+    private String bankTransactionId;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_total")
-    private BigDecimal ordTotal;
+    private BigDecimal total;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_goods_total")
-    private BigDecimal ordGoodsTotal;
+    private BigDecimal goodsTotal;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_ship_total")
-    private BigDecimal ordShipTotal;
+    private BigDecimal shipTotal;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_fee")
-    private BigDecimal ordFee;
+    private BigDecimal fee;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_rate")
-    private BigDecimal ordRate;
+    private BigDecimal rate;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_created")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date ordCreated;
+    private Date createdAt;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_success")
-    private short ordSuccess;
+    private short isSuccess;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_void")
-    private short ordVoid;
+    private short isVoid;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "srwOrderId", fetch = FetchType.LAZY)
     private Collection<SellerReviews> sellerReviewsCollection;
@@ -103,122 +103,122 @@ public class Orders implements Serializable {
 
     @JoinColumn(name = "ord_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Currencies ordCurrencyId;
+    private Currencies currencyObj;
 
     @JoinColumn(name = "ord_user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Users ordUserId;
+    private Users userObj;
 
     @JoinColumn(name = "ord_shipaddress_id", referencedColumnName = "shp_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private ShippingAddresses ordShipaddressId;
+    private ShippingAddresses shipAddressObj;
 
     @JoinColumn(name = "ord_billaddress_id", referencedColumnName = "bla_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private BillingAddresses ordBilladdressId;
+    private BillingAddresses billAddressObj;
 
     @JoinColumn(name = "ord_paymethod_id", referencedColumnName = "pm_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Paymethods ordPaymethodId;
+    private Paymethods payMethodObj;
 
     public Orders() {
     }
 
     public Orders(Long ordId) {
-        this.ordId = ordId;
+        this.id = ordId;
     }
 
     public Orders(Long ordId, String ordBankTransactionId, BigDecimal ordTotal, BigDecimal ordGoodsTotal, BigDecimal ordShipTotal, BigDecimal ordFee, BigDecimal ordRate, Date ordCreated, short ordSuccess, short ordVoid) {
-        this.ordId = ordId;
-        this.ordBankTransactionId = ordBankTransactionId;
-        this.ordTotal = ordTotal;
-        this.ordGoodsTotal = ordGoodsTotal;
-        this.ordShipTotal = ordShipTotal;
-        this.ordFee = ordFee;
-        this.ordRate = ordRate;
-        this.ordCreated = ordCreated;
-        this.ordSuccess = ordSuccess;
-        this.ordVoid = ordVoid;
+        this.id = ordId;
+        this.bankTransactionId = ordBankTransactionId;
+        this.total = ordTotal;
+        this.goodsTotal = ordGoodsTotal;
+        this.shipTotal = ordShipTotal;
+        this.fee = ordFee;
+        this.rate = ordRate;
+        this.createdAt = ordCreated;
+        this.isSuccess = ordSuccess;
+        this.isVoid = ordVoid;
     }
 
-    public Long getOrdId() {
-        return ordId;
+    public Long getId() {
+        return id;
     }
 
-    public void setOrdId(Long ordId) {
-        this.ordId = ordId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getOrdBankTransactionId() {
-        return ordBankTransactionId;
+    public String getBankTransactionId() {
+        return bankTransactionId;
     }
 
-    public void setOrdBankTransactionId(String ordBankTransactionId) {
-        this.ordBankTransactionId = ordBankTransactionId;
+    public void setBankTransactionId(String bankTransactionId) {
+        this.bankTransactionId = bankTransactionId;
     }
 
-    public BigDecimal getOrdTotal() {
-        return ordTotal;
+    public BigDecimal getTotal() {
+        return total;
     }
 
-    public void setOrdTotal(BigDecimal ordTotal) {
-        this.ordTotal = ordTotal;
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 
-    public BigDecimal getOrdGoodsTotal() {
-        return ordGoodsTotal;
+    public BigDecimal getGoodsTotal() {
+        return goodsTotal;
     }
 
-    public void setOrdGoodsTotal(BigDecimal ordGoodsTotal) {
-        this.ordGoodsTotal = ordGoodsTotal;
+    public void setGoodsTotal(BigDecimal goodsTotal) {
+        this.goodsTotal = goodsTotal;
     }
 
-    public BigDecimal getOrdShipTotal() {
-        return ordShipTotal;
+    public BigDecimal getShipTotal() {
+        return shipTotal;
     }
 
-    public void setOrdShipTotal(BigDecimal ordShipTotal) {
-        this.ordShipTotal = ordShipTotal;
+    public void setShipTotal(BigDecimal shipTotal) {
+        this.shipTotal = shipTotal;
     }
 
-    public BigDecimal getOrdFee() {
-        return ordFee;
+    public BigDecimal getFee() {
+        return fee;
     }
 
-    public void setOrdFee(BigDecimal ordFee) {
-        this.ordFee = ordFee;
+    public void setFee(BigDecimal fee) {
+        this.fee = fee;
     }
 
-    public BigDecimal getOrdRate() {
-        return ordRate;
+    public BigDecimal getRate() {
+        return rate;
     }
 
-    public void setOrdRate(BigDecimal ordRate) {
-        this.ordRate = ordRate;
+    public void setRate(BigDecimal rate) {
+        this.rate = rate;
     }
 
-    public Date getOrdCreated() {
-        return ordCreated;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setOrdCreated(Date ordCreated) {
-        this.ordCreated = ordCreated;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public short getOrdSuccess() {
-        return ordSuccess;
+    public short getIsSuccess() {
+        return isSuccess;
     }
 
-    public void setOrdSuccess(short ordSuccess) {
-        this.ordSuccess = ordSuccess;
+    public void setIsSuccess(short isSuccess) {
+        this.isSuccess = isSuccess;
     }
 
-    public short getOrdVoid() {
-        return ordVoid;
+    public short getIsVoid() {
+        return isVoid;
     }
 
-    public void setOrdVoid(short ordVoid) {
-        this.ordVoid = ordVoid;
+    public void setIsVoid(short isVoid) {
+        this.isVoid = isVoid;
     }
 
     @XmlTransient
@@ -239,50 +239,50 @@ public class Orders implements Serializable {
         this.orderItemsCollection = orderItemsCollection;
     }
 
-    public Currencies getOrdCurrencyId() {
-        return ordCurrencyId;
+    public Currencies getCurrencyObj() {
+        return currencyObj;
     }
 
-    public void setOrdCurrencyId(Currencies ordCurrencyId) {
-        this.ordCurrencyId = ordCurrencyId;
+    public void setCurrencyObj(Currencies currencyObj) {
+        this.currencyObj = currencyObj;
     }
 
-    public Users getOrdUserId() {
-        return ordUserId;
+    public Users getUserObj() {
+        return userObj;
     }
 
-    public void setOrdUserId(Users ordUserId) {
-        this.ordUserId = ordUserId;
+    public void setUserObj(Users userObj) {
+        this.userObj = userObj;
     }
 
-    public ShippingAddresses getOrdShipaddressId() {
-        return ordShipaddressId;
+    public ShippingAddresses getShipAddressObj() {
+        return shipAddressObj;
     }
 
-    public void setOrdShipaddressId(ShippingAddresses ordShipaddressId) {
-        this.ordShipaddressId = ordShipaddressId;
+    public void setShipAddressObj(ShippingAddresses shipAddressObj) {
+        this.shipAddressObj = shipAddressObj;
     }
 
-    public BillingAddresses getOrdBilladdressId() {
-        return ordBilladdressId;
+    public BillingAddresses getBillAddressObj() {
+        return billAddressObj;
     }
 
-    public void setOrdBilladdressId(BillingAddresses ordBilladdressId) {
-        this.ordBilladdressId = ordBilladdressId;
+    public void setBillAddressObj(BillingAddresses billAddressObj) {
+        this.billAddressObj = billAddressObj;
     }
 
-    public Paymethods getOrdPaymethodId() {
-        return ordPaymethodId;
+    public Paymethods getPayMethodObj() {
+        return payMethodObj;
     }
 
-    public void setOrdPaymethodId(Paymethods ordPaymethodId) {
-        this.ordPaymethodId = ordPaymethodId;
+    public void setPayMethodObj(Paymethods payMethodObj) {
+        this.payMethodObj = payMethodObj;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (ordId != null ? ordId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -293,7 +293,7 @@ public class Orders implements Serializable {
             return false;
         }
         Orders other = (Orders) object;
-        if ((this.ordId == null && other.ordId != null) || (this.ordId != null && !this.ordId.equals(other.ordId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -301,7 +301,7 @@ public class Orders implements Serializable {
 
     @Override
     public String toString() {
-        return "models.orders.Orders[ ordId=" + ordId + " ]";
+        return "models.orders.Orders[ ordId=" + id + " ]";
     }
     
 }

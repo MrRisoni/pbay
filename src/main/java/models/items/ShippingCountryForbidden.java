@@ -33,58 +33,58 @@ public class ShippingCountryForbidden implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "shf_id")
-    private Integer shfId;
+    private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "shf_country_code")
-    private String shfCountryCode;
+    private String countryCode;
 
     @JoinColumn(name = "shf_selling_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Selling shfSellingId;
+    private Selling sellingObj;
 
     public ShippingCountryForbidden() {
     }
 
     public ShippingCountryForbidden(Integer shfId) {
-        this.shfId = shfId;
+        this.id = shfId;
     }
 
     public ShippingCountryForbidden(Integer shfId, String shfCountryCode) {
-        this.shfId = shfId;
-        this.shfCountryCode = shfCountryCode;
+        this.id = shfId;
+        this.countryCode = shfCountryCode;
     }
 
-    public Integer getShfId() {
-        return shfId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setShfId(Integer shfId) {
-        this.shfId = shfId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getShfCountryCode() {
-        return shfCountryCode;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setShfCountryCode(String shfCountryCode) {
-        this.shfCountryCode = shfCountryCode;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
-    public Selling getShfSellingId() {
-        return shfSellingId;
+    public Selling getSellingObj() {
+        return sellingObj;
     }
 
-    public void setShfSellingId(Selling shfSellingId) {
-        this.shfSellingId = shfSellingId;
+    public void setSellingObj(Selling sellingObj) {
+        this.sellingObj = sellingObj;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (shfId != null ? shfId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -95,7 +95,7 @@ public class ShippingCountryForbidden implements Serializable {
             return false;
         }
         ShippingCountryForbidden other = (ShippingCountryForbidden) object;
-        if ((this.shfId == null && other.shfId != null) || (this.shfId != null && !this.shfId.equals(other.shfId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -103,7 +103,7 @@ public class ShippingCountryForbidden implements Serializable {
 
     @Override
     public String toString() {
-        return "models.items.ShippingCountryForbidden[ shfId=" + shfId + " ]";
+        return "models.items.ShippingCountryForbidden[ shfId=" + id + " ]";
     }
     
 }

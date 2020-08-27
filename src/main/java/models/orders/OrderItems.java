@@ -40,61 +40,61 @@ public class OrderItems implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "itm_id")
-    private Long itmId;
+    private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_quantity")
-    private short itmQuantity;
+    private short quantity;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 225)
     @Column(name = "itm_tracking_nums")
-    private String itmTrackingNums;
+    private String trackingNums;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_total")
-    private BigDecimal itmTotal;
+    private BigDecimal total;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_goods_total")
-    private BigDecimal itmGoodsTotal;
+    private BigDecimal goodsTotal;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_ship_total")
-    private BigDecimal itmShipTotal;
+    private BigDecimal shipTotal;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_void")
-    private short itmVoid;
+    private short isVoid;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "revOrdItemId", fetch = FetchType.LAZY)
     private Collection<Reviews> reviewsCollection;
 
     @JoinColumn(name = "itm_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Currencies itmCurrencyId;
+    private Currencies currencyObj;
 
     @JoinColumn(name = "itm_order_id", referencedColumnName = "ord_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Orders itmOrderId;
+    private Orders orderObj;
 
     @JoinColumn(name = "itm_product_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Selling itmProductId;
+    private Selling productObj;
 
     @JoinColumn(name = "itm_seller_id", referencedColumnName = "sel_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Sellers itmSellerId;
+    private Sellers sellberObj;
 
     @JoinColumn(name = "itm_status_id", referencedColumnName = "stat_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private OrderStatuses itmStatusId;
+    private OrderStatuses statusObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmhItemId", fetch = FetchType.LAZY)
     private Collection<OrderItemTrackHistory> orderItemTrackHistoryCollection;
@@ -103,73 +103,73 @@ public class OrderItems implements Serializable {
     }
 
     public OrderItems(Long itmId) {
-        this.itmId = itmId;
+        this.id = itmId;
     }
 
     public OrderItems(Long itmId, short itmQuantity, String itmTrackingNums, BigDecimal itmTotal, BigDecimal itmGoodsTotal, BigDecimal itmShipTotal, short itmVoid) {
-        this.itmId = itmId;
-        this.itmQuantity = itmQuantity;
-        this.itmTrackingNums = itmTrackingNums;
-        this.itmTotal = itmTotal;
-        this.itmGoodsTotal = itmGoodsTotal;
-        this.itmShipTotal = itmShipTotal;
-        this.itmVoid = itmVoid;
+        this.id = itmId;
+        this.quantity = itmQuantity;
+        this.trackingNums = itmTrackingNums;
+        this.total = itmTotal;
+        this.goodsTotal = itmGoodsTotal;
+        this.shipTotal = itmShipTotal;
+        this.isVoid = itmVoid;
     }
 
-    public Long getItmId() {
-        return itmId;
+    public Long getId() {
+        return id;
     }
 
-    public void setItmId(Long itmId) {
-        this.itmId = itmId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public short getItmQuantity() {
-        return itmQuantity;
+    public short getQuantity() {
+        return quantity;
     }
 
-    public void setItmQuantity(short itmQuantity) {
-        this.itmQuantity = itmQuantity;
+    public void setQuantity(short quantity) {
+        this.quantity = quantity;
     }
 
-    public String getItmTrackingNums() {
-        return itmTrackingNums;
+    public String getTrackingNums() {
+        return trackingNums;
     }
 
-    public void setItmTrackingNums(String itmTrackingNums) {
-        this.itmTrackingNums = itmTrackingNums;
+    public void setTrackingNums(String trackingNums) {
+        this.trackingNums = trackingNums;
     }
 
-    public BigDecimal getItmTotal() {
-        return itmTotal;
+    public BigDecimal getTotal() {
+        return total;
     }
 
-    public void setItmTotal(BigDecimal itmTotal) {
-        this.itmTotal = itmTotal;
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 
-    public BigDecimal getItmGoodsTotal() {
-        return itmGoodsTotal;
+    public BigDecimal getGoodsTotal() {
+        return goodsTotal;
     }
 
-    public void setItmGoodsTotal(BigDecimal itmGoodsTotal) {
-        this.itmGoodsTotal = itmGoodsTotal;
+    public void setGoodsTotal(BigDecimal goodsTotal) {
+        this.goodsTotal = goodsTotal;
     }
 
-    public BigDecimal getItmShipTotal() {
-        return itmShipTotal;
+    public BigDecimal getShipTotal() {
+        return shipTotal;
     }
 
-    public void setItmShipTotal(BigDecimal itmShipTotal) {
-        this.itmShipTotal = itmShipTotal;
+    public void setShipTotal(BigDecimal shipTotal) {
+        this.shipTotal = shipTotal;
     }
 
-    public short getItmVoid() {
-        return itmVoid;
+    public short getIsVoid() {
+        return isVoid;
     }
 
-    public void setItmVoid(short itmVoid) {
-        this.itmVoid = itmVoid;
+    public void setIsVoid(short isVoid) {
+        this.isVoid = isVoid;
     }
 
     @XmlTransient
@@ -181,44 +181,44 @@ public class OrderItems implements Serializable {
         this.reviewsCollection = reviewsCollection;
     }
 
-    public Currencies getItmCurrencyId() {
-        return itmCurrencyId;
+    public Currencies getCurrencyObj() {
+        return currencyObj;
     }
 
-    public void setItmCurrencyId(Currencies itmCurrencyId) {
-        this.itmCurrencyId = itmCurrencyId;
+    public void setCurrencyObj(Currencies currencyObj) {
+        this.currencyObj = currencyObj;
     }
 
-    public Orders getItmOrderId() {
-        return itmOrderId;
+    public Orders getOrderObj() {
+        return orderObj;
     }
 
-    public void setItmOrderId(Orders itmOrderId) {
-        this.itmOrderId = itmOrderId;
+    public void setOrderObj(Orders orderObj) {
+        this.orderObj = orderObj;
     }
 
-    public Selling getItmProductId() {
-        return itmProductId;
+    public Selling getProductObj() {
+        return productObj;
     }
 
-    public void setItmProductId(Selling itmProductId) {
-        this.itmProductId = itmProductId;
+    public void setProductObj(Selling productObj) {
+        this.productObj = productObj;
     }
 
-    public Sellers getItmSellerId() {
-        return itmSellerId;
+    public Sellers getSellberObj() {
+        return sellberObj;
     }
 
-    public void setItmSellerId(Sellers itmSellerId) {
-        this.itmSellerId = itmSellerId;
+    public void setSellberObj(Sellers sellberObj) {
+        this.sellberObj = sellberObj;
     }
 
-    public OrderStatuses getItmStatusId() {
-        return itmStatusId;
+    public OrderStatuses getStatusObj() {
+        return statusObj;
     }
 
-    public void setItmStatusId(OrderStatuses itmStatusId) {
-        this.itmStatusId = itmStatusId;
+    public void setStatusObj(OrderStatuses statusObj) {
+        this.statusObj = statusObj;
     }
 
     @XmlTransient
@@ -233,7 +233,7 @@ public class OrderItems implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (itmId != null ? itmId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -244,7 +244,7 @@ public class OrderItems implements Serializable {
             return false;
         }
         OrderItems other = (OrderItems) object;
-        if ((this.itmId == null && other.itmId != null) || (this.itmId != null && !this.itmId.equals(other.itmId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -252,7 +252,7 @@ public class OrderItems implements Serializable {
 
     @Override
     public String toString() {
-        return "models.orders.OrderItems[ itmId=" + itmId + " ]";
+        return "models.orders.OrderItems[ itmId=" + id + " ]";
     }
     
 }

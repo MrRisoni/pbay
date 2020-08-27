@@ -27,7 +27,7 @@ public class ListingWatching implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "lwi_id")
-    private Integer lwiId;
+    private Integer id;
 
     @Basic(optional = false)
     @NotNull
@@ -43,21 +43,21 @@ public class ListingWatching implements Serializable {
     }
 
     public ListingWatching(Integer lwiId) {
-        this.lwiId = lwiId;
+        this.id = lwiId;
     }
 
     public ListingWatching(Integer lwiId, long lwiUserUd, long lwiListingId) {
-        this.lwiId = lwiId;
+        this.id = lwiId;
         this.lwiUserUd = lwiUserUd;
         this.lwiListingId = lwiListingId;
     }
 
-    public Integer getLwiId() {
-        return lwiId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setLwiId(Integer lwiId) {
-        this.lwiId = lwiId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public long getLwiUserUd() {
@@ -79,7 +79,7 @@ public class ListingWatching implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (lwiId != null ? lwiId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -90,7 +90,7 @@ public class ListingWatching implements Serializable {
             return false;
         }
         ListingWatching other = (ListingWatching) object;
-        if ((this.lwiId == null && other.lwiId != null) || (this.lwiId != null && !this.lwiId.equals(other.lwiId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -98,7 +98,7 @@ public class ListingWatching implements Serializable {
 
     @Override
     public String toString() {
-        return "models.items.ListingWatching[ lwiId=" + lwiId + " ]";
+        return "models.items.ListingWatching[ lwiId=" + id + " ]";
     }
     
 }

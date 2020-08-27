@@ -33,13 +33,13 @@ public class SellerReviewCategories implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "swrc_id")
-    private Short swrcId;
+    private Short id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "swrc_title")
-    private String swrcTitle;
+    private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "srceCategoryId", fetch = FetchType.LAZY)
     private Collection<SellerReviewsCategoriesEval> sellerReviewsCategoriesEvalCollection;
@@ -48,28 +48,28 @@ public class SellerReviewCategories implements Serializable {
     }
 
     public SellerReviewCategories(Short swrcId) {
-        this.swrcId = swrcId;
+        this.id = swrcId;
     }
 
     public SellerReviewCategories(Short swrcId, String swrcTitle) {
-        this.swrcId = swrcId;
-        this.swrcTitle = swrcTitle;
+        this.id = swrcId;
+        this.title = swrcTitle;
     }
 
-    public Short getSwrcId() {
-        return swrcId;
+    public Short getId() {
+        return id;
     }
 
-    public void setSwrcId(Short swrcId) {
-        this.swrcId = swrcId;
+    public void setId(Short id) {
+        this.id = id;
     }
 
-    public String getSwrcTitle() {
-        return swrcTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setSwrcTitle(String swrcTitle) {
-        this.swrcTitle = swrcTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @XmlTransient
@@ -84,7 +84,7 @@ public class SellerReviewCategories implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (swrcId != null ? swrcId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -95,7 +95,7 @@ public class SellerReviewCategories implements Serializable {
             return false;
         }
         SellerReviewCategories other = (SellerReviewCategories) object;
-        if ((this.swrcId == null && other.swrcId != null) || (this.swrcId != null && !this.swrcId.equals(other.swrcId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -103,7 +103,7 @@ public class SellerReviewCategories implements Serializable {
 
     @Override
     public String toString() {
-        return "models.sellers.SellerReviewCategories[ swrcId=" + swrcId + " ]";
+        return "models.sellers.SellerReviewCategories[ swrcId=" + id + " ]";
     }
     
 }

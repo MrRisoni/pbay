@@ -31,70 +31,70 @@ public class ProductsFilterValues implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "pfv_id")
-    private Integer pfvId;
+    private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 88)
     @Column(name = "pfv_value")
-    private String pfvValue;
+    private String value;
 
     @JoinColumn(name = "pfv_filter_id", referencedColumnName = "fil_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private ProductsFilters pfvFilterId;
+    private ProductsFilters filterObj;
 
     @JoinColumn(name = "pfv_product_id", referencedColumnName = "prod_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Products pfvProductId;
+    private Products productObj;
 
     public ProductsFilterValues() {
     }
 
     public ProductsFilterValues(Integer pfvId) {
-        this.pfvId = pfvId;
+        this.id = pfvId;
     }
 
     public ProductsFilterValues(Integer pfvId, String pfvValue) {
-        this.pfvId = pfvId;
-        this.pfvValue = pfvValue;
+        this.id = pfvId;
+        this.value = pfvValue;
     }
 
-    public Integer getPfvId() {
-        return pfvId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPfvId(Integer pfvId) {
-        this.pfvId = pfvId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getPfvValue() {
-        return pfvValue;
+    public String getValue() {
+        return value;
     }
 
-    public void setPfvValue(String pfvValue) {
-        this.pfvValue = pfvValue;
+    public void setValue(String value) {
+        this.value = value;
     }
 
-    public ProductsFilters getPfvFilterId() {
-        return pfvFilterId;
+    public ProductsFilters getFilterObj() {
+        return filterObj;
     }
 
-    public void setPfvFilterId(ProductsFilters pfvFilterId) {
-        this.pfvFilterId = pfvFilterId;
+    public void setFilterObj(ProductsFilters filterObj) {
+        this.filterObj = filterObj;
     }
 
-    public Products getPfvProductId() {
-        return pfvProductId;
+    public Products getProductObj() {
+        return productObj;
     }
 
-    public void setPfvProductId(Products pfvProductId) {
-        this.pfvProductId = pfvProductId;
+    public void setProductObj(Products productObj) {
+        this.productObj = productObj;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (pfvId != null ? pfvId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -105,7 +105,7 @@ public class ProductsFilterValues implements Serializable {
             return false;
         }
         ProductsFilterValues other = (ProductsFilterValues) object;
-        if ((this.pfvId == null && other.pfvId != null) || (this.pfvId != null && !this.pfvId.equals(other.pfvId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -113,7 +113,7 @@ public class ProductsFilterValues implements Serializable {
 
     @Override
     public String toString() {
-        return "models.items.ProductsFilterValues[ pfvId=" + pfvId + " ]";
+        return "models.items.ProductsFilterValues[ pfvId=" + id + " ]";
     }
     
 }
