@@ -1,6 +1,8 @@
 
 package models.users;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import models.JackSonViewer;
 import models.orders.Orders;
 import models.general.Countries;
 
@@ -38,57 +40,66 @@ public class ShippingAddresses implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "shp_id")
-    private Long shpId;
+    @JsonView(JackSonViewer.IOrder.class)
+    private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_city")
-    private String shpCity;
+    @JsonView(JackSonViewer.IOrder.class)
+    private String city;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_region")
-    private String shpRegion;
+    @JsonView(JackSonViewer.IOrder.class)
+    private String region;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_street")
-    private String shpStreet;
+    @JsonView(JackSonViewer.IOrder.class)
+    private String street;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
     @Column(name = "shp_street_no")
-    private String shpStreetNo;
+    @JsonView(JackSonViewer.IOrder.class)
+    private String streetNo;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 9)
     @Column(name = "shp_code")
-    private String shpCode;
+    @JsonView(JackSonViewer.IOrder.class)
+    private String code;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_surname")
-    private String shpSurname;
+    @JsonView(JackSonViewer.IOrder.class)
+    private String surname;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_name")
-    private String shpName;
+    @JsonView(JackSonViewer.IOrder.class)
+    private String name;
 
     @JoinColumn(name = "shp_user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Users shpUserId;
+    private Users userObj;
 
     @JoinColumn(name = "shp_country_id", referencedColumnName = "ctr_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Countries shpCountryId;
+    @JsonView(JackSonViewer.IOrder.class)
+    private Countries countryObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordShipaddressId", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
@@ -97,98 +108,98 @@ public class ShippingAddresses implements Serializable {
     }
 
     public ShippingAddresses(Long shpId) {
-        this.shpId = shpId;
+        this.id = shpId;
     }
 
     public ShippingAddresses(Long shpId, String shpCity, String shpRegion, String shpStreet, String shpStreetNo, String shpCode, String shpSurname, String shpName) {
-        this.shpId = shpId;
-        this.shpCity = shpCity;
-        this.shpRegion = shpRegion;
-        this.shpStreet = shpStreet;
-        this.shpStreetNo = shpStreetNo;
-        this.shpCode = shpCode;
-        this.shpSurname = shpSurname;
-        this.shpName = shpName;
+        this.id = shpId;
+        this.city = shpCity;
+        this.region = shpRegion;
+        this.street = shpStreet;
+        this.streetNo = shpStreetNo;
+        this.code = shpCode;
+        this.surname = shpSurname;
+        this.name = shpName;
     }
 
-    public Long getShpId() {
-        return shpId;
+    public Long getId() {
+        return id;
     }
 
-    public void setShpId(Long shpId) {
-        this.shpId = shpId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getShpCity() {
-        return shpCity;
+    public String getCity() {
+        return city;
     }
 
-    public void setShpCity(String shpCity) {
-        this.shpCity = shpCity;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getShpRegion() {
-        return shpRegion;
+    public String getRegion() {
+        return region;
     }
 
-    public void setShpRegion(String shpRegion) {
-        this.shpRegion = shpRegion;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
-    public String getShpStreet() {
-        return shpStreet;
+    public String getStreet() {
+        return street;
     }
 
-    public void setShpStreet(String shpStreet) {
-        this.shpStreet = shpStreet;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    public String getShpStreetNo() {
-        return shpStreetNo;
+    public String getStreetNo() {
+        return streetNo;
     }
 
-    public void setShpStreetNo(String shpStreetNo) {
-        this.shpStreetNo = shpStreetNo;
+    public void setStreetNo(String streetNo) {
+        this.streetNo = streetNo;
     }
 
-    public String getShpCode() {
-        return shpCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setShpCode(String shpCode) {
-        this.shpCode = shpCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getShpSurname() {
-        return shpSurname;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setShpSurname(String shpSurname) {
-        this.shpSurname = shpSurname;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public String getShpName() {
-        return shpName;
+    public String getName() {
+        return name;
     }
 
-    public void setShpName(String shpName) {
-        this.shpName = shpName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Users getShpUserId() {
-        return shpUserId;
+    public Users getUserObj() {
+        return userObj;
     }
 
-    public void setShpUserId(Users shpUserId) {
-        this.shpUserId = shpUserId;
+    public void setUserObj(Users userObj) {
+        this.userObj = userObj;
     }
 
-    public Countries getShpCountryId() {
-        return shpCountryId;
+    public Countries getCountryObj() {
+        return countryObj;
     }
 
-    public void setShpCountryId(Countries shpCountryId) {
-        this.shpCountryId = shpCountryId;
+    public void setCountryObj(Countries countryObj) {
+        this.countryObj = countryObj;
     }
 
     @XmlTransient
@@ -203,7 +214,7 @@ public class ShippingAddresses implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (shpId != null ? shpId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -214,7 +225,7 @@ public class ShippingAddresses implements Serializable {
             return false;
         }
         ShippingAddresses other = (ShippingAddresses) object;
-        if ((this.shpId == null && other.shpId != null) || (this.shpId != null && !this.shpId.equals(other.shpId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -222,7 +233,7 @@ public class ShippingAddresses implements Serializable {
 
     @Override
     public String toString() {
-        return "models.users.ShippingAddresses[ shpId=" + shpId + " ]";
+        return "models.users.ShippingAddresses[ shpId=" + id + " ]";
     }
     
 }

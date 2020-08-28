@@ -41,7 +41,7 @@ public class SellerReviewCategories implements Serializable {
     @Column(name = "swrc_title")
     private String title;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "srceCategoryId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryObj", fetch = FetchType.LAZY)
     private Collection<SellerReviewsCategoriesEval> sellerReviewsCategoriesEvalCollection;
 
     public SellerReviewCategories() {

@@ -68,10 +68,10 @@ public class Products implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ProductsCategories categoryObj;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pfvProductId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "filterObj", fetch = FetchType.LAZY)
     private Collection<ProductsFilterValues> productsFilterValuesCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sllProductId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productObj", fetch = FetchType.LAZY)
     private Collection<Selling> sellingCollection;
 
     public Products() {

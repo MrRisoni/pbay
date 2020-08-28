@@ -1,6 +1,8 @@
 
 package models.orders;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import models.JackSonViewer;
 import models.general.Currencies;
 import models.general.Paymethods;
 import models.sellers.SellerReviews;
@@ -46,63 +48,74 @@ public class Orders implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ord_id")
+    @JsonView(JackSonViewer.IOrder.class)
     private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "ord_bank_transaction_id")
+    @JsonView(JackSonViewer.IOrder.class)
     private String bankTransactionId;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_total")
+    @JsonView(JackSonViewer.IOrder.class)
     private BigDecimal total;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_goods_total")
+    @JsonView(JackSonViewer.IOrder.class)
     private BigDecimal goodsTotal;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_ship_total")
+    @JsonView(JackSonViewer.IOrder.class)
     private BigDecimal shipTotal;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_fee")
+    @JsonView(JackSonViewer.IOrder.class)
     private BigDecimal fee;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_rate")
+    @JsonView(JackSonViewer.IOrder.class)
     private BigDecimal rate;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_created")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonView(JackSonViewer.IOrder.class)
     private Date createdAt;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_success")
+    @JsonView(JackSonViewer.IOrder.class)
     private short isSuccess;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_void")
+    @JsonView(JackSonViewer.IOrder.class)
     private short isVoid;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "srwOrderId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderObj", fetch = FetchType.LAZY)
     private Collection<SellerReviews> sellerReviewsCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmOrderId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderObj", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
 
     @JoinColumn(name = "ord_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonView(JackSonViewer.IOrder.class)
     private Currencies currencyObj;
 
     @JoinColumn(name = "ord_user_id", referencedColumnName = "id")
@@ -111,14 +124,17 @@ public class Orders implements Serializable {
 
     @JoinColumn(name = "ord_shipaddress_id", referencedColumnName = "shp_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonView(JackSonViewer.IOrder.class)
     private ShippingAddresses shipAddressObj;
 
     @JoinColumn(name = "ord_billaddress_id", referencedColumnName = "bla_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonView(JackSonViewer.IOrder.class)
     private BillingAddresses billAddressObj;
 
     @JoinColumn(name = "ord_paymethod_id", referencedColumnName = "pm_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonView(JackSonViewer.IOrder.class)
     private Paymethods payMethodObj;
 
     public Orders() {

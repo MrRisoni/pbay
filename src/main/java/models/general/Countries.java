@@ -1,6 +1,8 @@
 
 package models.general;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import models.JackSonViewer;
 import models.users.BillingAddresses;
 import models.sellers.Sellers;
 import models.users.ShippingAddresses;
@@ -39,31 +41,34 @@ public class Countries implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ctr_id")
+    @JsonView(JackSonViewer.IOrder.class)
     private Short id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "ctr_title")
+    @JsonView(JackSonViewer.IOrder.class)
     private String title;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
     @Column(name = "ctr_code")
+    @JsonView(JackSonViewer.IOrder.class)
     private String code;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shpCountryId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryObj", fetch = FetchType.LAZY)
     private Collection<ShippingAddresses> shippingAddressesCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "blaCountryId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryObj", fetch = FetchType.LAZY)
     private Collection<BillingAddresses> billingAddressesCollection;
 
     @JoinColumn(name = "ctr_continent_id", referencedColumnName = "con_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Continents ctrContinentId;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "selCountryId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryObj", fetch = FetchType.LAZY)
     private Collection<Sellers> sellersCollection;
 
     public Countries() {

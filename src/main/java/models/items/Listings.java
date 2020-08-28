@@ -84,7 +84,7 @@ public class Listings implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling sellingObj;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bidListingId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "listingObj", fetch = FetchType.LAZY)
     private Collection<Biddings> biddingsCollection;
 
     public Listings() {

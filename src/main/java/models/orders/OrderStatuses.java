@@ -1,6 +1,9 @@
 
 package models.orders;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import models.JackSonViewer;
+
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -33,18 +36,20 @@ public class OrderStatuses implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "stat_id")
+    @JsonView(JackSonViewer.IOrder.class)
     private Short id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 34)
     @Column(name = "stat_title")
+    @JsonView(JackSonViewer.IOrder.class)
     private String title;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmStatusId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "statusObj", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmhStatusId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "statusObj", fetch = FetchType.LAZY)
     private Collection<OrderItemTrackHistory> orderItemTrackHistoryCollection;
 
     public OrderStatuses() {

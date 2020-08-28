@@ -1,6 +1,8 @@
 
 package models.general;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import models.JackSonViewer;
 import models.orders.Biddings;
 import models.items.Listings;
 import models.orders.OrderItems;
@@ -39,12 +41,14 @@ public class Currencies implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "cur_id")
+    @JsonView(JackSonViewer.IOrder.class)
     private Short id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "cur_code")
+    @JsonView(JackSonViewer.IOrder.class)
     private String code;
 
     @Basic(optional = false)
@@ -52,16 +56,16 @@ public class Currencies implements Serializable {
     @Column(name = "cur_rate")
     private BigDecimal rate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lisCurrencyId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "currencyObj", fetch = FetchType.LAZY)
     private Collection<Listings> listingsCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmCurrencyId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "currencyObj", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bidCurrencyId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "currencyObj", fetch = FetchType.LAZY)
     private Collection<Biddings> biddingsCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordCurrencyId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "currencyObj", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
 
     public Currencies() {

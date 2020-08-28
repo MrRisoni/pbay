@@ -73,7 +73,7 @@ public class OrderItems implements Serializable {
     @Column(name = "itm_void")
     private short isVoid;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "revOrdItemId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderItemObj", fetch = FetchType.LAZY)
     private Collection<Reviews> reviewsCollection;
 
     @JoinColumn(name = "itm_currency_id", referencedColumnName = "cur_id")
@@ -96,7 +96,7 @@ public class OrderItems implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private OrderStatuses statusObj;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmhItemId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemObj", fetch = FetchType.LAZY)
     private Collection<OrderItemTrackHistory> orderItemTrackHistoryCollection;
 
     public OrderItems() {

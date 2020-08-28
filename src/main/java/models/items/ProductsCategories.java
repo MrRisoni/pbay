@@ -41,10 +41,10 @@ public class ProductsCategories implements Serializable {
     @Column(name = "cat_title")
     private String title;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "filProductCategory", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryObj", fetch = FetchType.LAZY)
     private Collection<ProductsFilters> productsFiltersCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodCategoryId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryObj", fetch = FetchType.LAZY)
     private Collection<Products> productsCollection;
 
     public ProductsCategories() {

@@ -2,7 +2,7 @@ package core;
 
 
 import models.HibernateUtil;
-import models.Listing;
+import models.items.Listings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,12 +22,14 @@ public class ListingController {
     @RequestMapping(value = "/listing", method = RequestMethod.GET)
     public HashMap<String,Object> getItemDetails()
     {
-        Optional<Listing> listFound = listRepo.findById(4L);
+       Optional<Listings> listFound = listRepo.findById(4L);
         ListingCustomRepo.setEm(HibernateUtil.getEM());
         HashMap<String,Object> rsp = new HashMap<>();
         rsp.put("item",listFound.orElse(null));
         rsp.put("soldLastDays", ListingCustomRepo.itemsSoldLastDays(4L));
         rsp.put("bids24h",ListingCustomRepo.getTotalBids24H(4L));
         return rsp;
+
+
     }
 }
