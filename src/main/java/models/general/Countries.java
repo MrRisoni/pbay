@@ -41,21 +41,21 @@ public class Countries implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ctr_id")
-    @JsonView(JackSonViewer.IOrder.class)
+    @JsonView({JackSonViewer.IOrder.class, JackSonViewer.IListing.class})
     private Short id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "ctr_title")
-    @JsonView(JackSonViewer.IOrder.class)
+    @JsonView({JackSonViewer.IOrder.class, JackSonViewer.IListing.class})
     private String title;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
     @Column(name = "ctr_code")
-    @JsonView(JackSonViewer.IOrder.class)
+    @JsonView({JackSonViewer.IOrder.class, JackSonViewer.IListing.class})
     private String code;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryObj", fetch = FetchType.LAZY)

@@ -1,6 +1,8 @@
 
 package models.items;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import models.JackSonViewer;
 import models.general.Currencies;
 import models.orders.Biddings;
 import models.sellers.Selling;
@@ -42,46 +44,55 @@ public class Listings implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "lis_id")
+    @JsonView(JackSonViewer.IListing.class)
     private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_price")
+    @JsonView(JackSonViewer.IListing.class)
     private BigDecimal price;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_fee_eur")
+    @JsonView(JackSonViewer.IListing.class)
     private BigDecimal feeEuro;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_from")
     @Temporal(TemporalType.DATE)
+    @JsonView(JackSonViewer.IListing.class)
     private Date activeFrom;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_to")
     @Temporal(TemporalType.DATE)
+    @JsonView(JackSonViewer.IListing.class)
     private Date activeUntil;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_watching")
+    @JsonView(JackSonViewer.IListing.class)
     private short numWatchers;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_is_auction")
+    @JsonView(JackSonViewer.IListing.class)
     private short isAuction;
 
     @JoinColumn(name = "lis_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonView(JackSonViewer.IListing.class)
     private Currencies currencyObj;
 
     @JoinColumn(name = "lis_selling_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonView(JackSonViewer.IListing.class)
     private Selling sellingObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "listingObj", fetch = FetchType.LAZY)

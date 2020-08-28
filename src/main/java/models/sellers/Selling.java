@@ -40,17 +40,20 @@ public class Selling implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "sll_id")
+    @JsonView(JackSonViewer.IListing.class)
     private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "sll_quantity")
+    @JsonView(JackSonViewer.IListing.class)
     private int quantity;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "sll_mailer_co")
+    @JsonView(JackSonViewer.IListing.class)
     private String sllMailerCo;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellingObj", fetch = FetchType.LAZY)
@@ -67,11 +70,12 @@ public class Selling implements Serializable {
 
     @JoinColumn(name = "sll_product_id", referencedColumnName = "prod_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonView(JackSonViewer.IOrder.class)
+    @JsonView({JackSonViewer.IListing.class, JackSonViewer.IOrder.class})
     private Products productObj;
 
     @JoinColumn(name = "sll_seller_id", referencedColumnName = "sel_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonView({JackSonViewer.IListing.class, JackSonViewer.IOrder.class})
     private Sellers sellerObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellingObj", fetch = FetchType.LAZY)

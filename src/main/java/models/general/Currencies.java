@@ -41,14 +41,14 @@ public class Currencies implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "cur_id")
-    @JsonView(JackSonViewer.IOrder.class)
+    @JsonView(JackSonViewer.IListing.class)
     private Short id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "cur_code")
-    @JsonView(JackSonViewer.IOrder.class)
+    @JsonView(JackSonViewer.IListing.class)
     private String code;
 
     @Basic(optional = false)
