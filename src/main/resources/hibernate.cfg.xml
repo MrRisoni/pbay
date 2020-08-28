@@ -13,15 +13,6 @@
         <property name="use_sql_comments">true</property>
         <property name="connection.pool_size">100</property>
 
-        <mapping class="models.Listing"/>
-        <mapping class="models.SellItem"/>
-        <mapping class="models.Product"/>
-        <mapping class="models.Seller"/>
-        <mapping class="models.ProductFilter"/>
-        <mapping class="models.ProductFilterValue"/>
-        <mapping class="models.ShippingCost"/>
-        <mapping class="models.ShippingCostException"/>
-        <mapping class="models.ShippingCostForbidden"/>
 
     </session-factory>
 </hibernate-configuration>

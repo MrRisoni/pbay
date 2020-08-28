@@ -74,7 +74,7 @@ public class SellerReviews implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Orders orderObj;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "srceReviewId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reviewObj", fetch = FetchType.LAZY)
     private Collection<SellerReviewsCategoriesEval> sellerReviewsCategoriesEvalCollection;
 
     public SellerReviews() {

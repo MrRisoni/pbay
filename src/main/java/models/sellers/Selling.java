@@ -1,6 +1,8 @@
 
 package models.sellers;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import models.JackSonViewer;
 import models.items.*;
 import models.orders.OrderItems;
 
@@ -51,27 +53,28 @@ public class Selling implements Serializable {
     @Column(name = "sll_mailer_co")
     private String sllMailerCo;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shcxSellingId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellingObj", fetch = FetchType.LAZY)
     private Collection<ShippingCostsExceptions> shippingCostsExceptionsCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lisSellingId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellingObj", fetch = FetchType.LAZY)
     private Collection<Listings> listingsCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shcSellingId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellingObj", fetch = FetchType.LAZY)
     private Collection<ShippingCosts> shippingCostsCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmProductId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productObj", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
 
     @JoinColumn(name = "sll_product_id", referencedColumnName = "prod_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonView(JackSonViewer.IOrder.class)
     private Products productObj;
 
     @JoinColumn(name = "sll_seller_id", referencedColumnName = "sel_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Sellers sellerObj;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shfSellingId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellingObj", fetch = FetchType.LAZY)
     private Collection<ShippingCountryForbidden> shippingCountryForbiddenCollection;
 
     public Selling() {

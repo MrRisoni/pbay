@@ -101,7 +101,7 @@ public class ShippingAddresses implements Serializable {
     @JsonView(JackSonViewer.IOrder.class)
     private Countries countryObj;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordShipaddressId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipAddressObj", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
 
     public ShippingAddresses() {

@@ -111,6 +111,7 @@ public class Orders implements Serializable {
     private Collection<SellerReviews> sellerReviewsCollection;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderObj", fetch = FetchType.LAZY)
+    @JsonView(JackSonViewer.IOrder.class)
     private Collection<OrderItems> orderItemsCollection;
 
     @JoinColumn(name = "ord_currency_id", referencedColumnName = "cur_id")

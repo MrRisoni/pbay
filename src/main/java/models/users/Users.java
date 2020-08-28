@@ -75,25 +75,25 @@ public class Users implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "srwUserId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userObj", fetch = FetchType.LAZY)
     private Collection<SellerReviews> sellerReviewsCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shpUserId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userObj", fetch = FetchType.LAZY)
     private Collection<ShippingAddresses> shippingAddressesCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "revUsrId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userObj", fetch = FetchType.LAZY)
     private Collection<Reviews> reviewsCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bidUserId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userObj", fetch = FetchType.LAZY)
     private Collection<Biddings> biddingsCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "blaUserId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userObj", fetch = FetchType.LAZY)
     private Collection<BillingAddresses> billingAddressesCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordUserId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userObj", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellerUsrId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userObj", fetch = FetchType.LAZY)
     private Collection<Sellers> sellersCollection;
 
     public Users() {

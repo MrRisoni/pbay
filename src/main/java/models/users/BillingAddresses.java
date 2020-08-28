@@ -101,7 +101,7 @@ public class BillingAddresses implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users userObj;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordBilladdressId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "billAddressObj", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
 
     public BillingAddresses() {

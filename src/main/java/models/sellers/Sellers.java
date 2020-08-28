@@ -1,6 +1,8 @@
 
 package models.sellers;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import models.JackSonViewer;
 import models.orders.OrderItems;
 import models.users.Users;
 import models.general.Countries;
@@ -40,12 +42,14 @@ public class Sellers implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "sel_id")
+    @JsonView(JackSonViewer.IOrder.class)
     private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 125)
     @Column(name = "sel_title")
+    @JsonView(JackSonViewer.IOrder.class)
     private String title;
 
     @Basic(optional = false)
@@ -59,13 +63,13 @@ public class Sellers implements Serializable {
     @Column(name = "sel_stars_avg")
     private BigDecimal avgStars;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "srwSellerId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellerObj", fetch = FetchType.LAZY)
     private Collection<SellerReviews> sellerReviewsCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itmSellerId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellberObj", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sllSellerId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellerObj", fetch = FetchType.LAZY)
     private Collection<Selling> sellingCollection;
 
     @JoinColumn(name = "seller_usr_id", referencedColumnName = "id")
@@ -74,6 +78,7 @@ public class Sellers implements Serializable {
 
     @JoinColumn(name = "sel_country_id", referencedColumnName = "ctr_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonView(JackSonViewer.IOrder.class)
     private Countries countryObj;
 
     public Sellers() {
