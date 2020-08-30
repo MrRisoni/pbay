@@ -2,33 +2,7 @@
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence">
   <persistence-unit name="ebaydb">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    <class>models.general.Currencies</class>
-    <class>models.users.Users</class>
-    <class>models.orders.Reviews</class>
-    <class>models.general.Countries</class>
-    <class>models.orders.Biddings</class>
-    <class>models.sellers.SellerReviewCategories</class>
-    <class>models.general.Continents</class>
-    <class>models.sellers.SellerReviews</class>
-    <class>models.sellers.SellerReviewsCategoriesEval</class>
-    <class>models.orders.Orders</class>
-    <class>models.items.ListingWatching</class>
-    <class>models.users.ShippingAddresses</class>
-    <class>models.orders.OrderStatuses</class>
-    <class>models.users.BillingAddresses</class>
-    <class>models.general.Paymethods</class>
-    <class>models.items.ProductsCategories</class>
-    <class>models.orders.OrderItemTrackHistory</class>
-    <class>models.orders.OrderItems</class>
-    <class>models.sellers.Selling</class>
-    <class>models.items.ShippingCosts</class>
-    <class>models.items.ProductsFilterValues</class>
-    <class>models.sellers.Sellers</class>
-    <class>models.items.ProductsFilters</class>
-    <class>models.items.Products</class>
-    <class>models.items.Listings</class>
-    <class>models.items.ShippingCostsExceptions</class>
-    <class>models.items.ShippingCountryForbidden</class>
+
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
@@ -36,6 +10,16 @@
       <property name="hibernate.format_sql" value="true"/>
       <property name="hibernate.use_sql_comments" value="true"/>
       <property name="hibernate.hbm2ddl.auto" value="none"/>
+
+
+      <property name="hibernate.cache.use_second_level_cache" value="true"/>
+      <property name="hibernate.cache.region.factory_class" value="ehcache"/>
+      <property name="hibernate.cache.use_query_cache" value="true"/>
+      <property name="hibernate.cache.use_structured_entries" value="true"/>
+
+      <property name="hibernate.cache.infinispan.entity.expiration.lifespan" value="300"/>
+
+
     </properties>
   </persistence-unit>
 </persistence>

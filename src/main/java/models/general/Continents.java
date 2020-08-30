@@ -2,12 +2,15 @@
 package models.general;
 
 import java.io.Serializable;
-import java.util.Collection;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
+import java.util.Collection;
 import javax.validation.constraints.*;
 import javax.xml.bind.annotation.*;
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "continents")
 @XmlRootElement
 @NamedQueries({
