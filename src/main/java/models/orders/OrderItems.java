@@ -88,12 +88,12 @@ public class OrderItems implements Serializable {
     @JoinColumn(name = "itm_product_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonView(JackSonViewer.IOrder.class)
-    private Selling productObj;
+    private Selling itemObj;
 
     @JoinColumn(name = "itm_seller_id", referencedColumnName = "sel_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonView(JackSonViewer.IOrder.class)
-    private Sellers sellberObj;
+    private Sellers sellerObj;
 
     @JoinColumn(name = "itm_status_id", referencedColumnName = "stat_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -202,20 +202,20 @@ public class OrderItems implements Serializable {
         this.orderObj = orderObj;
     }
 
-    public Selling getProductObj() {
-        return productObj;
+    public Selling getItemObj() {
+        return itemObj;
     }
 
-    public void setProductObj(Selling productObj) {
-        this.productObj = productObj;
+    public void setItemObj(Selling itemObj) {
+        this.itemObj = itemObj;
     }
 
-    public Sellers getSellberObj() {
-        return sellberObj;
+    public Sellers getSellerObj() {
+        return sellerObj;
     }
 
-    public void setSellberObj(Sellers sellberObj) {
-        this.sellberObj = sellberObj;
+    public void setSellerObj(Sellers sellerObj) {
+        this.sellerObj = sellerObj;
     }
 
     public OrderStatuses getStatusObj() {
@@ -235,29 +235,4 @@ public class OrderItems implements Serializable {
         this.orderItemTrackHistoryCollection = orderItemTrackHistoryCollection;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OrderItems)) {
-            return false;
-        }
-        OrderItems other = (OrderItems) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "models.orders.OrderItems[ itmId=" + id + " ]";
-    }
-    
 }
