@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "products_filter_values")
-@XmlRootElement
+
 @NamedQueries({
     @NamedQuery(name = "ProductsFilterValues.findAll", query = "SELECT p FROM ProductsFilterValues p")})
 public class ProductsFilterValues implements Serializable {

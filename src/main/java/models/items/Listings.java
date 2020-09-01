@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "listings")
-@XmlRootElement
+
 @NamedQueries({
     @NamedQuery(name = "Listings.findAll", query = "SELECT l FROM Listings l")})
 public class Listings implements Serializable {

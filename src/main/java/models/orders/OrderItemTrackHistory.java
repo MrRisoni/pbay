@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "order_item_track_history")
-@XmlRootElement
+
 @NamedQueries({
     @NamedQuery(name = "OrderItemTrackHistory.findAll", query = "SELECT o FROM OrderItemTrackHistory o")})
 public class OrderItemTrackHistory implements Serializable {

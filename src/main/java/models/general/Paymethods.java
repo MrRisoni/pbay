@@ -21,9 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "paymethods")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Paymethods.findAll", query = "SELECT p FROM Paymethods p")})
+
 public class Paymethods implements Serializable {
 
     private static final long serialVersionUID = 1L;

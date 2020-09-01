@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "shipping_costs_exceptions")
-@XmlRootElement
+
 @NamedQueries({
     @NamedQuery(name = "ShippingCostsExceptions.findAll", query = "SELECT s FROM ShippingCostsExceptions s")})
 public class ShippingCostsExceptions implements Serializable {

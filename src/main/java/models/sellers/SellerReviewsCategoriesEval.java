@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "seller_reviews_categories_eval")
-@XmlRootElement
+
 @NamedQueries({
     @NamedQuery(name = "SellerReviewsCategoriesEval.findAll", query = "SELECT s FROM SellerReviewsCategoriesEval s")})
 public class SellerReviewsCategoriesEval implements Serializable {

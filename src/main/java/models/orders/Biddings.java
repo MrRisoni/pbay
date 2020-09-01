@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "biddings")
-@XmlRootElement
+
 @NamedQueries({
     @NamedQuery(name = "Biddings.findAll", query = "SELECT b FROM Biddings b")})
 public class Biddings implements Serializable {
