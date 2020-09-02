@@ -40,7 +40,6 @@ public class OrderItems implements Serializable {
     private short quantity;
 
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 225)
     @Column(name = "itm_tracking_nums")
     @JsonView(JackSonViewer.IOrder.class)

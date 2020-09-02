@@ -9,6 +9,9 @@ import models.JackSonViewer;
 import models.general.Currencies;
 import models.general.Currencies_;
 import models.general.Paymethods;
+import models.items.Listings;
+import models.orders.OrderItemTrackHistory;
+import models.orders.OrderItems;
 import models.orders.OrderStatuses;
 import models.orders.Orders;
 import models.users.BillingAddresses;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pojos.Basket;
+import pojos.BasketItem;
 import spring_repos.*;
 
 import javax.persistence.EntityManager;
@@ -45,7 +49,14 @@ public class OrderController {
     @Autowired
     OrderStatusRepo ordStatusRepo;
 
+    @Autowired
+    ListingRepo listRepo;
 
+    @Autowired
+    OrderItemRepo orderItemRepo;
+
+    @Autowired
+    OrderItemTrackHistoryRepo itemTrackHistoryRepo;
 
     @RequestMapping(value = "/api/order/view", method = RequestMethod.GET)
     public String getOrderDetails()
@@ -107,10 +118,53 @@ public class OrderController {
             paraggelia.setShipTotal(shipTotal);
             paraggelia.setFee(fee);
 
+            BigDecimal orderTotalAmount = new BigDecimal(0);
+            BigDecimal shipTotalAmount = new BigDecimal(0);
+            BigDecimal goodsTotalAmount = new BigDecimal(0);
 
             Orders savedOrder = ordRepo.save(paraggelia);
 
-            
+            for (BasketItem itmBsk : kalathi.getItems()) {
+                Optional<Listings> optionalListed =  listRepo.findById(itmBsk.getListedItem().getId());
+                Listings listingItm = optionalListed.orElse(null);
+                BigDecimal itemPrice = listingItm.getPrice();
+
+                OrderItems ordItm = new OrderItems();
+                ordItm.setOrderObj(savedOrder);
+                ordItm.setItemObj(listingItm.getSellingObj());
+                ordItm.setSellerObj(listingItm.getSellingObj().getSellerObj());
+
+                ordItm.setQuantity(itmBsk.getQuantity());
+
+                ordItm.setTotal(itemPrice.add(new BigDecimal(5.67)));
+                ordItm.setGoodsTotal(itemPrice);
+                ordItm.setShipTotal(new BigDecimal(5.67));
+                ordItm.setIsVoid((short) 0);
+                ordItm.setCurrencyObj(nomisma);
+                ordItm.setRate(new BigDecimal(2.45));
+                ordItm.setStatusObj(stdPending);
+
+                orderTotalAmount = orderTotalAmount.add(ordItm.getTotal());
+                goodsTotalAmount = goodsTotalAmount.add(ordItm.getGoodsTotal());
+                shipTotalAmount = shipTotalAmount.add(ordItm.getShipTotal());
+
+                OrderItems savedItm = orderItemRepo.save(ordItm);
+
+                OrderItemTrackHistory tracked = new OrderItemTrackHistory();
+                tracked.setCreatedAt(new Date());
+                tracked.setStatusObj(stdPending);
+                tracked.setItemObj(savedItm);
+                itemTrackHistoryRepo.save(tracked);
+
+            }
+
+            savedOrder.setIsSuccess((short) 1);
+            savedOrder.setShipTotal(shipTotalAmount);
+            savedOrder.setGoodsTotal(goodsTotalAmount);
+            savedOrder.setTotal(orderTotalAmount);
+
+            ordRepo.save(savedOrder);
+
 
             return "foo";
         }

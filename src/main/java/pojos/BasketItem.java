@@ -4,10 +4,10 @@ import models.items.Listings;
 
 public class BasketItem {
     private Listings listedItem;
-    private int quantity;
+    private short quantity;
 
 
-    public BasketItem(Listings listedItem, int quantity) {
+    public BasketItem(Listings listedItem, short quantity) {
         this.listedItem = listedItem;
         this.quantity = quantity;
     }
@@ -21,11 +21,11 @@ public class BasketItem {
         this.listedItem = listedItem;
     }
 
-    public int getQuantity() {
+    public short getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(short quantity) {
         this.quantity = quantity;
     }
 }

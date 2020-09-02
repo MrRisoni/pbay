@@ -6,7 +6,7 @@ $postObj['pay'] = array('id' => 1);
 $postObj['currencyCode'] = 'EUR';
 $postObj['usr'] = array('id' => 1);
 
-$itm1  = array('quantity' => 1, 'listedItem' => array('id' => 4408));
+$itm1  = array('quantity' => 1, 'listedItem' => array('id' => 3));
 $postObj['items'] = [$itm1];
 
 

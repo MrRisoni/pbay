@@ -13,7 +13,7 @@ public class Utils {
             str = str + alphabet.substring(r,r+1);
         }
 
-        return str;
+        return str.toUpperCase();
 
     }
 }
