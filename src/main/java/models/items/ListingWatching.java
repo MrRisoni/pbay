@@ -6,16 +6,13 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+
 
 
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "listing_watching")
-
-@NamedQueries({
-    @NamedQuery(name = "ListingWatching.findAll", query = "SELECT l FROM ListingWatching l")})
 public class ListingWatching implements Serializable {
 
     private static final long serialVersionUID = 1L;

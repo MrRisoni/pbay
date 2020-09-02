@@ -9,16 +9,13 @@ import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+
 
 
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "shipping_country_forbidden")
-
-@NamedQueries({
-    @NamedQuery(name = "ShippingCountryForbidden.findAll", query = "SELECT s FROM ShippingCountryForbidden s")})
 public class ShippingCountryForbidden implements Serializable {
 
     private static final long serialVersionUID = 1L;

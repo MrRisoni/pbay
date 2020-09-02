@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+
 
 
 @Entity
@@ -15,8 +15,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "seller_reviews_categories_eval")
 
-@NamedQueries({
-    @NamedQuery(name = "SellerReviewsCategoriesEval.findAll", query = "SELECT s FROM SellerReviewsCategoriesEval s")})
 public class SellerReviewsCategoriesEval implements Serializable {
 
     private static final long serialVersionUID = 1L;

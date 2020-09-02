@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2020 at 05:06 PM
+-- Generation Time: Sep 02, 2020 at 07:44 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -132,19 +132,32 @@ INSERT INTO `countries` (`ctr_id`, `ctr_title`, `ctr_code`, `ctr_continent_id`) 
 
 CREATE TABLE `currencies` (
   `cur_id` tinyint(3) UNSIGNED NOT NULL,
-  `cur_code` varchar(3) NOT NULL,
-  `cur_rate` decimal(5,2) UNSIGNED NOT NULL
+  `cur_code` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `currencies`
 --
 
-INSERT INTO `currencies` (`cur_id`, `cur_code`, `cur_rate`) VALUES
-(1, 'EUR', '1.00'),
-(2, 'USD', '1.28'),
-(3, 'CHF', '1.98'),
-(4, 'DKK', '75.00');
+INSERT INTO `currencies` (`cur_id`, `cur_code`) VALUES
+(3, 'CHF'),
+(4, 'DKK'),
+(1, 'EUR'),
+(2, 'USD');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `currency_rates`
+--
+
+CREATE TABLE `currency_rates` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `from_cur` varchar(3) NOT NULL,
+  `to_cur` varchar(3) NOT NULL,
+  `rate` decimal(10,2) NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -203,7 +216,6 @@ CREATE TABLE `orders` (
   `ord_goods_total` decimal(10,2) UNSIGNED NOT NULL,
   `ord_ship_total` decimal(10,2) UNSIGNED NOT NULL,
   `ord_fee` decimal(5,2) UNSIGNED NOT NULL,
-  `ord_rate` decimal(5,2) UNSIGNED NOT NULL,
   `ord_currency_id` tinyint(3) UNSIGNED NOT NULL,
   `ord_created` datetime NOT NULL,
   `ord_success` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
@@ -214,9 +226,9 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`ord_id`, `ord_user_id`, `ord_shipaddress_id`, `ord_billaddress_id`, `ord_paymethod_id`, `ord_bank_transaction_id`, `ord_total`, `ord_goods_total`, `ord_ship_total`, `ord_fee`, `ord_rate`, `ord_currency_id`, `ord_created`, `ord_success`, `ord_void`) VALUES
-(1, 2, 1, 1, 2, 'RF123455698454DF9905GR', '68.07', '45.45', '21.08', '0.54', '1.00', 1, '2019-11-11 20:08:03', 1, 0),
-(2, 2, 1, 1, 2, '', '56.00', '45.00', '6.00', '1.00', '1.00', 1, '2019-11-26 06:15:17', 1, 0);
+INSERT INTO `orders` (`ord_id`, `ord_user_id`, `ord_shipaddress_id`, `ord_billaddress_id`, `ord_paymethod_id`, `ord_bank_transaction_id`, `ord_total`, `ord_goods_total`, `ord_ship_total`, `ord_fee`, `ord_currency_id`, `ord_created`, `ord_success`, `ord_void`) VALUES
+(1, 2, 1, 1, 2, 'RF123455698454DF9905GR', '68.07', '45.45', '21.08', '0.54', 1, '2019-11-11 20:08:03', 1, 0),
+(2, 2, 1, 1, 2, '', '56.00', '45.00', '6.00', '1.00', 1, '2019-11-26 06:15:17', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -235,6 +247,7 @@ CREATE TABLE `order_items` (
   `itm_goods_total` decimal(10,2) UNSIGNED NOT NULL,
   `itm_ship_total` decimal(10,2) UNSIGNED NOT NULL,
   `itm_currency_id` tinyint(3) UNSIGNED NOT NULL,
+  `itm_rate` decimal(10,2) UNSIGNED NOT NULL DEFAULT 0.00,
   `itm_status_id` tinyint(3) UNSIGNED NOT NULL,
   `itm_void` tinyint(3) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -243,10 +256,10 @@ CREATE TABLE `order_items` (
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`itm_id`, `itm_order_id`, `itm_product_id`, `itm_seller_id`, `itm_quantity`, `itm_tracking_nums`, `itm_total`, `itm_goods_total`, `itm_ship_total`, `itm_currency_id`, `itm_status_id`, `itm_void`) VALUES
-(1, 1, 2, 1, 1, '', '65.00', '45.00', '20.00', 1, 1, 0),
-(2, 1, 2, 2, 1, '', '2.53', '1.45', '1.08', 1, 1, 0),
-(3, 2, 8, 1, 1, '', '56.00', '5.00', '6.00', 1, 1, 0);
+INSERT INTO `order_items` (`itm_id`, `itm_order_id`, `itm_product_id`, `itm_seller_id`, `itm_quantity`, `itm_tracking_nums`, `itm_total`, `itm_goods_total`, `itm_ship_total`, `itm_currency_id`, `itm_rate`, `itm_status_id`, `itm_void`) VALUES
+(1, 1, 2, 1, 1, '', '65.00', '45.00', '20.00', 1, '0.00', 1, 0),
+(2, 1, 3, 2, 1, '', '2.53', '1.45', '1.08', 1, '0.00', 1, 0),
+(3, 2, 8, 1, 1, '', '56.00', '5.00', '6.00', 1, '0.00', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -714,6 +727,13 @@ ALTER TABLE `currencies`
   ADD UNIQUE KEY `cur_title` (`cur_code`);
 
 --
+-- Indexes for table `currency_rates`
+--
+ALTER TABLE `currency_rates`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `from_cur` (`from_cur`,`to_cur`);
+
+--
 -- Indexes for table `listings`
 --
 ALTER TABLE `listings`
@@ -911,6 +931,12 @@ ALTER TABLE `countries`
 --
 ALTER TABLE `currencies`
   MODIFY `cur_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `currency_rates`
+--
+ALTER TABLE `currency_rates`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `listings`

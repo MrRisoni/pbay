@@ -12,6 +12,8 @@ import models.users.Users;
 
 import java.io.Serializable;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -19,7 +21,6 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 
@@ -27,9 +28,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "orders")
-
-@NamedQueries({
-    @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o")})
 public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -73,12 +71,7 @@ public class Orders implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ord_rate")
-    @JsonView(JackSonViewer.IOrder.class)
-    private BigDecimal rate;
-
-    @Basic(optional = false)
-    @NotNull
+    @CreationTimestamp
     @Column(name = "ord_created")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonView(JackSonViewer.IOrder.class)
@@ -134,14 +127,13 @@ public class Orders implements Serializable {
         this.id = ordId;
     }
 
-    public Orders(Long ordId, String ordBankTransactionId, BigDecimal ordTotal, BigDecimal ordGoodsTotal, BigDecimal ordShipTotal, BigDecimal ordFee, BigDecimal ordRate, Date ordCreated, short ordSuccess, short ordVoid) {
+    public Orders(Long ordId, String ordBankTransactionId, BigDecimal ordTotal, BigDecimal ordGoodsTotal, BigDecimal ordShipTotal, BigDecimal ordFee,  Date ordCreated, short ordSuccess, short ordVoid) {
         this.id = ordId;
         this.bankTransactionId = ordBankTransactionId;
         this.total = ordTotal;
         this.goodsTotal = ordGoodsTotal;
         this.shipTotal = ordShipTotal;
         this.fee = ordFee;
-        this.rate = ordRate;
         this.createdAt = ordCreated;
         this.isSuccess = ordSuccess;
         this.isVoid = ordVoid;
@@ -193,14 +185,6 @@ public class Orders implements Serializable {
 
     public void setFee(BigDecimal fee) {
         this.fee = fee;
-    }
-
-    public BigDecimal getRate() {
-        return rate;
-    }
-
-    public void setRate(BigDecimal rate) {
-        this.rate = rate;
     }
 
     public Date getCreatedAt() {

@@ -10,16 +10,13 @@ import javax.persistence.*;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+
 
 
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "order_item_track_history")
-
-@NamedQueries({
-    @NamedQuery(name = "OrderItemTrackHistory.findAll", query = "SELECT o FROM OrderItemTrackHistory o")})
 public class OrderItemTrackHistory implements Serializable {
 
     private static final long serialVersionUID = 1L;

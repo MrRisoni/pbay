@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+
 import javax.xml.bind.annotation.XmlTransient;
 
 
@@ -24,9 +24,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "currencies")
-
-@NamedQueries({
-    @NamedQuery(name = "Currencies.findAll", query = "SELECT c FROM Currencies c")})
 public class Currencies implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,10 +41,6 @@ public class Currencies implements Serializable {
     @JsonView(JackSonViewer.IListing.class)
     private String code;
 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "cur_rate")
-    private BigDecimal rate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "currencyObj", fetch = FetchType.LAZY)
     private Collection<Listings> listingsCollection;
@@ -68,10 +61,9 @@ public class Currencies implements Serializable {
         this.id = curId;
     }
 
-    public Currencies(Short curId, String curCode, BigDecimal curRate) {
+    public Currencies(Short curId, String curCode) {
         this.id = curId;
         this.code = curCode;
-        this.rate = curRate;
     }
 
     public Short getId() {
@@ -88,14 +80,6 @@ public class Currencies implements Serializable {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public BigDecimal getRate() {
-        return rate;
-    }
-
-    public void setRate(BigDecimal rate) {
-        this.rate = rate;
     }
 
     @XmlTransient

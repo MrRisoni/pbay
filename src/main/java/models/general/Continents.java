@@ -12,9 +12,6 @@ import javax.xml.bind.annotation.*;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "continents")
-
-@NamedQueries({
-    @NamedQuery(name = "Continents.findAll", query = "SELECT c FROM Continents c")})
 public class Continents implements Serializable {
 
     private static final long serialVersionUID = 1L;

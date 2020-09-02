@@ -13,7 +13,7 @@ import java.util.Collection;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+
 import javax.xml.bind.annotation.XmlTransient;
 
 
@@ -21,9 +21,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "selling")
-
-@NamedQueries({
-    @NamedQuery(name = "Selling.findAll", query = "SELECT s FROM Selling s")})
 public class Selling implements Serializable {
 
     private static final long serialVersionUID = 1L;

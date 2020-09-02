@@ -11,7 +11,6 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
@@ -19,8 +18,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "reviews")
 
-@NamedQueries({
-    @NamedQuery(name = "Reviews.findAll", query = "SELECT r FROM Reviews r")})
 public class Reviews implements Serializable {
 
     private static final long serialVersionUID = 1L;

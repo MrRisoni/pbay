@@ -15,7 +15,6 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 
@@ -24,8 +23,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "listings")
 
-@NamedQueries({
-    @NamedQuery(name = "Listings.findAll", query = "SELECT l FROM Listings l")})
 public class Listings implements Serializable {
 
     private static final long serialVersionUID = 1L;

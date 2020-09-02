@@ -7,16 +7,13 @@ import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+
 
 
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "products_filter_values")
-
-@NamedQueries({
-    @NamedQuery(name = "ProductsFilterValues.findAll", query = "SELECT p FROM ProductsFilterValues p")})
 public class ProductsFilterValues implements Serializable {
 
     private static final long serialVersionUID = 1L;

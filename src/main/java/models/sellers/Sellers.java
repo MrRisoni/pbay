@@ -15,7 +15,7 @@ import java.util.Collection;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+
 import javax.xml.bind.annotation.XmlTransient;
 
 
@@ -24,8 +24,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "sellers")
 
-@NamedQueries({
-    @NamedQuery(name = "Sellers.findAll", query = "SELECT s FROM Sellers s")})
 public class Sellers implements Serializable {
 
     private static final long serialVersionUID = 1L;

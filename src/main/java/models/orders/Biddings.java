@@ -12,16 +12,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+
 
 
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "biddings")
-
-@NamedQueries({
-    @NamedQuery(name = "Biddings.findAll", query = "SELECT b FROM Biddings b")})
 public class Biddings implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -15,7 +15,7 @@ import java.util.Collection;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+
 import javax.xml.bind.annotation.XmlTransient;
 
 
@@ -23,9 +23,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "order_items")
-
-@NamedQueries({
-    @NamedQuery(name = "OrderItems.findAll", query = "SELECT o FROM OrderItems o")})
 public class OrderItems implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -66,6 +63,13 @@ public class OrderItems implements Serializable {
     @Column(name = "itm_ship_total")
     @JsonView(JackSonViewer.IOrder.class)
     private BigDecimal shipTotal;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "itm_rate")
+    @JsonView(JackSonViewer.IOrder.class)
+    private BigDecimal rate;
+
 
     @Basic(optional = false)
     @NotNull
@@ -235,4 +239,11 @@ public class OrderItems implements Serializable {
         this.orderItemTrackHistoryCollection = orderItemTrackHistoryCollection;
     }
 
+    public BigDecimal getRate() {
+        return rate;
+    }
+
+    public void setRate(BigDecimal rate) {
+        this.rate = rate;
+    }
 }

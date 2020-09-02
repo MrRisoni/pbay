@@ -10,16 +10,13 @@ import java.math.BigDecimal;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+
 
 
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "shipping_costs")
-
-@NamedQueries({
-    @NamedQuery(name = "ShippingCosts.findAll", query = "SELECT s FROM ShippingCosts s")})
 public class ShippingCosts implements Serializable {
 
     private static final long serialVersionUID = 1L;
