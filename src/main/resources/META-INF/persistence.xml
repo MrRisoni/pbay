@@ -11,15 +11,6 @@
       <property name="hibernate.use_sql_comments" value="true"/>
       <property name="hibernate.hbm2ddl.auto" value="none"/>
 
-
-      <property name="hibernate.cache.use_second_level_cache" value="true"/>
-      <property name="hibernate.cache.region.factory_class" value="ehcache"/>
-      <property name="hibernate.cache.use_query_cache" value="true"/>
-      <property name="hibernate.cache.use_structured_entries" value="true"/>
-
-      <property name="hibernate.cache.infinispan.entity.expiration.lifespan" value="300"/>
-
-
     </properties>
   </persistence-unit>
 </persistence>

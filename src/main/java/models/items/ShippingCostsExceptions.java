@@ -37,9 +37,12 @@ public class ShippingCostsExceptions implements Serializable {
     @Column(name = "shcx_cost")
     private BigDecimal cost;
 
-    @JoinColumn(name = "shcx_selling_id", referencedColumnName = "sll_id")
+    @JoinColumn(name = "shcx_selling_id", referencedColumnName = "sll_id",updatable = false,insertable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling sellingObj;
+
+    @Column(name = "shc_selling_id")
+    private Integer sellingObkFKey;
 
     public ShippingCostsExceptions() {
     }
@@ -86,4 +89,12 @@ public class ShippingCostsExceptions implements Serializable {
         this.sellingObj = sellingObj;
     }
 
+
+    public Integer getSellingObkFKey() {
+        return sellingObkFKey;
+    }
+
+    public void setSellingObkFKey(Integer sellingObkFKey) {
+        this.sellingObkFKey = sellingObkFKey;
+    }
 }

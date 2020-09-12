@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pojos.Basket;
 import pojos.BasketItem;
+import services.ShipService;
 import spring_repos.*;
 
 import javax.persistence.EntityManager;
@@ -55,6 +56,7 @@ public class OrderController {
     @Autowired
     OrderItemRepo orderItemRepo;
 
+
     @Autowired
     OrderItemTrackHistoryRepo itemTrackHistoryRepo;
 
@@ -78,6 +80,23 @@ public class OrderController {
         }
     }
 
+    @RequestMapping(value=  "/api/order/ship_cost" , method = RequestMethod.POST)
+    public BigDecimal getShipping(@RequestBody Object postData) {
+        try {
+            Gson g = new Gson();
+            Basket kalathi = new Gson().fromJson(g.toJson(postData), Basket.class);
+            ShipService shipSrvc = new ShipService();
+            shipSrvc.setEm(HibernateUtil.getEM());
+
+            BigDecimal cost = shipSrvc.getCost(kalathi);
+            HibernateUtil.getEM().close();
+            return cost;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return  new BigDecimal(0);
+        }
+    }
 
     @RequestMapping(value=  "/api/order/place_order" , method = RequestMethod.POST)
     public String placeOrder( @RequestBody Object postData) {
