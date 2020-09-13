@@ -20,9 +20,9 @@ public class HibernateUtil {
         if (em == null) {
             Map<String, Object> configOverrides = new HashMap<String, Object>();
             System.out.println("SYSTEM ENV");
-            configOverrides.put("javax.persistence.jdbc.password", System.getenv("SPRING_APP_EBAY_DB_PASS"));
-            configOverrides.put("javax.persistence.jdbc.user",  System.getenv("SPRING_APP_DB_USR"));
-            String dbUrl = "jdbc:mysql://" + System.getenv("SPRING_APP_DB_HOST") + ":3306/" + System.getenv("SPRING_APP_EBAY_DB_NAME") + "?serverTimezone=UTC";
+            configOverrides.put("javax.persistence.jdbc.password", System.getenv("SPRING_APP_DB_EBAY_PASSWD"));
+            configOverrides.put("javax.persistence.jdbc.user",  System.getenv("SPRING_APP_DB_EBAY_USR"));
+            String dbUrl = "jdbc:mysql://" + System.getenv("SPRING_APP_DB_EBAY_HOST") + ":3306/" + System.getenv("SPRING_APP_DB_EBAY_NAME") + "?serverTimezone=UTC";
             configOverrides.put("javax.persistence.jdbc.url", dbUrl);
             System.out.println("URL CON");
             System.out.println(dbUrl);

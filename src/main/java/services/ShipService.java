@@ -1,11 +1,16 @@
 package services;
 
+import models.items.Listings;
 import models.items.ShippingCosts;
 import models.items.ShippingCostsExceptions;
 import models.users.ShippingAddresses;
+import org.hibernate.Hibernate;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import pojos.Basket;
 import pojos.BasketItem;
+import spring_repos.ListingRepo;
 import spring_repos.ShippingAddressRepo;
 
 import javax.persistence.EntityManager;
@@ -18,7 +23,7 @@ public class ShipService {
     private BigDecimal shipCost;
 
     @Autowired
-    ShippingAddressRepo shipAddRp;
+    ListingRepo listRepo;
 
     private EntityManager em;
 
@@ -32,31 +37,61 @@ public class ShipService {
     {
 
         System.out.println("SHIP ADDD ID " + kalathi.getShipTo().getId());
+        List<Object[]> shipAddObj = this.em.createNativeQuery(
+                "SELECT cont.con_id,cn.ctr_code , cont.con_code ,cn.ctr_id "+
+               "  FROM shipping_addresses sha "+
+               " JOIN countries cn ON cn.ctr_id = sha.shp_country_id "+
+               " JOIN continents cont ON cn.ctr_continent_id = cont.con_id "+
+               " WHERE sha.shp_id = :shipId ")
+                .setParameter("shipId",kalathi.getShipTo().getId())
+              .getResultList();
 
-        ShippingAddresses shipAdd = shipAddRp.findById(kalathi.getShipTo().getId()).orElse(null);
 
-       // ShippingAddresses shipAdd = optShip.orElse(null);
-        String countryCode = shipAdd.getCountryObj().getCode();
-        String continentCode = shipAdd.getCountryObj().getCtrContinentId().getCode();
+        String countryCode = shipAddObj.get(0)[1].toString();
+        String continentCode = shipAddObj.get(0)[2].toString();
+        Integer continentId = Integer.valueOf(shipAddObj.get(0)[0].toString());
+        Integer countryId = Integer.valueOf(shipAddObj.get(0)[3].toString());
+
+        System.out.println("COUNTRY CODE " + countryCode);
+        System.out.println("continentCode CODE " + continentCode);
 
         for (BasketItem itm: kalathi.getItems()) {
             this.shipCost = new BigDecimal(0);
-            List<ShippingCosts> costPerCon =
-                    this.em.createQuery(" SELECT sc " +
-                            "  FROM ShippingCosts " +
-                            " WHERE sellingObkFKey =:slid AND continentCode =:con ")
-                    .setParameter("slid",itm.getListedItem().getSellingObj().getId())
-                    .setParameter("con",continentCode)
+
+            System.out.println("Listing id " + itm.getListedItem().getId());
+
+
+            String perContinentSQL = " SELECT shc.shc_cost AS cost " +
+                    "FROM   shipping_costs shc " +
+                    "JOIN  listings lst ON shc.shc_selling_id = lst.lis_selling_id " +
+                    "WHERE lst.lis_id = :lisId " +
+                    "AND shc.shc_continent_id = :conId ";
+
+            List<ShippingCosts> costPerCon = this.em.createNativeQuery(perContinentSQL)
+                    .setParameter("lisId",itm.getListedItem().getId())
+                    .setParameter("conId",continentId)
+                    .unwrap(org.hibernate.query.NativeQuery.class)
+                    .addScalar("cost", StandardBasicTypes.BIG_DECIMAL)
+                    .setResultTransformer(Transformers.aliasToBean(ShippingCosts.class))
                     .getResultList();
+
             if (costPerCon.size() >0) {
                 this.shipCost = costPerCon.get(0).getCost();
 
+
+                String exceptionSQL = " SELECT scx.shcx_cost AS cost " +
+                        "FROM    shipping_costs_exceptions scx " +
+                        "JOIN  listings lst ON scx.shcx_selling_id = lst.lis_selling_id " +
+                        "WHERE lst.lis_id = :lisId " +
+                        "AND scx.shcx_country_id = :crnId ";
+
                 List<ShippingCostsExceptions> costException =
-                        this.em.createQuery(" SELECT sc " +
-                                "  FROM ShippingCostsExceptions " +
-                                " WHERE sellingObkFKey =:slid AND countryCode =:cr ")
-                                .setParameter("slid",itm.getListedItem().getSellingObj().getId())
-                                .setParameter("cr",countryCode)
+                        this.em.createNativeQuery(exceptionSQL)
+                                .setParameter("lisId",itm.getListedItem().getId())
+                                .setParameter("crnId",countryId)
+                                .unwrap(org.hibernate.query.NativeQuery.class)
+                                .addScalar("cost", StandardBasicTypes.BIG_DECIMAL)
+                                .setResultTransformer(Transformers.aliasToBean(ShippingCostsExceptions.class))
                                 .getResultList();
 
                 if (costException.size()>0) {

@@ -42,9 +42,13 @@ public class ShippingCosts implements Serializable {
     private Selling sellingObj;
 
     @Column(name = "shc_selling_id")
-    private Integer sellingObkFKey;
+    private Integer sellingObjFKey;
 
     public ShippingCosts() {
+    }
+
+    public ShippingCosts(@NotNull BigDecimal cost) {
+        this.cost = cost;
     }
 
     public ShippingCosts(Integer shcId) {
@@ -90,11 +94,11 @@ public class ShippingCosts implements Serializable {
     }
 
 
-    public Integer getSellingObkFKey() {
-        return sellingObkFKey;
+    public Integer getSellingObjFKey() {
+        return sellingObjFKey;
     }
 
-    public void setSellingObkFKey(Integer sellingObkFKey) {
-        this.sellingObkFKey = sellingObkFKey;
+    public void setSellingObjFKey(Integer sellingObjFKey) {
+        this.sellingObjFKey = sellingObjFKey;
     }
 }
