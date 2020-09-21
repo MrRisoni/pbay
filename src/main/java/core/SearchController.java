@@ -5,10 +5,7 @@
  */
 package core;
 
-/**
- *
- * @author ekatania
- */
+
 public class SearchController {
     
 }

@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import models.HibernateUtil;
 import models.JackSonViewer;
 import models.general.Currencies;
-import models.general.Currencies_;
 import models.general.Paymethods;
 import models.items.Listings;
 import models.orders.OrderItemTrackHistory;
@@ -18,6 +17,8 @@ import models.users.BillingAddresses;
 import models.users.ShippingAddresses;
 import models.users.Users;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,7 +62,7 @@ public class OrderController {
     OrderItemTrackHistoryRepo itemTrackHistoryRepo;
 
     @RequestMapping(value = "/api/order/view", method = RequestMethod.GET)
-    public String getOrderDetails()
+    public ResponseEntity<String> getOrderDetails()
     {
         try {
             Optional<Orders> fetchedOrder = ordRepo.findById(1L);
@@ -69,19 +70,19 @@ public class OrderController {
 
             ObjectMapper mapper = new ObjectMapper();
             mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
-            return mapper.writerWithView(JackSonViewer.IOrder.class).writeValueAsString(returnedOrder);
-
+            String json =  mapper.writerWithView(JackSonViewer.IOrder.class).writeValueAsString(returnedOrder);
+            return new ResponseEntity<>(json, HttpStatus.OK);
 
         }
         catch (Exception ex)
         {
             ex.printStackTrace();
-            return ex.getMessage();
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_GATEWAY);
         }
     }
 
     @RequestMapping(value=  "/api/order/ship_cost" , method = RequestMethod.POST)
-    public BigDecimal getShipping(@RequestBody Object postData) {
+    public ResponseEntity<BigDecimal> getShipping(@RequestBody Object postData) {
         try {
             Gson g = new Gson();
             Basket kalathi = new Gson().fromJson(g.toJson(postData), Basket.class);
@@ -90,16 +91,16 @@ public class OrderController {
 
             BigDecimal cost = shipSrvc.getCost(kalathi);
             HibernateUtil.getEM().close();
-            return cost;
+            return  new ResponseEntity<>(cost,HttpStatus.OK);
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            return  new BigDecimal(0);
+            return  new ResponseEntity<>(new BigDecimal(0),HttpStatus.OK);
         }
     }
 
     @RequestMapping(value=  "/api/order/place_order" , method = RequestMethod.POST)
-    public String placeOrder( @RequestBody Object postData) {
+    public ResponseEntity<String> placeOrder( @RequestBody Object postData) {
         try {
             EntityManager entityManager = HibernateUtil.getEM();
 
@@ -130,7 +131,6 @@ public class OrderController {
             BigDecimal goodsTotal = new BigDecimal(0);
             BigDecimal shipTotal = new BigDecimal(0);
             BigDecimal fee = new BigDecimal(0);
-
 
             paraggelia.setTotal(total);
             paraggelia.setGoodsTotal(goodsTotal);
@@ -183,15 +183,12 @@ public class OrderController {
             savedOrder.setTotal(orderTotalAmount);
 
             ordRepo.save(savedOrder);
-
-
-            return "foo";
+            return new ResponseEntity<>(savedOrder.getId().toString(),HttpStatus.OK);
         }
         catch (Exception ex) {
             ex.printStackTrace();
-            return ex.getMessage();
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_GATEWAY);
         }
     }
-
 
 }

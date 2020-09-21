@@ -8,6 +8,8 @@ import models.JackSonViewer;
 import models.items.Listings;
 import models.orders.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +26,7 @@ public class ListingController {
     ListingRepo listRepo;
 
     @RequestMapping(value = "/api/listing", method = RequestMethod.GET)
-    public String getItemDetails()
+    public ResponseEntity<String> getItemDetails()
     {
      /*  Optional<Listings> listFound = listRepo.findById(3L);
         ListingCustomRepo.setEm(HibernateUtil.getEM());
@@ -40,12 +42,14 @@ public class ListingController {
 
             ObjectMapper mapper = new ObjectMapper();
             mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
-            return mapper.writerWithView(JackSonViewer.IListing.class).writeValueAsString(returnedListing);
+            String json = mapper.writerWithView(JackSonViewer.IListing.class).writeValueAsString(returnedListing);
+            return new ResponseEntity<>(json, HttpStatus.OK);
+
         }
         catch (Exception ex)
         {
             ex.printStackTrace();
-            return ex.getMessage();
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_GATEWAY);
         }
 
     }
