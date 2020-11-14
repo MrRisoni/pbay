@@ -1,9 +1,12 @@
-package core;
+package controllers;
 
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import core.Utils;
+import dtos.OrderDto;
+import mappers.OrderMapper;
 import models.HibernateUtil;
 import models.JackSonViewer;
 import models.general.Currencies;
@@ -16,6 +19,7 @@ import models.orders.Orders;
 import models.users.BillingAddresses;
 import models.users.ShippingAddresses;
 import models.users.Users;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,27 +61,30 @@ public class OrderController {
     @Autowired
     OrderItemRepo orderItemRepo;
 
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Autowired
     OrderItemTrackHistoryRepo itemTrackHistoryRepo;
 
     @RequestMapping(value = "/api/order/view", method = RequestMethod.GET)
-    public ResponseEntity<String> getOrderDetails()
+    public ResponseEntity<OrderDto> getOrderDetails()
     {
         try {
             Optional<Orders> fetchedOrder = ordRepo.findById(1L);
             Orders returnedOrder = fetchedOrder.orElse(null);
-
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
-            String json =  mapper.writerWithView(JackSonViewer.IOrder.class).writeValueAsString(returnedOrder);
-            return new ResponseEntity<>(json, HttpStatus.OK);
+// https://github.com/mapstruct/mapstruct-examples/blob/master/mapstruct-field-mapping/src/test/java/org/mapstruct/example/CustomerMapperTest.java#L35
+           // https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application
+            // OrderDto orderdto = OrderMapper.MAPPER.fromOrder( returnedOrder );
+            OrderDto postDto = modelMapper.map(returnedOrder, OrderDto.class);
+            System.out.println(postDto.getId());
+            return new ResponseEntity<>(postDto, HttpStatus.OK);
 
         }
         catch (Exception ex)
         {
             ex.printStackTrace();
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_GATEWAY);
+            return new ResponseEntity<>(null, HttpStatus.BAD_GATEWAY);
         }
     }
 
