@@ -27,56 +27,56 @@ public class ShippingAddresses implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "shp_id")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_city")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String city;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_region")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String region;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_street")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String street;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
     @Column(name = "shp_street_no")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String streetNo;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 9)
     @Column(name = "shp_code")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String code;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_surname")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String surname;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_name")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String name;
 
     @JoinColumn(name = "shp_user_id", referencedColumnName = "id")
@@ -85,7 +85,7 @@ public class ShippingAddresses implements Serializable {
 
     @JoinColumn(name = "shp_country_id", referencedColumnName = "ctr_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonView(JackSonViewer.IOrder.class)
+
     private Countries countryObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipAddressObj", fetch = FetchType.LAZY)

@@ -48,13 +48,13 @@ public class Products implements Serializable {
     @Lob
     @Size(min = 1, max = 65535)
     @Column(name = "prod_descr")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String description;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "prod_preowned")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private short isPreOwned;
 
     @JoinColumn(name = "prod_category_id", referencedColumnName = "cat_id")

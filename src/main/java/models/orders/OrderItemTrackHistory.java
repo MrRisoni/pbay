@@ -24,14 +24,14 @@ public class OrderItemTrackHistory implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "itmh_id")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "itmh_created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    @JsonView(JackSonViewer.IOrder.class)
+
     private Date createdAt;
 
     @JoinColumn(name = "itmh_item_id", referencedColumnName = "itm_id")
@@ -40,7 +40,7 @@ public class OrderItemTrackHistory implements Serializable {
 
     @JoinColumn(name = "itmh_status_id", referencedColumnName = "stat_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonView(JackSonViewer.IOrder.class)
+
     private OrderStatuses statusObj;
 
     public OrderItemTrackHistory() {

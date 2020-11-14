@@ -28,14 +28,14 @@ public class Paymethods implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "pm_id")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private Short id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "pm_title")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "payMethodObj", fetch = FetchType.LAZY)

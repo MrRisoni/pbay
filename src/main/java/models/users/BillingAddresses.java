@@ -28,61 +28,61 @@ public class BillingAddresses implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "bla_id")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "bla_city")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String city;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "bla_region")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String region;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "bla_street")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String streetNam;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
     @Column(name = "bla_street_no")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String streetNo;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 9)
     @Column(name = "bla_code")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String code;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "bla_surname")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String surname;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "bla_name")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String name;
 
     @JoinColumn(name = "bla_country_id", referencedColumnName = "ctr_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonView(JackSonViewer.IOrder.class)
+
     private Countries countryObj;
 
     @JoinColumn(name = "bla_user_id", referencedColumnName = "id")

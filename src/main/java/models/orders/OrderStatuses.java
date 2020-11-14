@@ -26,14 +26,14 @@ public class OrderStatuses implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "stat_id")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private Short id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 34)
     @Column(name = "stat_title")
-    @JsonView(JackSonViewer.IOrder.class)
+
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "statusObj", fetch = FetchType.LAZY)
