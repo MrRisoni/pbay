@@ -31,14 +31,14 @@ public class Sellers implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "sel_id")
-    @JsonView({JackSonViewer.IOrder.class, JackSonViewer.IListing.class})
+    @JsonView({ JackSonViewer.IListing.class})
     private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 125)
     @Column(name = "sel_title")
-    @JsonView({JackSonViewer.IOrder.class, JackSonViewer.IListing.class})
+    @JsonView({ JackSonViewer.IListing.class})
     private String title;
 
     @Basic(optional = false)
@@ -69,7 +69,7 @@ public class Sellers implements Serializable {
 
     @JoinColumn(name = "sel_country_id", referencedColumnName = "ctr_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonView({JackSonViewer.IOrder.class, JackSonViewer.IListing.class})
+    @JsonView({ JackSonViewer.IListing.class})
     private Countries countryObj;
 
     public Sellers() {

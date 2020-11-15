@@ -26,21 +26,21 @@ public class Products implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "prod_id")
-    @JsonView({JackSonViewer.IListing.class, JackSonViewer.IOrder.class})
+    @JsonView({JackSonViewer.IListing.class})
     private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "prod_title")
-    @JsonView({JackSonViewer.IListing.class, JackSonViewer.IOrder.class})
+    @JsonView({JackSonViewer.IListing.class})
     private String title;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "prod_other_title")
-    @JsonView({JackSonViewer.IListing.class, JackSonViewer.IOrder.class})
+    @JsonView({JackSonViewer.IListing.class})
     private String otherTitle;
 
     @Basic(optional = false)
@@ -59,7 +59,7 @@ public class Products implements Serializable {
 
     @JoinColumn(name = "prod_category_id", referencedColumnName = "cat_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonView({JackSonViewer.IListing.class, JackSonViewer.IOrder.class})
+    @JsonView({JackSonViewer.IListing.class})
     private ProductsCategories categoryObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "filterObj", fetch = FetchType.LAZY)

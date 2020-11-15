@@ -35,38 +35,32 @@ public class Orders implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ord_id")
-
     private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "ord_bank_transaction_id")
-
     private String bankTransactionId;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_total")
-
     private BigDecimal total;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_goods_total")
-
     private BigDecimal goodsTotal;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_ship_total")
-
     private BigDecimal shipTotal;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_fee")
-
     private BigDecimal fee;
 
     @Basic(optional = false)
@@ -74,31 +68,26 @@ public class Orders implements Serializable {
     @CreationTimestamp
     @Column(name = "ord_created")
     @Temporal(TemporalType.TIMESTAMP)
-
     private Date createdAt;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_success")
-
     private short isSuccess;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_void")
-
     private short isVoid;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderObj", fetch = FetchType.LAZY)
     private Collection<SellerReviews> sellerReviewsCollection;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderObj", fetch = FetchType.LAZY)
-
     private Collection<OrderItems> orderItemsCollection;
 
     @JoinColumn(name = "ord_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-
     private Currencies currencyObj;
 
     @JoinColumn(name = "ord_user_id", referencedColumnName = "id")
@@ -107,17 +96,14 @@ public class Orders implements Serializable {
 
     @JoinColumn(name = "ord_shipaddress_id", referencedColumnName = "shp_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-
     private ShippingAddresses shipAddressObj;
 
     @JoinColumn(name = "ord_billaddress_id", referencedColumnName = "bla_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-
     private BillingAddresses billAddressObj;
 
     @JoinColumn(name = "ord_paymethod_id", referencedColumnName = "pm_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-
     private Paymethods payMethodObj;
 
     public Orders() {

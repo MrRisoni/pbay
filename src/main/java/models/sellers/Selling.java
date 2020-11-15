@@ -58,12 +58,12 @@ public class Selling implements Serializable {
 
     @JoinColumn(name = "sll_product_id", referencedColumnName = "prod_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonView({JackSonViewer.IListing.class, JackSonViewer.IOrder.class})
+    @JsonView({JackSonViewer.IListing.class})
     private Products productObj;
 
     @JoinColumn(name = "sll_seller_id", referencedColumnName = "sel_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonView({JackSonViewer.IListing.class, JackSonViewer.IOrder.class})
+    @JsonView({JackSonViewer.IListing.class})
     private Sellers sellerObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellingObj", fetch = FetchType.LAZY)

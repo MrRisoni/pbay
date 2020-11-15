@@ -1,13 +1,26 @@
 package dtos;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
+@Data
 public class OrderDto {
+
     private Long id;
     private String bankTransactionId;
     private Date createdAt;
+    private BigDecimal total;
+    private BigDecimal goodsTotal;
+    private BigDecimal shipTotal;
+    private BigDecimal fee;
+    private short isSuccess;
+    private short isVoid;
 
-    public Long getId() {
+  /*  public Long getId() {
         return id;
     }
 
@@ -29,5 +42,5 @@ public class OrderDto {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-    }
+    }*/
 }

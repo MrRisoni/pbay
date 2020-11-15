@@ -26,14 +26,14 @@ public class ProductsCategories implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "cat_id")
-    @JsonView({JackSonViewer.IOrder.class, JackSonViewer.IOrder.class})
+
     private Integer id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "cat_title")
-    @JsonView({JackSonViewer.IOrder.class, JackSonViewer.IOrder.class})
+
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryObj", fetch = FetchType.LAZY)
