@@ -1,8 +1,8 @@
 
 package models.orders;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import models.JackSonViewer;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -22,12 +22,16 @@ import javax.xml.bind.annotation.XmlTransient;
 public class OrderStatuses implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "stat_id")
     private Short id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 34)
@@ -50,22 +54,6 @@ public class OrderStatuses implements Serializable {
     public OrderStatuses(Short statId, String statTitle) {
         this.id = statId;
         this.title = statTitle;
-    }
-
-    public Short getId() {
-        return id;
-    }
-
-    public void setId(Short id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     @XmlTransient

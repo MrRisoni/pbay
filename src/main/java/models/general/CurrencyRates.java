@@ -1,7 +1,7 @@
 package models.general;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import models.JackSonViewer;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
@@ -14,18 +14,26 @@ import java.math.BigDecimal;
 @Table(name = "currency_rates")
 public class CurrencyRates implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Short id;
 
+    @Getter
+    @Setter
     @Column(name="from_cur")
     private String fromCode;
 
+    @Getter
+    @Setter
     @Column(name="to_cur ")
     private String toCode;
 
+    @Getter
+    @Setter
     @Column(name="rate")
     private BigDecimal rate;
 
@@ -34,37 +42,5 @@ public class CurrencyRates implements Serializable {
 
     public CurrencyRates(Short id) {
         this.id = id;
-    }
-
-    public Short getId() {
-        return id;
-    }
-
-    public void setId(Short id) {
-        this.id = id;
-    }
-
-    public String getFromCode() {
-        return fromCode;
-    }
-
-    public void setFromCode(String fromCode) {
-        this.fromCode = fromCode;
-    }
-
-    public String getToCode() {
-        return toCode;
-    }
-
-    public void setToCode(String toCode) {
-        this.toCode = toCode;
-    }
-
-    public BigDecimal getRate() {
-        return rate;
-    }
-
-    public void setRate(BigDecimal rate) {
-        this.rate = rate;
     }
 }

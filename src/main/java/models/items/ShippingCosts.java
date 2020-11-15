@@ -1,6 +1,8 @@
 
 package models.items;
 
+import lombok.Getter;
+import lombok.Setter;
 import models.sellers.Selling;
 
 import java.io.Serializable;
@@ -11,8 +13,6 @@ import java.math.BigDecimal;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
-
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -20,18 +20,24 @@ import javax.validation.constraints.Size;
 public class ShippingCosts implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "shc_id")
     private Integer id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "shc_continent_code")
     private String continentCode;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "shc_cost")
@@ -61,29 +67,6 @@ public class ShippingCosts implements Serializable {
         this.cost = shcCost;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getContinentCode() {
-        return continentCode;
-    }
-
-    public void setContinentCode(String continentCode) {
-        this.continentCode = continentCode;
-    }
-
-    public BigDecimal getCost() {
-        return cost;
-    }
-
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
-    }
 
     public Selling getSellingObj() {
         return sellingObj;
@@ -92,7 +75,6 @@ public class ShippingCosts implements Serializable {
     public void setSellingObj(Selling sellingObj) {
         this.sellingObj = sellingObj;
     }
-
 
     public Integer getSellingObjFKey() {
         return sellingObjFKey;

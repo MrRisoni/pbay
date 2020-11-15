@@ -1,10 +1,10 @@
 
 package models.items;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import models.JackSonViewer;
-
 import java.io.Serializable;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 
 import javax.xml.bind.annotation.XmlTransient;
 
-
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -22,18 +21,20 @@ import javax.xml.bind.annotation.XmlTransient;
 public class ProductsCategories implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "cat_id")
-
     private Integer id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "cat_title")
-
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryObj", fetch = FetchType.LAZY)
@@ -52,22 +53,6 @@ public class ProductsCategories implements Serializable {
     public ProductsCategories(Integer catId, String catTitle) {
         this.id = catId;
         this.title = catTitle;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     @XmlTransient

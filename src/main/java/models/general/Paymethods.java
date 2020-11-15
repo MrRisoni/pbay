@@ -1,8 +1,8 @@
 
 package models.general;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import models.JackSonViewer;
+import lombok.Getter;
+import lombok.Setter;
 import models.orders.Orders;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -10,10 +10,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Collection;
 
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import javax.xml.bind.annotation.XmlTransient;
 
 
@@ -24,18 +22,20 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Paymethods implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "pm_id")
-
     private Short id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "pm_title")
-
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "payMethodObj", fetch = FetchType.LAZY)
@@ -53,22 +53,6 @@ public class Paymethods implements Serializable {
         this.title = pmTitle;
     }
 
-    public Short getId() {
-        return id;
-    }
-
-    public void setId(Short id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     @XmlTransient
     public Collection<Orders> getOrdersCollection() {
         return ordersCollection;
@@ -77,6 +61,4 @@ public class Paymethods implements Serializable {
     public void setOrdersCollection(Collection<Orders> ordersCollection) {
         this.ordersCollection = ordersCollection;
     }
-
-
 }

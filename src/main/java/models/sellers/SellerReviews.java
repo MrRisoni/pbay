@@ -1,6 +1,8 @@
 
 package models.sellers;
 
+import lombok.Getter;
+import lombok.Setter;
 import models.orders.Orders;
 import models.users.Users;
 
@@ -23,17 +25,23 @@ import javax.xml.bind.annotation.XmlTransient;
 public class SellerReviews implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "srw_id")
     private Integer id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "srw_opinion")
     private short opinion;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Lob
@@ -41,6 +49,8 @@ public class SellerReviews implements Serializable {
     @Column(name = "srw_comment")
     private String comment;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "srw_created_at")
@@ -76,37 +86,6 @@ public class SellerReviews implements Serializable {
         this.createdAt = srwCreatedAt;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public short getOpinion() {
-        return opinion;
-    }
-
-    public void setOpinion(short opinion) {
-        this.opinion = opinion;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public Users getUserObj() {
         return userObj;

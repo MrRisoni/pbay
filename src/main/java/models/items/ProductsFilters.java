@@ -2,15 +2,15 @@
 package models.items;
 
 import java.io.Serializable;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.util.Collection;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import javax.xml.bind.annotation.XmlTransient;
-
 
 @Entity
 @Cacheable
@@ -19,12 +19,16 @@ import javax.xml.bind.annotation.XmlTransient;
 public class ProductsFilters implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "fil_id")
     private Integer id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
@@ -48,22 +52,6 @@ public class ProductsFilters implements Serializable {
     public ProductsFilters(Integer filId, String filTitle) {
         this.id = filId;
         this.title = filTitle;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public ProductsCategories getCategoryObj() {

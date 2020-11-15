@@ -1,6 +1,8 @@
 
 package models.orders;
 
+import lombok.Getter;
+import lombok.Setter;
 import models.items.Listings;
 import models.general.Currencies;
 import models.users.Users;
@@ -14,7 +16,6 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 
 
-
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -22,28 +23,38 @@ import javax.validation.constraints.NotNull;
 public class Biddings implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "bid_id")
     private Integer id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "bid_price")
     private BigDecimal bidPrice;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "bid_price_eur")
     private BigDecimal bidPriceEur;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "bid_created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "bid_active")
@@ -76,45 +87,6 @@ public class Biddings implements Serializable {
         this.isActive = bidActive;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public BigDecimal getBidPrice() {
-        return bidPrice;
-    }
-
-    public void setBidPrice(BigDecimal bidPrice) {
-        this.bidPrice = bidPrice;
-    }
-
-    public BigDecimal getBidPriceEur() {
-        return bidPriceEur;
-    }
-
-    public void setBidPriceEur(BigDecimal bidPriceEur) {
-        this.bidPriceEur = bidPriceEur;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public short getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(short isActive) {
-        this.isActive = isActive;
-    }
 
     public Currencies getCurrencyObj() {
         return currencyObj;

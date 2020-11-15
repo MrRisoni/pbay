@@ -2,6 +2,8 @@
 package models.items;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Getter;
+import lombok.Setter;
 import models.JackSonViewer;
 import models.sellers.Selling;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -22,6 +24,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Products implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -29,6 +33,8 @@ public class Products implements Serializable {
     @JsonView({JackSonViewer.IListing.class})
     private Integer id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -36,6 +42,8 @@ public class Products implements Serializable {
     @JsonView({JackSonViewer.IListing.class})
     private String title;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
@@ -43,18 +51,20 @@ public class Products implements Serializable {
     @JsonView({JackSonViewer.IListing.class})
     private String otherTitle;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Lob
     @Size(min = 1, max = 65535)
     @Column(name = "prod_descr")
-
     private String description;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "prod_preowned")
-
     private short isPreOwned;
 
     @JoinColumn(name = "prod_category_id", referencedColumnName = "cat_id")
@@ -81,54 +91,6 @@ public class Products implements Serializable {
         this.otherTitle = prodOtherTitle;
         this.description = prodDescr;
         this.isPreOwned = prodPreowned;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getOtherTitle() {
-        return otherTitle;
-    }
-
-    public void setOtherTitle(String otherTitle) {
-        this.otherTitle = otherTitle;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public short getIsPreOwned() {
-        return isPreOwned;
-    }
-
-    public void setIsPreOwned(short isPreOwned) {
-        this.isPreOwned = isPreOwned;
-    }
-
-    public ProductsCategories getCategoryObj() {
-        return categoryObj;
-    }
-
-    public void setCategoryObj(ProductsCategories categoryObj) {
-        this.categoryObj = categoryObj;
     }
 
     @XmlTransient

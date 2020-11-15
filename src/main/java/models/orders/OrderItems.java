@@ -2,6 +2,8 @@
 package models.orders;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Getter;
+import lombok.Setter;
 import models.JackSonViewer;
 import models.general.Currencies;
 import models.sellers.Sellers;
@@ -26,43 +28,58 @@ import javax.xml.bind.annotation.XmlTransient;
 public class OrderItems implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "itm_id")
     private Long id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_quantity")
     private short quantity;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @Size(min = 1, max = 225)
     @Column(name = "itm_tracking_nums")
     private String trackingNums;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_total")
     private BigDecimal total;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_goods_total")
     private BigDecimal goodsTotal;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_ship_total")
     private BigDecimal shipTotal;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_rate")
     private BigDecimal rate;
 
-
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_void")
@@ -112,61 +129,6 @@ public class OrderItems implements Serializable {
         this.isVoid = itmVoid;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public short getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(short quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getTrackingNums() {
-        return trackingNums;
-    }
-
-    public void setTrackingNums(String trackingNums) {
-        this.trackingNums = trackingNums;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
-    public BigDecimal getGoodsTotal() {
-        return goodsTotal;
-    }
-
-    public void setGoodsTotal(BigDecimal goodsTotal) {
-        this.goodsTotal = goodsTotal;
-    }
-
-    public BigDecimal getShipTotal() {
-        return shipTotal;
-    }
-
-    public void setShipTotal(BigDecimal shipTotal) {
-        this.shipTotal = shipTotal;
-    }
-
-    public short getIsVoid() {
-        return isVoid;
-    }
-
-    public void setIsVoid(short isVoid) {
-        this.isVoid = isVoid;
-    }
 
     @XmlTransient
     public Collection<Reviews> getReviewsCollection() {
@@ -226,11 +188,4 @@ public class OrderItems implements Serializable {
         this.orderItemTrackHistoryCollection = orderItemTrackHistoryCollection;
     }
 
-    public BigDecimal getRate() {
-        return rate;
-    }
-
-    public void setRate(BigDecimal rate) {
-        this.rate = rate;
-    }
 }

@@ -1,6 +1,8 @@
 
 package models.items;
 
+import lombok.Getter;
+import lombok.Setter;
 import models.sellers.Selling;
 
 import java.io.Serializable;
@@ -12,7 +14,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
-
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -20,18 +21,24 @@ import javax.validation.constraints.Size;
 public class ShippingCostsExceptions implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "shcx_id")
     private Integer id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "shcx_country_code")
     private String countryCode;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "shcx_cost")
@@ -41,12 +48,13 @@ public class ShippingCostsExceptions implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling sellingObj;
 
+    @Getter
+    @Setter
     @Column(name = "shc_selling_id")
     private Integer sellingObjFKey;
 
     public ShippingCostsExceptions() {
     }
-
 
     public ShippingCostsExceptions(@NotNull BigDecimal cost) {
         this.cost = cost;
@@ -62,44 +70,11 @@ public class ShippingCostsExceptions implements Serializable {
         this.cost = shcxCost;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public BigDecimal getCost() {
-        return cost;
-    }
-
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
-    }
-
     public Selling getSellingObj() {
         return sellingObj;
     }
 
     public void setSellingObj(Selling sellingObj) {
         this.sellingObj = sellingObj;
-    }
-
-
-    public Integer getSellingObjFKey() {
-        return sellingObjFKey;
-    }
-
-    public void setSellingObjFKey(Integer sellingObjFKey) {
-        this.sellingObjFKey = sellingObjFKey;
     }
 }

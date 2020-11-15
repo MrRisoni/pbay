@@ -1,6 +1,8 @@
 
 package models.items;
 
+import lombok.Getter;
+import lombok.Setter;
 import models.sellers.Selling;
 
 import java.io.Serializable;
@@ -11,7 +13,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
-
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -19,6 +20,8 @@ import javax.validation.constraints.Size;
 public class ShippingCountryForbidden implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -26,6 +29,8 @@ public class ShippingCountryForbidden implements Serializable {
     private Integer id;
 
     @Basic(optional = false)
+    @Getter
+    @Setter
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "shf_country_code")
@@ -45,22 +50,6 @@ public class ShippingCountryForbidden implements Serializable {
     public ShippingCountryForbidden(Integer shfId, String shfCountryCode) {
         this.id = shfId;
         this.countryCode = shfCountryCode;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
     }
 
     public Selling getSellingObj() {

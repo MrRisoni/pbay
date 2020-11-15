@@ -2,6 +2,8 @@
 package models.sellers;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Getter;
+import lombok.Setter;
 import models.JackSonViewer;
 import models.orders.OrderItems;
 import models.users.Users;
@@ -27,6 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Sellers implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -34,6 +38,8 @@ public class Sellers implements Serializable {
     @JsonView({ JackSonViewer.IListing.class})
     private Integer id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 125)
@@ -41,12 +47,16 @@ public class Sellers implements Serializable {
     @JsonView({ JackSonViewer.IListing.class})
     private String title;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
     @Column(name = "sel_ssn")
     private String ssn;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "sel_stars_avg")
@@ -84,38 +94,6 @@ public class Sellers implements Serializable {
         this.title = selTitle;
         this.ssn = selSsn;
         this.avgStars = selStarsAvg;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getSsn() {
-        return ssn;
-    }
-
-    public void setSsn(String ssn) {
-        this.ssn = ssn;
-    }
-
-    public BigDecimal getAvgStars() {
-        return avgStars;
-    }
-
-    public void setAvgStars(BigDecimal avgStars) {
-        this.avgStars = avgStars;
     }
 
     @XmlTransient

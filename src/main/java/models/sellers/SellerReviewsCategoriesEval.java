@@ -2,6 +2,9 @@
 package models.sellers;
 
 import java.io.Serializable;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -18,12 +21,16 @@ import javax.validation.constraints.NotNull;
 public class SellerReviewsCategoriesEval implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "srce_id")
     private Integer id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "srce_rating")
@@ -47,22 +54,6 @@ public class SellerReviewsCategoriesEval implements Serializable {
     public SellerReviewsCategoriesEval(Integer srceId, BigDecimal srceRating) {
         this.id = srceId;
         this.rating = srceRating;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public BigDecimal getRating() {
-        return rating;
-    }
-
-    public void setRating(BigDecimal rating) {
-        this.rating = rating;
     }
 
     public SellerReviewCategories getCategoryObj() {

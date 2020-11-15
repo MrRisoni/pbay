@@ -2,6 +2,8 @@
 package models.general;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Getter;
+import lombok.Setter;
 import models.JackSonViewer;
 import models.orders.Biddings;
 import models.items.Listings;
@@ -27,6 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Currencies implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -34,13 +38,14 @@ public class Currencies implements Serializable {
     @JsonView(JackSonViewer.IListing.class)
     private Short id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "cur_code")
     @JsonView(JackSonViewer.IListing.class)
     private String code;
-
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "currencyObj", fetch = FetchType.LAZY)
     private Collection<Listings> listingsCollection;
@@ -64,22 +69,6 @@ public class Currencies implements Serializable {
     public Currencies(Short curId, String curCode) {
         this.id = curId;
         this.code = curCode;
-    }
-
-    public Short getId() {
-        return id;
-    }
-
-    public void setId(Short id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     @XmlTransient

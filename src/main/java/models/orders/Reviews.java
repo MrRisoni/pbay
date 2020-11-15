@@ -1,6 +1,8 @@
 
 package models.orders;
 
+import lombok.Getter;
+import lombok.Setter;
 import models.users.Users;
 
 import java.io.Serializable;
@@ -21,12 +23,16 @@ import javax.validation.constraints.Size;
 public class Reviews implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "rev_id")
     private Long id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Lob
@@ -34,11 +40,15 @@ public class Reviews implements Serializable {
     @Column(name = "rev_comment")
     private String comment;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "rev_star")
     private BigDecimal stars;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "rev_created_at")
@@ -67,38 +77,6 @@ public class Reviews implements Serializable {
         this.createdAt = revCreatedAt;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public BigDecimal getStars() {
-        return stars;
-    }
-
-    public void setStars(BigDecimal stars) {
-        this.stars = stars;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public Users getUserObj() {
         return userObj;
     }
@@ -114,6 +92,4 @@ public class Reviews implements Serializable {
     public void setOrderItemObj(OrderItems orderItemObj) {
         this.orderItemObj = orderItemObj;
     }
-
-
 }

@@ -2,6 +2,8 @@
 package models.general;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Getter;
+import lombok.Setter;
 import models.JackSonViewer;
 import models.users.BillingAddresses;
 import models.sellers.Sellers;
@@ -24,6 +26,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Countries implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -31,6 +35,8 @@ public class Countries implements Serializable {
     @JsonView({ JackSonViewer.IListing.class})
     private Short id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -38,6 +44,8 @@ public class Countries implements Serializable {
     @JsonView({ JackSonViewer.IListing.class})
     private String title;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
@@ -71,29 +79,6 @@ public class Countries implements Serializable {
         this.code = ctrCode;
     }
 
-    public Short getId() {
-        return id;
-    }
-
-    public void setId(Short id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     @XmlTransient
     public Collection<ShippingAddresses> getShippingAddressesCollection() {

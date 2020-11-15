@@ -2,6 +2,8 @@
 package models.items;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Getter;
+import lombok.Setter;
 import models.JackSonViewer;
 import models.general.Currencies;
 import models.orders.Biddings;
@@ -26,6 +28,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Listings implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -33,18 +37,24 @@ public class Listings implements Serializable {
     @JsonView(JackSonViewer.IListing.class)
     private Long id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_price")
     @JsonView(JackSonViewer.IListing.class)
     private BigDecimal price;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_fee_eur")
     @JsonView(JackSonViewer.IListing.class)
     private BigDecimal feeEuro;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_from")
@@ -52,6 +62,8 @@ public class Listings implements Serializable {
     @JsonView(JackSonViewer.IListing.class)
     private Date activeFrom;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_to")
@@ -59,12 +71,16 @@ public class Listings implements Serializable {
     @JsonView(JackSonViewer.IListing.class)
     private Date activeUntil;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_watching")
     @JsonView(JackSonViewer.IListing.class)
     private short numWatchers;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_is_auction")
@@ -99,62 +115,6 @@ public class Listings implements Serializable {
         this.activeUntil = lisTo;
         this.numWatchers = lisWatching;
         this.isAuction = lisIsAuction;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public BigDecimal getFeeEuro() {
-        return feeEuro;
-    }
-
-    public void setFeeEuro(BigDecimal feeEuro) {
-        this.feeEuro = feeEuro;
-    }
-
-    public Date getActiveFrom() {
-        return activeFrom;
-    }
-
-    public void setActiveFrom(Date activeFrom) {
-        this.activeFrom = activeFrom;
-    }
-
-    public Date getActiveUntil() {
-        return activeUntil;
-    }
-
-    public void setActiveUntil(Date activeUntil) {
-        this.activeUntil = activeUntil;
-    }
-
-    public short getNumWatchers() {
-        return numWatchers;
-    }
-
-    public void setNumWatchers(short numWatchers) {
-        this.numWatchers = numWatchers;
-    }
-
-    public short getIsAuction() {
-        return isAuction;
-    }
-
-    public void setIsAuction(short isAuction) {
-        this.isAuction = isAuction;
     }
 
     public Currencies getCurrencyObj() {

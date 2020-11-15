@@ -2,6 +2,9 @@
 package models.general;
 
 import java.io.Serializable;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.util.Collection;
@@ -15,18 +18,24 @@ import javax.xml.bind.annotation.*;
 public class Continents implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "con_id")
     private Short id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "con_code")
     private String code;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 35)
@@ -49,30 +58,6 @@ public class Continents implements Serializable {
         this.title = conTitle;
     }
 
-    public Short getId() {
-        return id;
-    }
-
-    public void setId(Short id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     @XmlTransient
     public Collection<Countries> getCountriesCollection() {
         return countriesCollection;
@@ -81,6 +66,4 @@ public class Continents implements Serializable {
     public void setCountriesCollection(Collection<Countries> countriesCollection) {
         this.countriesCollection = countriesCollection;
     }
-
-
 }

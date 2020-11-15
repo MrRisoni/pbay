@@ -2,6 +2,9 @@
 package models.sellers;
 
 import java.io.Serializable;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.util.Collection;
@@ -19,12 +22,16 @@ import javax.xml.bind.annotation.XmlTransient;
 public class SellerReviewCategories implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "swrc_id")
     private Short id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
@@ -44,22 +51,6 @@ public class SellerReviewCategories implements Serializable {
     public SellerReviewCategories(Short swrcId, String swrcTitle) {
         this.id = swrcId;
         this.title = swrcTitle;
-    }
-
-    public Short getId() {
-        return id;
-    }
-
-    public void setId(Short id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     @XmlTransient

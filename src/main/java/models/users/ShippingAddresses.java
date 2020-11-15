@@ -2,6 +2,8 @@
 package models.users;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Getter;
+import lombok.Setter;
 import models.JackSonViewer;
 import models.orders.Orders;
 import models.general.Countries;
@@ -23,60 +25,68 @@ import javax.xml.bind.annotation.XmlTransient;
 public class ShippingAddresses implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "shp_id")
-
     private Long id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_city")
-
     private String city;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_region")
-
     private String region;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_street")
-
     private String street;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
     @Column(name = "shp_street_no")
-
     private String streetNo;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 9)
     @Column(name = "shp_code")
-
     private String code;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_surname")
-
     private String surname;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 55)
     @Column(name = "shp_name")
-
     private String name;
 
     @JoinColumn(name = "shp_user_id", referencedColumnName = "id")
@@ -109,69 +119,6 @@ public class ShippingAddresses implements Serializable {
         this.name = shpName;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getStreetNo() {
-        return streetNo;
-    }
-
-    public void setStreetNo(String streetNo) {
-        this.streetNo = streetNo;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Users getUserObj() {
         return userObj;

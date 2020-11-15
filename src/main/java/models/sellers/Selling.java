@@ -2,6 +2,8 @@
 package models.sellers;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Getter;
+import lombok.Setter;
 import models.JackSonViewer;
 import models.items.*;
 import models.orders.OrderItems;
@@ -24,6 +26,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Selling implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -31,12 +35,16 @@ public class Selling implements Serializable {
     @JsonView(JackSonViewer.IListing.class)
     private Integer id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "sll_quantity")
     @JsonView(JackSonViewer.IListing.class)
     private int quantity;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
@@ -79,30 +87,6 @@ public class Selling implements Serializable {
     public Selling(Integer sllId, int sllQuantity, String sllMailerCo) {
         this.id = sllId;
         this.quantity = sllQuantity;
-        this.sllMailerCo = sllMailerCo;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getSllMailerCo() {
-        return sllMailerCo;
-    }
-
-    public void setSllMailerCo(String sllMailerCo) {
         this.sllMailerCo = sllMailerCo;
     }
 

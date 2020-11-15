@@ -2,6 +2,9 @@
 package models.items;
 
 import java.io.Serializable;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
@@ -16,17 +19,23 @@ import javax.validation.constraints.NotNull;
 public class ListingWatching implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "lwi_id")
     private Integer id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "lwi_user_ud")
     private long lwiUserUd;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "lwi_listing_id")
@@ -44,30 +53,5 @@ public class ListingWatching implements Serializable {
         this.lwiUserUd = lwiUserUd;
         this.lwiListingId = lwiListingId;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public long getLwiUserUd() {
-        return lwiUserUd;
-    }
-
-    public void setLwiUserUd(long lwiUserUd) {
-        this.lwiUserUd = lwiUserUd;
-    }
-
-    public long getLwiListingId() {
-        return lwiListingId;
-    }
-
-    public void setLwiListingId(long lwiListingId) {
-        this.lwiListingId = lwiListingId;
-    }
-
 
 }

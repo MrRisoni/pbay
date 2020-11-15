@@ -2,6 +2,8 @@
 package models.orders;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Getter;
+import lombok.Setter;
 import models.JackSonViewer;
 
 import java.io.Serializable;
@@ -20,12 +22,16 @@ import javax.validation.constraints.NotNull;
 public class OrderItemTrackHistory implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "itmh_id")
     private Long id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "itmh_created_at")
@@ -50,22 +56,6 @@ public class OrderItemTrackHistory implements Serializable {
     public OrderItemTrackHistory(Long itmhId, Date itmhCreatedAt) {
         this.id = itmhId;
         this.createdAt = itmhCreatedAt;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     public OrderItems getItemObj() {
