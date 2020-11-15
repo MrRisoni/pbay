@@ -2,6 +2,8 @@
 package models.orders;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Getter;
+import lombok.Setter;
 import models.JackSonViewer;
 import models.general.Currencies;
 import models.general.Paymethods;
@@ -31,38 +33,53 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ord_id")
+
     private Long id;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "ord_bank_transaction_id")
     private String bankTransactionId;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_total")
     private BigDecimal total;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_goods_total")
     private BigDecimal goodsTotal;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_ship_total")
     private BigDecimal shipTotal;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_fee")
     private BigDecimal fee;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @CreationTimestamp
@@ -70,11 +87,15 @@ public class Orders implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_success")
     private short isSuccess;
 
+    @Getter
+    @Setter
     @Basic(optional = false)
     @NotNull
     @Column(name = "ord_void")
@@ -86,22 +107,32 @@ public class Orders implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderObj", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
 
+    @Getter
+    @Setter
     @JoinColumn(name = "ord_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Currencies currencyObj;
 
+    @Getter
+    @Setter
     @JoinColumn(name = "ord_user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users userObj;
 
+    @Getter
+    @Setter
     @JoinColumn(name = "ord_shipaddress_id", referencedColumnName = "shp_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ShippingAddresses shipAddressObj;
 
+    @Getter
+    @Setter
     @JoinColumn(name = "ord_billaddress_id", referencedColumnName = "bla_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private BillingAddresses billAddressObj;
 
+    @Getter
+    @Setter
     @JoinColumn(name = "ord_paymethod_id", referencedColumnName = "pm_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Paymethods payMethodObj;
@@ -125,78 +156,6 @@ public class Orders implements Serializable {
         this.isVoid = ordVoid;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getBankTransactionId() {
-        return bankTransactionId;
-    }
-
-    public void setBankTransactionId(String bankTransactionId) {
-        this.bankTransactionId = bankTransactionId;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
-    public BigDecimal getGoodsTotal() {
-        return goodsTotal;
-    }
-
-    public void setGoodsTotal(BigDecimal goodsTotal) {
-        this.goodsTotal = goodsTotal;
-    }
-
-    public BigDecimal getShipTotal() {
-        return shipTotal;
-    }
-
-    public void setShipTotal(BigDecimal shipTotal) {
-        this.shipTotal = shipTotal;
-    }
-
-    public BigDecimal getFee() {
-        return fee;
-    }
-
-    public void setFee(BigDecimal fee) {
-        this.fee = fee;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public short getIsSuccess() {
-        return isSuccess;
-    }
-
-    public void setIsSuccess(short isSuccess) {
-        this.isSuccess = isSuccess;
-    }
-
-    public short getIsVoid() {
-        return isVoid;
-    }
-
-    public void setIsVoid(short isVoid) {
-        this.isVoid = isVoid;
-    }
-
     @XmlTransient
     public Collection<SellerReviews> getSellerReviewsCollection() {
         return sellerReviewsCollection;
@@ -213,46 +172,6 @@ public class Orders implements Serializable {
 
     public void setOrderItemsCollection(Collection<OrderItems> orderItemsCollection) {
         this.orderItemsCollection = orderItemsCollection;
-    }
-
-    public Currencies getCurrencyObj() {
-        return currencyObj;
-    }
-
-    public void setCurrencyObj(Currencies currencyObj) {
-        this.currencyObj = currencyObj;
-    }
-
-    public Users getUserObj() {
-        return userObj;
-    }
-
-    public void setUserObj(Users userObj) {
-        this.userObj = userObj;
-    }
-
-    public ShippingAddresses getShipAddressObj() {
-        return shipAddressObj;
-    }
-
-    public void setShipAddressObj(ShippingAddresses shipAddressObj) {
-        this.shipAddressObj = shipAddressObj;
-    }
-
-    public BillingAddresses getBillAddressObj() {
-        return billAddressObj;
-    }
-
-    public void setBillAddressObj(BillingAddresses billAddressObj) {
-        this.billAddressObj = billAddressObj;
-    }
-
-    public Paymethods getPayMethodObj() {
-        return payMethodObj;
-    }
-
-    public void setPayMethodObj(Paymethods payMethodObj) {
-        this.payMethodObj = payMethodObj;
     }
 
 }
