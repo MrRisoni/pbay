@@ -1,4 +1,3 @@
-
 package models.items;
 
 import lombok.Getter;
@@ -66,7 +65,6 @@ public class ShippingCosts implements Serializable {
         this.continentCode = shcContinentCode;
         this.cost = shcCost;
     }
-
 
     public Selling getSellingObj() {
         return sellingObj;

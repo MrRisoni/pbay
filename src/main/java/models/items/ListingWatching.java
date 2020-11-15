@@ -1,4 +1,3 @@
-
 package models.items;
 
 import java.io.Serializable;
@@ -9,8 +8,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
-
-
 
 @Entity
 @Cacheable
@@ -53,5 +50,4 @@ public class ListingWatching implements Serializable {
         this.lwiUserUd = lwiUserUd;
         this.lwiListingId = lwiListingId;
     }
-
 }

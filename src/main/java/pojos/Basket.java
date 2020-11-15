@@ -18,7 +18,6 @@ public class Basket {
     public Basket() {
     }
 
-
     public BillingAddresses getBillTo() {
         return billTo;
     }

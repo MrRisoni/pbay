@@ -1,10 +1,7 @@
-
 package models.orders;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
-import models.JackSonViewer;
 import models.general.Currencies;
 import models.sellers.Sellers;
 import models.sellers.Selling;
@@ -19,7 +16,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import javax.xml.bind.annotation.XmlTransient;
-
 
 @Entity
 @Cacheable
@@ -129,7 +125,6 @@ public class OrderItems implements Serializable {
         this.isVoid = itmVoid;
     }
 
-
     @XmlTransient
     public Collection<Reviews> getReviewsCollection() {
         return reviewsCollection;
@@ -187,5 +182,4 @@ public class OrderItems implements Serializable {
     public void setOrderItemTrackHistoryCollection(Collection<OrderItemTrackHistory> orderItemTrackHistoryCollection) {
         this.orderItemTrackHistoryCollection = orderItemTrackHistoryCollection;
     }
-
 }

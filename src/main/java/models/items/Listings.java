@@ -1,10 +1,7 @@
-
 package models.items;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
-import models.JackSonViewer;
 import models.general.Currencies;
 import models.orders.Biddings;
 import models.sellers.Selling;
@@ -18,7 +15,6 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
-
 
 @Entity
 @Cacheable
@@ -34,7 +30,6 @@ public class Listings implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "lis_id")
-    @JsonView(JackSonViewer.IListing.class)
     private Long id;
 
     @Getter
@@ -42,7 +37,6 @@ public class Listings implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_price")
-    @JsonView(JackSonViewer.IListing.class)
     private BigDecimal price;
 
     @Getter
@@ -50,7 +44,6 @@ public class Listings implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_fee_eur")
-    @JsonView(JackSonViewer.IListing.class)
     private BigDecimal feeEuro;
 
     @Getter
@@ -59,7 +52,6 @@ public class Listings implements Serializable {
     @NotNull
     @Column(name = "lis_from")
     @Temporal(TemporalType.DATE)
-    @JsonView(JackSonViewer.IListing.class)
     private Date activeFrom;
 
     @Getter
@@ -68,7 +60,6 @@ public class Listings implements Serializable {
     @NotNull
     @Column(name = "lis_to")
     @Temporal(TemporalType.DATE)
-    @JsonView(JackSonViewer.IListing.class)
     private Date activeUntil;
 
     @Getter
@@ -76,7 +67,6 @@ public class Listings implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_watching")
-    @JsonView(JackSonViewer.IListing.class)
     private short numWatchers;
 
     @Getter
@@ -84,17 +74,14 @@ public class Listings implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "lis_is_auction")
-    @JsonView(JackSonViewer.IListing.class)
     private short isAuction;
 
     @JoinColumn(name = "lis_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonView(JackSonViewer.IListing.class)
     private Currencies currencyObj;
 
     @JoinColumn(name = "lis_selling_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonView(JackSonViewer.IListing.class)
     private Selling sellingObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "listingObj", fetch = FetchType.LAZY)
@@ -141,5 +128,4 @@ public class Listings implements Serializable {
     public void setBiddingsCollection(Collection<Biddings> biddingsCollection) {
         this.biddingsCollection = biddingsCollection;
     }
-
 }

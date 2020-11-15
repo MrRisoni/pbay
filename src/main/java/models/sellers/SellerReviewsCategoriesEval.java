@@ -1,4 +1,3 @@
-
 package models.sellers;
 
 import java.io.Serializable;
@@ -10,8 +9,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 import javax.validation.constraints.NotNull;
-
-
 
 @Entity
 @Cacheable
@@ -71,5 +68,4 @@ public class SellerReviewsCategoriesEval implements Serializable {
     public void setReviewObj(SellerReviews reviewObj) {
         this.reviewObj = reviewObj;
     }
-
 }

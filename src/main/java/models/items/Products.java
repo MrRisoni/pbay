@@ -1,10 +1,7 @@
-
 package models.items;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
-import models.JackSonViewer;
 import models.sellers.Selling;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -15,7 +12,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import javax.xml.bind.annotation.XmlTransient;
-
 
 @Entity
 @Cacheable
@@ -30,7 +26,6 @@ public class Products implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "prod_id")
-    @JsonView({JackSonViewer.IListing.class})
     private Integer id;
 
     @Getter
@@ -39,7 +34,6 @@ public class Products implements Serializable {
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "prod_title")
-    @JsonView({JackSonViewer.IListing.class})
     private String title;
 
     @Getter
@@ -48,7 +42,6 @@ public class Products implements Serializable {
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "prod_other_title")
-    @JsonView({JackSonViewer.IListing.class})
     private String otherTitle;
 
     @Getter
@@ -69,7 +62,6 @@ public class Products implements Serializable {
 
     @JoinColumn(name = "prod_category_id", referencedColumnName = "cat_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonView({JackSonViewer.IListing.class})
     private ProductsCategories categoryObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "filterObj", fetch = FetchType.LAZY)
@@ -110,5 +102,4 @@ public class Products implements Serializable {
     public void setSellingCollection(Collection<Selling> sellingCollection) {
         this.sellingCollection = sellingCollection;
     }
-
 }

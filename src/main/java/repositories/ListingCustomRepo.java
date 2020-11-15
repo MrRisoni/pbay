@@ -1,4 +1,4 @@
-package responses;
+package repositories;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -30,11 +30,8 @@ public class ListingCustomRepo {
                 " AND DATEDIFF(CURRENT_DATE, DATE(O.ord_created)) >=0")
                 .setParameter("listingId",listingId).getResultList();
 
-
             return Integer.parseInt(soldList.get(0).toString());
-
     }
-
 
     public static void setEm(EntityManager em) {
         ListingCustomRepo.em = em;

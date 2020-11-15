@@ -1,4 +1,3 @@
-
 package models.orders;
 
 import lombok.Getter;
@@ -14,7 +13,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
-
 
 @Entity
 @Cacheable
@@ -87,7 +85,6 @@ public class Biddings implements Serializable {
         this.isActive = bidActive;
     }
 
-
     public Currencies getCurrencyObj() {
         return currencyObj;
     }
@@ -111,6 +108,4 @@ public class Biddings implements Serializable {
     public void setUserObj(Users userObj) {
         this.userObj = userObj;
     }
-
-
 }

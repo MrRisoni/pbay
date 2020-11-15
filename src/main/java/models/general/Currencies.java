@@ -1,10 +1,7 @@
-
 package models.general;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
-import models.JackSonViewer;
 import models.orders.Biddings;
 import models.items.Listings;
 import models.orders.OrderItems;
@@ -14,13 +11,11 @@ import java.io.Serializable;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Collection;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import javax.xml.bind.annotation.XmlTransient;
-
 
 @Entity
 @Cacheable
@@ -35,7 +30,6 @@ public class Currencies implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "cur_id")
-    @JsonView(JackSonViewer.IListing.class)
     private Short id;
 
     @Getter
@@ -44,7 +38,6 @@ public class Currencies implements Serializable {
     @NotNull
     @Size(min = 1, max = 3)
     @Column(name = "cur_code")
-    @JsonView(JackSonViewer.IListing.class)
     private String code;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "currencyObj", fetch = FetchType.LAZY)
@@ -106,5 +99,4 @@ public class Currencies implements Serializable {
     public void setOrdersCollection(Collection<Orders> ordersCollection) {
         this.ordersCollection = ordersCollection;
     }
-
 }

@@ -1,4 +1,3 @@
-
 package models.items;
 
 import java.io.Serializable;
@@ -72,5 +71,4 @@ public class ProductsCategories implements Serializable {
     public void setProductsCollection(Collection<Products> productsCollection) {
         this.productsCollection = productsCollection;
     }
-
 }

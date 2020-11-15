@@ -1,10 +1,8 @@
-
 package models.sellers;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
-import models.JackSonViewer;
 import models.orders.OrderItems;
 import models.users.Users;
 import models.general.Countries;
@@ -20,7 +18,6 @@ import javax.validation.constraints.Size;
 
 import javax.xml.bind.annotation.XmlTransient;
 
-
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -35,7 +32,6 @@ public class Sellers implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "sel_id")
-    @JsonView({ JackSonViewer.IListing.class})
     private Integer id;
 
     @Getter
@@ -44,7 +40,6 @@ public class Sellers implements Serializable {
     @NotNull
     @Size(min = 1, max = 125)
     @Column(name = "sel_title")
-    @JsonView({ JackSonViewer.IListing.class})
     private String title;
 
     @Getter
@@ -60,7 +55,6 @@ public class Sellers implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "sel_stars_avg")
-    @JsonView(JackSonViewer.IListing.class)
     private BigDecimal avgStars;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellerObj", fetch = FetchType.LAZY)
@@ -74,12 +68,10 @@ public class Sellers implements Serializable {
 
     @JoinColumn(name = "seller_usr_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonView(JackSonViewer.IListing.class)
     private Users userObj;
 
     @JoinColumn(name = "sel_country_id", referencedColumnName = "ctr_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonView({ JackSonViewer.IListing.class})
     private Countries countryObj;
 
     public Sellers() {
@@ -138,6 +130,4 @@ public class Sellers implements Serializable {
     public void setCountryObj(Countries countryObj) {
         this.countryObj = countryObj;
     }
-
-
 }

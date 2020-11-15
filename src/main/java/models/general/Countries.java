@@ -1,10 +1,7 @@
-
 package models.general;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
-import models.JackSonViewer;
 import models.users.BillingAddresses;
 import models.sellers.Sellers;
 import models.users.ShippingAddresses;
@@ -17,7 +14,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import javax.xml.bind.annotation.XmlTransient;
-
 
 @Entity
 @Cacheable
@@ -32,7 +28,6 @@ public class Countries implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ctr_id")
-    @JsonView({ JackSonViewer.IListing.class})
     private Short id;
 
     @Getter
@@ -41,7 +36,6 @@ public class Countries implements Serializable {
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "ctr_title")
-    @JsonView({ JackSonViewer.IListing.class})
     private String title;
 
     @Getter
@@ -50,7 +44,6 @@ public class Countries implements Serializable {
     @NotNull
     @Size(min = 1, max = 2)
     @Column(name = "ctr_code")
-    @JsonView({ JackSonViewer.IListing.class})
     private String code;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryObj", fetch = FetchType.LAZY)
@@ -78,7 +71,6 @@ public class Countries implements Serializable {
         this.title = ctrTitle;
         this.code = ctrCode;
     }
-
 
     @XmlTransient
     public Collection<ShippingAddresses> getShippingAddressesCollection() {
@@ -114,6 +106,4 @@ public class Countries implements Serializable {
     public void setSellersCollection(Collection<Sellers> sellersCollection) {
         this.sellersCollection = sellersCollection;
     }
-
-
 }

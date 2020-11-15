@@ -1,10 +1,7 @@
-
 package models.users;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
-import models.JackSonViewer;
 import models.orders.Orders;
 import models.general.Countries;
 
@@ -16,7 +13,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import javax.xml.bind.annotation.XmlTransient;
-
 
 @Entity
 @Cacheable
@@ -119,7 +115,6 @@ public class ShippingAddresses implements Serializable {
         this.name = shpName;
     }
 
-
     public Users getUserObj() {
         return userObj;
     }
@@ -144,5 +139,4 @@ public class ShippingAddresses implements Serializable {
     public void setOrdersCollection(Collection<Orders> ordersCollection) {
         this.ordersCollection = ordersCollection;
     }
-
 }

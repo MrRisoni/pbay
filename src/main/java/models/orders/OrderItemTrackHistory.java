@@ -1,10 +1,7 @@
-
 package models.orders;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
-import models.JackSonViewer;
 
 import java.io.Serializable;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -12,8 +9,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
-
-
 
 @Entity
 @Cacheable
@@ -73,6 +68,4 @@ public class OrderItemTrackHistory implements Serializable {
     public void setStatusObj(OrderStatuses statusObj) {
         this.statusObj = statusObj;
     }
-
-
 }

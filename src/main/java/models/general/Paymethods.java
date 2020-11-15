@@ -1,4 +1,3 @@
-
 package models.general;
 
 import lombok.Getter;
@@ -13,7 +12,6 @@ import java.util.Collection;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
-
 
 @Entity
 @Cacheable

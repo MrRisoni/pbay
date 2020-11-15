@@ -1,4 +1,3 @@
-
 package models.orders;
 
 import lombok.Getter;
@@ -13,7 +12,6 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 
 @Entity
 @Cacheable

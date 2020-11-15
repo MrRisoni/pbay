@@ -1,4 +1,3 @@
-
 package models.sellers;
 
 import lombok.Getter;
@@ -16,7 +15,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import javax.xml.bind.annotation.XmlTransient;
-
 
 @Entity
 @Cacheable
@@ -86,7 +84,6 @@ public class SellerReviews implements Serializable {
         this.createdAt = srwCreatedAt;
     }
 
-
     public Users getUserObj() {
         return userObj;
     }
@@ -119,5 +116,4 @@ public class SellerReviews implements Serializable {
     public void setSellerReviewsCategoriesEvalCollection(Collection<SellerReviewsCategoriesEval> sellerReviewsCategoriesEvalCollection) {
         this.sellerReviewsCategoriesEvalCollection = sellerReviewsCategoriesEvalCollection;
     }
-
 }

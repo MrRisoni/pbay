@@ -6,12 +6,10 @@ public class BasketItem {
     private Listings listedItem;
     private short quantity;
 
-
     public BasketItem(Listings listedItem, short quantity) {
         this.listedItem = listedItem;
         this.quantity = quantity;
     }
-
 
     public Listings getListedItem() {
         return listedItem;

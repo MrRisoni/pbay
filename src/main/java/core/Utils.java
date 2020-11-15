@@ -1,8 +1,6 @@
 package core;
 
 public class Utils {
-
-
     public static String getRandomString(int n)
     {
         String alphabet = "abcdefghijklmnzpqrstuvwxyz0123456789";
@@ -12,8 +10,6 @@ public class Utils {
             int r = (int) (Math.random() * (alphabet.length() - 1));
             str = str + alphabet.substring(r,r+1);
         }
-
         return str.toUpperCase();
-
     }
 }

@@ -1,4 +1,3 @@
-
 package models.general;
 
 import java.io.Serializable;

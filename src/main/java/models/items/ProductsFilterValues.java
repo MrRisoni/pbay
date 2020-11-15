@@ -1,4 +1,3 @@
-
 package models.items;
 
 import java.io.Serializable;
@@ -69,5 +68,4 @@ public class ProductsFilterValues implements Serializable {
     public void setProductObj(Products productObj) {
         this.productObj = productObj;
     }
-
 }

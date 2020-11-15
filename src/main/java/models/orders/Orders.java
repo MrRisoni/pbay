@@ -1,10 +1,7 @@
-
 package models.orders;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
-import models.JackSonViewer;
 import models.general.Currencies;
 import models.general.Paymethods;
 import models.sellers.SellerReviews;
@@ -173,5 +170,4 @@ public class Orders implements Serializable {
     public void setOrderItemsCollection(Collection<OrderItems> orderItemsCollection) {
         this.orderItemsCollection = orderItemsCollection;
     }
-
 }
