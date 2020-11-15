@@ -1,0 +1,111 @@
+{
+  "id": 1,
+  "bankTransactionId": "RF123455698454DF9905GR",
+  "createdAt": "2019-11-11T20:08:03.000+00:00",
+  "total": 68.07,
+  "goodsTotal": 45.45,
+  "shipTotal": 21.08,
+  "fee": 0.54,
+  "isSuccess": 1,
+  "isVoid": 0,
+  "orderItemsCollection": [
+    {
+      "id": 1,
+      "quantity": 1,
+      "trackingNums": "",
+      "total": 65.00,
+      "goodsTotal": 45.00,
+      "shipTotal": 20.00,
+      "rate": 0.00,
+      "isVoid": 0,
+      "currencyObj": {
+        "id": 1,
+        "code": "EUR"
+      },
+      "itemObj": {
+        "productObj": {
+          "id": 2,
+          "title": "Henrik Ibsens Samtliche Werke",
+          "otherTitle": "",
+          "description": "",
+          "isPreOwned": 0,
+          "categoryObj": {
+            "id": 2,
+            "title": "Books"
+          }
+        },
+        "sellerObj": {
+          "id": 1,
+          "title": "Scandinavian World",
+          "countryObj": {
+            "id": 1,
+            "title": "Germany",
+            "code": "DE"
+          }
+        }
+      },
+      "statusObj": {
+        "title": "Pending"
+      },
+      "orderItemTrackHistoryCollection": [
+        {
+          "createdAt": "2019-11-11T20:08:03.000+00:00",
+          "statusObj": {
+            "title": "Pending"
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "quantity": 1,
+      "trackingNums": "",
+      "total": 2.53,
+      "goodsTotal": 1.45,
+      "shipTotal": 1.08,
+      "rate": 0.00,
+      "isVoid": 0,
+      "currencyObj": {
+        "id": 1,
+        "code": "EUR"
+      },
+      "itemObj": {
+        "productObj": {
+          "id": 3,
+          "title": "Chopsticks",
+          "otherTitle": "",
+          "description": "",
+          "isPreOwned": 0,
+          "categoryObj": {
+            "id": 3,
+            "title": "Kitchen utensils"
+          }
+        },
+        "sellerObj": {
+          "id": 2,
+          "title": "Asian Delight",
+          "countryObj": {
+            "id": 1,
+            "title": "Germany",
+            "code": "DE"
+          }
+        }
+      },
+      "statusObj": {
+        "title": "Pending"
+      },
+      "orderItemTrackHistoryCollection": [
+        {
+          "createdAt": "2019-11-11T20:08:03.000+00:00",
+          "statusObj": {
+            "title": "Pending"
+          }
+        }
+      ]
+    }
+  ],
+  "currencyObj": {
+    "id": 1,
+    "code": "EUR"
+  }
+}

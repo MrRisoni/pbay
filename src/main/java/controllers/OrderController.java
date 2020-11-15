@@ -60,7 +60,7 @@ public class OrderController {
     OrderItemRepo orderItemRepo;
 
     @Autowired
-    private ModelMapper modelMapper;
+    ModelMapper modelMapper;
 
     @Autowired
     OrderItemTrackHistoryRepo itemTrackHistoryRepo;
@@ -73,7 +73,6 @@ public class OrderController {
             Orders returnedOrder = fetchedOrder.orElse(null);
 // https://github.com/mapstruct/mapstruct-examples/blob/master/mapstruct-field-mapping/src/test/java/org/mapstruct/example/CustomerMapperTest.java#L35
            // https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application
-            // OrderDto orderdto = OrderMapper.MAPPER.fromOrder( returnedOrder );
             OrderDto postDto = modelMapper.map(returnedOrder, OrderDto.class);
             System.out.println(postDto.getId());
             return new ResponseEntity<>(postDto, HttpStatus.OK);

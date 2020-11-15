@@ -30,50 +30,42 @@ public class OrderItems implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "itm_id")
-
     private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_quantity")
-
     private short quantity;
 
     @Basic(optional = false)
     @Size(min = 1, max = 225)
     @Column(name = "itm_tracking_nums")
-
     private String trackingNums;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_total")
-
     private BigDecimal total;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_goods_total")
-
     private BigDecimal goodsTotal;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_ship_total")
-
     private BigDecimal shipTotal;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_rate")
-
     private BigDecimal rate;
 
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "itm_void")
-
     private short isVoid;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderItemObj", fetch = FetchType.LAZY)
@@ -81,7 +73,6 @@ public class OrderItems implements Serializable {
 
     @JoinColumn(name = "itm_currency_id", referencedColumnName = "cur_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-
     private Currencies currencyObj;
 
     @JoinColumn(name = "itm_order_id", referencedColumnName = "ord_id")
@@ -90,17 +81,14 @@ public class OrderItems implements Serializable {
 
     @JoinColumn(name = "itm_product_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-
     private Selling itemObj;
 
     @JoinColumn(name = "itm_seller_id", referencedColumnName = "sel_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-
     private Sellers sellerObj;
 
     @JoinColumn(name = "itm_status_id", referencedColumnName = "stat_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-
     private OrderStatuses statusObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemObj", fetch = FetchType.LAZY)
