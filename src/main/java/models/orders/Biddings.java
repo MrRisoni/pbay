@@ -47,9 +47,10 @@ public class Biddings implements Serializable {
     @Column
     private short isActive;
 
-    @JoinColumn(name = "bid_currency_id", referencedColumnName = "cur_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Currencies currencyObj;
+    @Getter
+    @Setter
+    @Column
+    private String currency_code;
 
     @JoinColumn(name = "bid_listing_id", referencedColumnName = "lis_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -74,13 +75,6 @@ public class Biddings implements Serializable {
         this.isActive = bidActive;
     }
 
-    public Currencies getCurrencyObj() {
-        return currencyObj;
-    }
-
-    public void setCurrencyObj(Currencies currencyObj) {
-        this.currencyObj = currencyObj;
-    }
 
     public Listings getListingObj() {
         return listingObj;

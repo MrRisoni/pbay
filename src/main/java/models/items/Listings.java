@@ -59,9 +59,10 @@ public class Listings implements Serializable {
     @Column
     private short isAuction;
 
-    @JoinColumn(name = "lis_currency_id", referencedColumnName = "cur_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Currencies currencyObj;
+    @Getter
+    @Setter
+    @Column
+    private String currency_code;
 
     @JoinColumn(name = "lis_selling_id", referencedColumnName = "sll_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -85,14 +86,6 @@ public class Listings implements Serializable {
         this.activeUntil = lisTo;
         this.numWatchers = lisWatching;
         this.isAuction = lisIsAuction;
-    }
-
-    public Currencies getCurrencyObj() {
-        return currencyObj;
-    }
-
-    public void setCurrencyObj(Currencies currencyObj) {
-        this.currencyObj = currencyObj;
     }
 
     public Selling getSellingObj() {

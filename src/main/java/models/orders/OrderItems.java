@@ -62,12 +62,13 @@ public class OrderItems implements Serializable {
     @Column
     private short isVoid;
 
+    @Getter
+    @Setter
+    @Column
+    private String currency_code;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderItemObj", fetch = FetchType.LAZY)
     private Collection<Reviews> reviewsCollection;
-
-    @JoinColumn(name = "itm_currency_id", referencedColumnName = "cur_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Currencies currencyObj;
 
     @JoinColumn(name = "itm_order_id", referencedColumnName = "ord_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -113,14 +114,6 @@ public class OrderItems implements Serializable {
 
     public void setReviewsCollection(Collection<Reviews> reviewsCollection) {
         this.reviewsCollection = reviewsCollection;
-    }
-
-    public Currencies getCurrencyObj() {
-        return currencyObj;
-    }
-
-    public void setCurrencyObj(Currencies currencyObj) {
-        this.currencyObj = currencyObj;
     }
 
     public Orders getOrderObj() {

@@ -41,7 +41,7 @@ public class Countries implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryObj", fetch = FetchType.LAZY)
     private Collection<BillingAddresses> billingAddressesCollection;
 
-    @JoinColumn(name = "ctr_continent_id", referencedColumnName = "con_id")
+    @JoinColumn(name = "continent_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Continents ctrContinentId;
 

@@ -1,4 +1,4 @@
-package core;
+package dtos;
 
 public class Utils {
     public static String getRandomString(int n)

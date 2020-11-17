@@ -76,17 +76,16 @@ public class Orders implements Serializable {
     @Column
     private short isVoid;
 
+    @Getter
+    @Setter
+    @Column
+    private String currency_code;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderObj", fetch = FetchType.LAZY)
     private Collection<SellerReviews> sellerReviewsCollection;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderObj", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
-
-    @Getter
-    @Setter
-    @JoinColumn(name = "ord_currency_id", referencedColumnName = "cur_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Currencies currencyObj;
 
     @Getter
     @Setter

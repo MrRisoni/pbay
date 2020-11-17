@@ -37,6 +37,7 @@ public class Selling implements Serializable {
     @Column
     private String sllMailerCo;
 
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellingObj", fetch = FetchType.LAZY)
     private Collection<ShippingCostsExceptions> shippingCostsExceptionsCollection;
 

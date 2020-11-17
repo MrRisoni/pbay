@@ -1,7 +1,7 @@
 package controllers;
 
 import com.google.gson.Gson;
-import core.Utils;
+import dtos.Utils;
 import dtos.OrderDto;
 import models.HibernateUtil;
 import models.general.Currencies;
