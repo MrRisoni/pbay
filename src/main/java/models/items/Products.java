@@ -38,7 +38,7 @@ public class Products implements Serializable {
     @Getter
     @Setter
     @Column
-    private short isPreOwned;
+    private short preowned;
 
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -62,7 +62,7 @@ public class Products implements Serializable {
         this.title = prodTitle;
         this.otherTitle = prodOtherTitle;
         this.description = prodDescr;
-        this.isPreOwned = prodPreowned;
+        this.preowned = prodPreowned;
     }
 
     @XmlTransient

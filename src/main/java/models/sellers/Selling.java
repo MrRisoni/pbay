@@ -29,7 +29,7 @@ public class Selling implements Serializable {
     @Getter
     @Setter
     @Column
-    private String mailer_comapny;
+    private String mailer_company;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellingObj", fetch = FetchType.LAZY)
     private Collection<ShippingCostsExceptions> shippingCostsExceptionsCollection;
@@ -64,7 +64,7 @@ public class Selling implements Serializable {
     public Selling(Integer sllId, int sllQuantity, String sllMailerCo) {
         this.id = sllId;
         this.quantity = sllQuantity;
-        this.sllMailerCo = sllMailerCo;
+        this.mailer_company = sllMailerCo;
     }
 
     @XmlTransient
