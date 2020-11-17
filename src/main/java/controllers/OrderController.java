@@ -124,7 +124,7 @@ public class OrderController {
             paraggelia.setShipAddressObj(savedShipAddress);
             paraggelia.setUserObj(new Users(kalathi.getUsr().getId()));
             paraggelia.setBankTransactionId(Utils.getRandomString(15));
-            paraggelia.setCurrencyObj(nomisma);
+            paraggelia.setCurrency_code(kalathi.getCurrencyCode());
             paraggelia.setCreatedAt(new Date());
 
             BigDecimal total = new BigDecimal(0);
@@ -159,7 +159,7 @@ public class OrderController {
                 ordItm.setGoodsTotal(itemPrice);
                 ordItm.setShipTotal(new BigDecimal(5.67));
                 ordItm.setIsVoid((short) 0);
-                ordItm.setCurrencyObj(nomisma);
+                ordItm.setCurrency_code(kalathi.getCurrencyCode());
                 ordItm.setRate(new BigDecimal(2.45));
                 ordItm.setStatusObj(stdPending);
 

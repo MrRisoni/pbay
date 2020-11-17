@@ -45,7 +45,7 @@ public class Products implements Serializable {
     @Column
     private short isPreOwned;
 
-    @JoinColumn(name = "prod_category_id", referencedColumnName = "cat_id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ProductsCategories categoryObj;
 

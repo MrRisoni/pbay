@@ -25,11 +25,11 @@ public class ProductsFilterValues implements Serializable {
     @Column
     private String value;
 
-    @JoinColumn(name = "pfv_filter_id", referencedColumnName = "fil_id")
+    @JoinColumn(name = "filter_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ProductsFilters filterObj;
 
-    @JoinColumn(name = "pfv_product_id", referencedColumnName = "prod_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Products productObj;
 

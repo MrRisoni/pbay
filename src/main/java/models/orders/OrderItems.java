@@ -74,7 +74,7 @@ public class OrderItems implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Orders orderObj;
 
-    @JoinColumn(name = "itm_product_id", referencedColumnName = "sll_id")
+    @JoinColumn(name = "itm_product_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling itemObj;
 

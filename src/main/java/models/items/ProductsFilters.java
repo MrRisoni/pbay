@@ -28,7 +28,7 @@ public class ProductsFilters implements Serializable {
     @Column
     private String title;
 
-    @JoinColumn(name = "fil_product_category", referencedColumnName = "cat_id")
+    @JoinColumn(name = "product_category_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ProductsCategories categoryObj;
 

@@ -34,7 +34,7 @@ public class ShippingCosts implements Serializable {
     @Column
     private BigDecimal cost;
 
-    @JoinColumn(name = "shc_selling_id", referencedColumnName = "sll_id",updatable = false,insertable = false)
+    @JoinColumn(name = "selling_id", referencedColumnName = "id",updatable = false,insertable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling sellingObj;
 

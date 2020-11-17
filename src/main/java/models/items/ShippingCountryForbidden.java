@@ -26,7 +26,7 @@ public class ShippingCountryForbidden implements Serializable {
     @Column
     private String countryCode;
 
-    @JoinColumn(name = "shf_selling_id", referencedColumnName = "sll_id")
+    @JoinColumn(name = "selling_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling sellingObj;
 

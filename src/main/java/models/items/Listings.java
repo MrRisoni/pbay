@@ -64,7 +64,7 @@ public class Listings implements Serializable {
     @Column
     private String currency_code;
 
-    @JoinColumn(name = "lis_selling_id", referencedColumnName = "sll_id")
+    @JoinColumn(name = "lis_selling_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling sellingObj;
 
