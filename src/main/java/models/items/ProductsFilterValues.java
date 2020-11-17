@@ -1,10 +1,8 @@
 package models.items;
 
 import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
 
 

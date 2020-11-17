@@ -3,16 +3,11 @@ package models.orders;
 import lombok.Getter;
 import lombok.Setter;
 import models.items.Listings;
-import models.general.Currencies;
 import models.users.Users;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-
-
 
 @Entity
 @Table(name = "biddings")
@@ -52,11 +47,11 @@ public class Biddings implements Serializable {
     @Column
     private String currency_code;
 
-    @JoinColumn(name = "bid_listing_id", referencedColumnName = "lis_id")
+    @JoinColumn(name = "listing_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Listings listingObj;
 
-    @JoinColumn(name = "bid_user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users userObj;
 
@@ -74,7 +69,6 @@ public class Biddings implements Serializable {
         this.createdAt = bidCreatedAt;
         this.isActive = bidActive;
     }
-
 
     public Listings getListingObj() {
         return listingObj;

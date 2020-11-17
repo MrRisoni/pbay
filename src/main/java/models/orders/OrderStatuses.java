@@ -2,13 +2,9 @@ package models.orders;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 import java.util.Collection;
-
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity

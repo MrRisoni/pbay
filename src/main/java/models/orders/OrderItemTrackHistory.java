@@ -2,13 +2,9 @@ package models.orders;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 import java.util.Date;
-
-
 
 @Entity
 @Table(name = "order_item_track_history")
@@ -28,11 +24,11 @@ public class OrderItemTrackHistory implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    @JoinColumn(name = "itmh_item_id", referencedColumnName = "itm_id")
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private OrderItems itemObj;
 
-    @JoinColumn(name = "itmh_status_id", referencedColumnName = "stat_id")
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private OrderStatuses statusObj;
 

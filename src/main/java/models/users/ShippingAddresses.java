@@ -4,14 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import models.orders.Orders;
 import models.general.Countries;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 import java.util.Collection;
-
-
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
@@ -61,14 +56,15 @@ public class ShippingAddresses implements Serializable {
     @Column
     private String name;
 
-    @JoinColumn(name = "shp_user_id", referencedColumnName = "id")
+    @Getter
+    @Setter
+    @Column
+    private String country_code;
+
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users userObj;
 
-    @JoinColumn(name = "shp_country_id", referencedColumnName = "ctr_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-
-    private Countries countryObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipAddressObj", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
@@ -80,7 +76,7 @@ public class ShippingAddresses implements Serializable {
         this.id = shpId;
     }
 
-    public ShippingAddresses(Long shpId, String shpCity, String shpRegion, String shpStreet, String shpStreetNo, String shpCode, String shpSurname, String shpName) {
+    public ShippingAddresses(Long shpId, String country_code,String shpCity, String shpRegion, String shpStreet, String shpStreetNo, String shpCode, String shpSurname, String shpName) {
         this.id = shpId;
         this.city = shpCity;
         this.region = shpRegion;
@@ -89,6 +85,7 @@ public class ShippingAddresses implements Serializable {
         this.code = shpCode;
         this.surname = shpSurname;
         this.name = shpName;
+        this.country_code = country_code;
     }
 
     public Users getUserObj() {
@@ -99,13 +96,6 @@ public class ShippingAddresses implements Serializable {
         this.userObj = userObj;
     }
 
-    public Countries getCountryObj() {
-        return countryObj;
-    }
-
-    public void setCountryObj(Countries countryObj) {
-        this.countryObj = countryObj;
-    }
 
     @XmlTransient
     public Collection<Orders> getOrdersCollection() {

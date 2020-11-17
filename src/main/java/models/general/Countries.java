@@ -5,12 +5,9 @@ import lombok.Setter;
 import models.users.BillingAddresses;
 import models.sellers.Sellers;
 import models.users.ShippingAddresses;
-
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Collection;
-
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
@@ -35,12 +32,6 @@ public class Countries implements Serializable {
     @Column
     private String code;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryObj", fetch = FetchType.LAZY)
-    private Collection<ShippingAddresses> shippingAddressesCollection;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryObj", fetch = FetchType.LAZY)
-    private Collection<BillingAddresses> billingAddressesCollection;
-
     @JoinColumn(name = "continent_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Continents ctrContinentId;
@@ -59,24 +50,6 @@ public class Countries implements Serializable {
         this.id = id;
         this.title = ctrTitle;
         this.code = ctrCode;
-    }
-
-    @XmlTransient
-    public Collection<ShippingAddresses> getShippingAddressesCollection() {
-        return shippingAddressesCollection;
-    }
-
-    public void setShippingAddressesCollection(Collection<ShippingAddresses> shippingAddressesCollection) {
-        this.shippingAddressesCollection = shippingAddressesCollection;
-    }
-
-    @XmlTransient
-    public Collection<BillingAddresses> getBillingAddressesCollection() {
-        return billingAddressesCollection;
-    }
-
-    public void setBillingAddressesCollection(Collection<BillingAddresses> billingAddressesCollection) {
-        this.billingAddressesCollection = billingAddressesCollection;
     }
 
     public Continents getCtrContinentId() {

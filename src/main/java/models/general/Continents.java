@@ -1,10 +1,8 @@
 package models.general;
 
 import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.Collection;
 import javax.xml.bind.annotation.*;

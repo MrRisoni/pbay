@@ -1,14 +1,11 @@
 package models.items;
 
 import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 
-
 @Entity
-
 @Table(name = "listing_watching")
 public class ListingWatching implements Serializable {
 

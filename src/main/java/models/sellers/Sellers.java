@@ -6,16 +6,10 @@ import lombok.Setter;
 import models.orders.OrderItems;
 import models.users.Users;
 import models.general.Countries;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
-
-
-
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
@@ -45,6 +39,11 @@ public class Sellers implements Serializable {
     @Column
     private BigDecimal avgStars;
 
+    @Getter
+    @Setter
+    @Column
+    private String country_code;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellerObj", fetch = FetchType.LAZY)
     private Collection<SellerReviews> sellerReviewsCollection;
 
@@ -54,13 +53,9 @@ public class Sellers implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellerObj", fetch = FetchType.LAZY)
     private Collection<Selling> sellingCollection;
 
-    @JoinColumn(name = "seller_usr_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users userObj;
-
-    @JoinColumn(name = "sel_country_id", referencedColumnName = "ctr_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Countries countryObj;
 
     public Sellers() {
     }
@@ -69,11 +64,12 @@ public class Sellers implements Serializable {
         this.id = selId;
     }
 
-    public Sellers(Integer selId, String selTitle, String selSsn, BigDecimal selStarsAvg) {
+    public Sellers(Integer selId, String selTitle, String selSsn, BigDecimal selStarsAvg, String country_code) {
         this.id = selId;
         this.title = selTitle;
         this.ssn = selSsn;
         this.avgStars = selStarsAvg;
+        this.country_code = country_code;
     }
 
     @XmlTransient
@@ -105,17 +101,5 @@ public class Sellers implements Serializable {
 
     public Users getUserObj() {
         return userObj;
-    }
-
-    public void setUserObj(Users userObj) {
-        this.userObj = userObj;
-    }
-
-    public Countries getCountryObj() {
-        return countryObj;
-    }
-
-    public void setCountryObj(Countries countryObj) {
-        this.countryObj = countryObj;
     }
 }

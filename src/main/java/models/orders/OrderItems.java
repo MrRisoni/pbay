@@ -2,17 +2,12 @@ package models.orders;
 
 import lombok.Getter;
 import lombok.Setter;
-import models.general.Currencies;
 import models.sellers.Sellers;
 import models.sellers.Selling;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
-
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
@@ -70,19 +65,19 @@ public class OrderItems implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderItemObj", fetch = FetchType.LAZY)
     private Collection<Reviews> reviewsCollection;
 
-    @JoinColumn(name = "itm_order_id", referencedColumnName = "ord_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Orders orderObj;
 
-    @JoinColumn(name = "itm_product_id", referencedColumnName = "id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling itemObj;
 
-    @JoinColumn(name = "itm_seller_id", referencedColumnName = "sel_id")
+    @JoinColumn(name = "seller_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Sellers sellerObj;
 
-    @JoinColumn(name = "itm_status_id", referencedColumnName = "stat_id")
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private OrderStatuses statusObj;
 

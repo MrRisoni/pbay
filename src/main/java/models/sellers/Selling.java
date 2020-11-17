@@ -4,15 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import models.items.*;
 import models.orders.OrderItems;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 import java.util.Collection;
-
-
-
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
@@ -37,7 +31,6 @@ public class Selling implements Serializable {
     @Column
     private String sllMailerCo;
 
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellingObj", fetch = FetchType.LAZY)
     private Collection<ShippingCostsExceptions> shippingCostsExceptionsCollection;
 
@@ -50,11 +43,11 @@ public class Selling implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemObj", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
 
-    @JoinColumn(name = "sll_product_id", referencedColumnName = "prod_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Products productObj;
 
-    @JoinColumn(name = "sll_seller_id", referencedColumnName = "sel_id")
+    @JoinColumn(name = "seller_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Sellers sellerObj;
 

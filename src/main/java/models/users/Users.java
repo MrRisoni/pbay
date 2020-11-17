@@ -7,14 +7,10 @@ import models.orders.Orders;
 import models.orders.Reviews;
 import models.sellers.SellerReviews;
 import models.sellers.Sellers;
-
-
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
-
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity

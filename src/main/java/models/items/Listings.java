@@ -2,12 +2,9 @@ package models.items;
 
 import lombok.Getter;
 import lombok.Setter;
-import models.general.Currencies;
 import models.orders.Biddings;
 import models.sellers.Selling;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -64,7 +61,7 @@ public class Listings implements Serializable {
     @Column
     private String currency_code;
 
-    @JoinColumn(name = "lis_selling_id", referencedColumnName = "id")
+    @JoinColumn(name = "selling_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling sellingObj;
 

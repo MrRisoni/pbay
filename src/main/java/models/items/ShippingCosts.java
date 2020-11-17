@@ -3,13 +3,9 @@ package models.items;
 import lombok.Getter;
 import lombok.Setter;
 import models.sellers.Selling;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
-
-
 
 
 @Entity

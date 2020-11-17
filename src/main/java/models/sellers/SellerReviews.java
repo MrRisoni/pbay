@@ -4,16 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import models.orders.Orders;
 import models.users.Users;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
-
-
-
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
@@ -44,15 +38,15 @@ public class SellerReviews implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    @JoinColumn(name = "srw_user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users userObj;
 
-    @JoinColumn(name = "srw_seller_id", referencedColumnName = "sel_id")
+    @JoinColumn(name = "seller_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Sellers sellerObj;
 
-    @JoinColumn(name = "srw_order_id", referencedColumnName = "ord_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Orders orderObj;
 

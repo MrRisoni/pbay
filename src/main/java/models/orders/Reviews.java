@@ -3,13 +3,10 @@ package models.orders;
 import lombok.Getter;
 import lombok.Setter;
 import models.users.Users;
-
 import java.io.Serializable;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-
 
 @Entity
 @Table(name = "reviews")
@@ -40,11 +37,11 @@ public class Reviews implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    @JoinColumn(name = "rev_usr_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users userObj;
 
-    @JoinColumn(name = "rev_ord_item_id", referencedColumnName = "itm_id")
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private OrderItems orderItemObj;
 

@@ -1,16 +1,13 @@
 package models.items;
 
 import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import java.util.Collection;
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-
 @Table(name = "products_categories")
 public class ProductsCategories implements Serializable {
 

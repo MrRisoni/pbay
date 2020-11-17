@@ -4,10 +4,8 @@ import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
-
 
 @Entity
 @Table(name = "seller_reviews_categories_eval")
@@ -26,11 +24,11 @@ public class SellerReviewsCategoriesEval implements Serializable {
     @Column
     private BigDecimal rating;
 
-    @JoinColumn(name = "srce_category_id", referencedColumnName = "swrc_id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private SellerReviewCategories categoryObj;
 
-    @JoinColumn(name = "srce_review_id", referencedColumnName = "srw_id")
+    @JoinColumn(name = "review_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private SellerReviews reviewObj;
 
