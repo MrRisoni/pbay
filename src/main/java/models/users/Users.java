@@ -7,20 +7,17 @@ import models.orders.Orders;
 import models.orders.Reviews;
 import models.sellers.SellerReviews;
 import models.sellers.Sellers;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
 
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "users")
 
 @NamedQueries({
@@ -31,38 +28,26 @@ public class Users implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "id")
     private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
 
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
     @Column(name = "email")
     private String email;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
 
     @Getter
     @Setter
-    @Size(max = 100)
     @Column(name = "remember_token")
     private String rememberToken;
 

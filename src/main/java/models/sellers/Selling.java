@@ -6,18 +6,16 @@ import models.items.*;
 import models.orders.OrderItems;
 
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.util.Collection;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+
 
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "selling")
 public class Selling implements Serializable {
 
@@ -26,22 +24,16 @@ public class Selling implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "sll_id")
     private Integer id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "sll_quantity")
     private int quantity;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 80)
     @Column(name = "sll_mailer_co")
     private String sllMailerCo;
 

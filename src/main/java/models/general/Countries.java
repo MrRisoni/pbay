@@ -7,17 +7,13 @@ import models.sellers.Sellers;
 import models.users.ShippingAddresses;
 
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.util.Collection;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
 
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "countries")
 public class Countries implements Serializable {
 
@@ -26,23 +22,16 @@ public class Countries implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "ctr_id")
     private Short id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
     @Column(name = "ctr_title")
     private String title;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2)
     @Column(name = "ctr_code")
     private String code;
 

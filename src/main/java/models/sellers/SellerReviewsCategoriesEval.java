@@ -4,17 +4,13 @@ import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "seller_reviews_categories_eval")
-
 public class SellerReviewsCategoriesEval implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -22,14 +18,11 @@ public class SellerReviewsCategoriesEval implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "srce_id")
     private Integer id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "srce_rating")
     private BigDecimal rating;
 

@@ -7,19 +7,15 @@ import models.sellers.Sellers;
 import models.sellers.Selling;
 
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "order_items")
 public class OrderItems implements Serializable {
 
@@ -28,56 +24,41 @@ public class OrderItems implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "itm_id")
     private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "itm_quantity")
     private short quantity;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @Size(min = 1, max = 225)
     @Column(name = "itm_tracking_nums")
     private String trackingNums;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "itm_total")
     private BigDecimal total;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "itm_goods_total")
     private BigDecimal goodsTotal;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "itm_ship_total")
     private BigDecimal shipTotal;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "itm_rate")
     private BigDecimal rate;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "itm_void")
     private short isVoid;
 

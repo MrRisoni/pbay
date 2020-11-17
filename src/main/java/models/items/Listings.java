@@ -7,20 +7,16 @@ import models.orders.Biddings;
 import models.sellers.Selling;
 
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "listings")
-
 public class Listings implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,51 +24,38 @@ public class Listings implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "lis_id")
     private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "lis_price")
     private BigDecimal price;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "lis_fee_eur")
     private BigDecimal feeEuro;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "lis_from")
     @Temporal(TemporalType.DATE)
     private Date activeFrom;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "lis_to")
     @Temporal(TemporalType.DATE)
     private Date activeUntil;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "lis_watching")
     private short numWatchers;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "lis_is_auction")
     private short isAuction;
 

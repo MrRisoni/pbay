@@ -5,19 +5,14 @@ import lombok.Setter;
 import models.users.Users;
 
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "reviews")
-
 public class Reviews implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,30 +20,22 @@ public class Reviews implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "rev_id")
     private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Lob
-    @Size(min = 1, max = 65535)
     @Column(name = "rev_comment")
     private String comment;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "rev_star")
     private BigDecimal stars;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "rev_created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;

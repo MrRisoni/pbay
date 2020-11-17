@@ -7,16 +7,14 @@ import models.general.Currencies;
 import models.users.Users;
 
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
+
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "biddings")
 public class Biddings implements Serializable {
 
@@ -25,36 +23,27 @@ public class Biddings implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "bid_id")
     private Integer id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "bid_price")
     private BigDecimal bidPrice;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "bid_price_eur")
     private BigDecimal bidPriceEur;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "bid_created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "bid_active")
     private short isActive;
 

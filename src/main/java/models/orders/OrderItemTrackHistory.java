@@ -4,15 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
+
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "order_item_track_history")
 public class OrderItemTrackHistory implements Serializable {
 
@@ -21,14 +19,11 @@ public class OrderItemTrackHistory implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "itmh_id")
     private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "itmh_created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;

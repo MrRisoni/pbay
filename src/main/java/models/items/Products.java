@@ -3,19 +3,17 @@ package models.items;
 import lombok.Getter;
 import lombok.Setter;
 import models.sellers.Selling;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Collection;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+
+
 @Table(name = "products")
 public class Products implements Serializable {
 
@@ -24,39 +22,26 @@ public class Products implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "prod_id")
     private Integer id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
     @Column(name = "prod_title")
     private String title;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 80)
     @Column(name = "prod_other_title")
     private String otherTitle;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Size(min = 1, max = 65535)
     @Column(name = "prod_descr")
     private String description;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "prod_preowned")
     private short isPreOwned;
 

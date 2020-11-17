@@ -10,7 +10,7 @@ import models.users.ShippingAddresses;
 import models.users.Users;
 
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -18,14 +18,10 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
 import javax.xml.bind.annotation.XmlTransient;
 
-
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "orders")
 public class Orders implements Serializable {
 
@@ -34,51 +30,37 @@ public class Orders implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "ord_id")
 
     private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
     @Column(name = "ord_bank_transaction_id")
     private String bankTransactionId;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "ord_total")
     private BigDecimal total;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "ord_goods_total")
     private BigDecimal goodsTotal;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "ord_ship_total")
     private BigDecimal shipTotal;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "ord_fee")
     private BigDecimal fee;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @CreationTimestamp
     @Column(name = "ord_created")
     @Temporal(TemporalType.TIMESTAMP)
@@ -86,15 +68,12 @@ public class Orders implements Serializable {
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
+
     @Column(name = "ord_success")
     private short isSuccess;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "ord_void")
     private short isVoid;
 
