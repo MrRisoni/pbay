@@ -29,7 +29,7 @@ public class Selling implements Serializable {
     @Getter
     @Setter
     @Column
-    private String sllMailerCo;
+    private String mailer_comapny;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellingObj", fetch = FetchType.LAZY)
     private Collection<ShippingCostsExceptions> shippingCostsExceptionsCollection;

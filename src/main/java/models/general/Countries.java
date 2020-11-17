@@ -36,9 +36,6 @@ public class Countries implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Continents ctrContinentId;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryObj", fetch = FetchType.LAZY)
-    private Collection<Sellers> sellersCollection;
-
     public Countries() {
     }
 
@@ -58,14 +55,5 @@ public class Countries implements Serializable {
 
     public void setCtrContinentId(Continents ctrContinentId) {
         this.ctrContinentId = ctrContinentId;
-    }
-
-    @XmlTransient
-    public Collection<Sellers> getSellersCollection() {
-        return sellersCollection;
-    }
-
-    public void setSellersCollection(Collection<Sellers> sellersCollection) {
-        this.sellersCollection = sellersCollection;
     }
 }
