@@ -24,17 +24,17 @@ public class Selling implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sll_id")
+    @Column
     private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "sll_quantity")
+    @Column
     private int quantity;
 
     @Getter
     @Setter
-    @Column(name = "sll_mailer_co")
+    @Column
     private String sllMailerCo;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellingObj", fetch = FetchType.LAZY)

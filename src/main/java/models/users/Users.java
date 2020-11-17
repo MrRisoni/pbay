@@ -28,38 +28,38 @@ public class Users implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column
     private Long id;
 
     @Getter
     @Setter
-    @Column(name = "name")
+    @Column
     private String name;
 
     @Getter
     @Setter
-    @Column(name = "email")
+    @Column
     private String email;
 
     @Getter
     @Setter
-    @Column(name = "password")
+    @Column
     private String password;
 
     @Getter
     @Setter
-    @Column(name = "remember_token")
+    @Column
     private String rememberToken;
 
     @Getter
     @Setter
-    @Column(name = "created_at")
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @Getter
     @Setter
-    @Column(name = "updated_at")
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 

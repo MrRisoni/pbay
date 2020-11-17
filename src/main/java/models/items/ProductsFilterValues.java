@@ -17,12 +17,12 @@ public class ProductsFilterValues implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pfv_id")
+    @Column
     private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "pfv_value")
+    @Column
     private String value;
 
     @JoinColumn(name = "pfv_filter_id", referencedColumnName = "fil_id")

@@ -20,23 +20,23 @@ public class Reviews implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rev_id")
+    @Column
     private Long id;
 
     @Getter
     @Setter
     @Lob
-    @Column(name = "rev_comment")
+    @Column
     private String comment;
 
     @Getter
     @Setter
-    @Column(name = "rev_star")
+    @Column
     private BigDecimal stars;
 
     @Getter
     @Setter
-    @Column(name = "rev_created_at")
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 

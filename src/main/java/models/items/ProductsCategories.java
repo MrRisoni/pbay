@@ -19,12 +19,12 @@ public class ProductsCategories implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cat_id")
+    @Column
     private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "cat_title")
+    @Column
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryObj", fetch = FetchType.LAZY)

@@ -21,24 +21,24 @@ public class ShippingCosts implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shc_id")
+    @Column
     private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "shc_continent_code")
+    @Column
     private String continentCode;
 
     @Getter
     @Setter
-    @Column(name = "shc_cost")
+    @Column
     private BigDecimal cost;
 
     @JoinColumn(name = "shc_selling_id", referencedColumnName = "sll_id",updatable = false,insertable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling sellingObj;
 
-    @Column(name = "shc_selling_id")
+    @Column
     private Integer sellingObjFKey;
 
     public ShippingCosts() {

@@ -17,17 +17,17 @@ public class Continents implements Serializable {
     @Getter
     @Setter
     @Id
-    @Column(name = "con_id")
+    @Column
     private Short id;
 
     @Getter
     @Setter
-    @Column(name = "con_code")
+    @Column
     private String code;
 
     @Getter
     @Setter
-    @Column(name = "con_title")
+    @Column
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ctrContinentId", fetch = FetchType.LAZY)

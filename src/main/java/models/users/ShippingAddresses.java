@@ -23,42 +23,42 @@ public class ShippingAddresses implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shp_id")
+    @Column
     private Long id;
 
     @Getter
     @Setter
-    @Column(name = "shp_city")
+    @Column
     private String city;
 
     @Getter
     @Setter
-    @Column(name = "shp_region")
+    @Column
     private String region;
 
     @Getter
     @Setter
-    @Column(name = "shp_street")
+    @Column
     private String street;
 
     @Getter
     @Setter
-    @Column(name = "shp_street_no")
+    @Column
     private String streetNo;
 
     @Getter
     @Setter
-    @Column(name = "shp_code")
+    @Column
     private String code;
 
     @Getter
     @Setter
-    @Column(name = "shp_surname")
+    @Column
     private String surname;
 
     @Getter
     @Setter
-    @Column(name = "shp_name")
+    @Column
     private String name;
 
     @JoinColumn(name = "shp_user_id", referencedColumnName = "id")

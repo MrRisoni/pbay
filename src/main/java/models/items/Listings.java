@@ -24,39 +24,39 @@ public class Listings implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "lis_id")
+    @Column
     private Long id;
 
     @Getter
     @Setter
-    @Column(name = "lis_price")
+    @Column
     private BigDecimal price;
 
     @Getter
     @Setter
-    @Column(name = "lis_fee_eur")
+    @Column
     private BigDecimal feeEuro;
 
     @Getter
     @Setter
-    @Column(name = "lis_from")
+    @Column
     @Temporal(TemporalType.DATE)
     private Date activeFrom;
 
     @Getter
     @Setter
-    @Column(name = "lis_to")
+    @Column
     @Temporal(TemporalType.DATE)
     private Date activeUntil;
 
     @Getter
     @Setter
-    @Column(name = "lis_watching")
+    @Column
     private short numWatchers;
 
     @Getter
     @Setter
-    @Column(name = "lis_is_auction")
+    @Column
     private short isAuction;
 
     @JoinColumn(name = "lis_currency_id", referencedColumnName = "cur_id")

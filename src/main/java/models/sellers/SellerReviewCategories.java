@@ -20,12 +20,12 @@ public class SellerReviewCategories implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "swrc_id")
+    @Column
     private Short id;
 
     @Getter
     @Setter
-    @Column(name = "swrc_title")
+    @Column
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryObj", fetch = FetchType.LAZY)

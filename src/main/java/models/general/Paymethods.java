@@ -19,13 +19,13 @@ public class Paymethods implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pm_id")
+    @Column
     private Short id;
 
     @Getter
     @Setter
 
-    @Column(name = "pm_title")
+    @Column
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "payMethodObj", fetch = FetchType.LAZY)

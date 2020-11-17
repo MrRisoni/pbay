@@ -18,12 +18,12 @@ public class SellerReviewsCategoriesEval implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "srce_id")
+    @Column
     private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "srce_rating")
+    @Column
     private BigDecimal rating;
 
     @JoinColumn(name = "srce_category_id", referencedColumnName = "swrc_id")

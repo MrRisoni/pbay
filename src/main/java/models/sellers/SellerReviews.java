@@ -25,22 +25,22 @@ public class SellerReviews implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "srw_id")
+    @Column
     private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "srw_opinion")
+    @Column
     private short opinion;
 
     @Getter
     @Setter
-    @Column(name = "srw_comment")
+    @Column
     private String comment;
 
     @Getter
     @Setter
-    @Column(name = "srw_created_at")
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 

@@ -23,28 +23,28 @@ public class Biddings implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bid_id")
+    @Column
     private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "bid_price")
+    @Column
     private BigDecimal bidPrice;
 
     @Getter
     @Setter
-    @Column(name = "bid_price_eur")
+    @Column
     private BigDecimal bidPriceEur;
 
     @Getter
     @Setter
-    @Column(name = "bid_created_at")
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @Getter
     @Setter
-    @Column(name = "bid_active")
+    @Column
     private short isActive;
 
     @JoinColumn(name = "bid_currency_id", referencedColumnName = "cur_id")

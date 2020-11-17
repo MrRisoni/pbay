@@ -22,17 +22,17 @@ public class Countries implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ctr_id")
+    @Column
     private Short id;
 
     @Getter
     @Setter
-    @Column(name = "ctr_title")
+    @Column
     private String title;
 
     @Getter
     @Setter
-    @Column(name = "ctr_code")
+    @Column
     private String code;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryObj", fetch = FetchType.LAZY)

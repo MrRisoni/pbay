@@ -17,17 +17,17 @@ public class ListingWatching implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "lwi_id")
+    @Column
     private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "lwi_user_ud")
+    @Column
     private long lwiUserUd;
 
     @Getter
     @Setter
-    @Column(name = "lwi_listing_id")
+    @Column
     private long lwiListingId;
 
     public ListingWatching() {

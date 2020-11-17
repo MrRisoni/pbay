@@ -27,22 +27,22 @@ public class Sellers implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sel_id")
+    @Column
     private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "sel_title")
+    @Column
     private String title;
 
     @Getter
     @Setter
-    @Column(name = "sel_ssn")
+    @Column
     private String ssn;
 
     @Getter
     @Setter
-    @Column(name = "sel_stars_avg")
+    @Column
     private BigDecimal avgStars;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellerObj", fetch = FetchType.LAZY)

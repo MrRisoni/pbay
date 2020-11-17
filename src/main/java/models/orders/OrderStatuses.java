@@ -20,12 +20,12 @@ public class OrderStatuses implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "stat_id")
+    @Column
     private Short id;
 
     @Getter
     @Setter
-    @Column(name = "stat_title")
+    @Column
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "statusObj", fetch = FetchType.LAZY)

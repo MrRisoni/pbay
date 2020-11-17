@@ -24,12 +24,12 @@ public class Currencies implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cur_id")
+    @Column
     private Short id;
 
     @Getter
     @Setter
-    @Column(name = "cur_code")
+    @Column
     private String code;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "currencyObj", fetch = FetchType.LAZY)

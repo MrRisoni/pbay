@@ -24,42 +24,42 @@ public class OrderItems implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "itm_id")
+    @Column
     private Long id;
 
     @Getter
     @Setter
-    @Column(name = "itm_quantity")
+    @Column
     private short quantity;
 
     @Getter
     @Setter
-    @Column(name = "itm_tracking_nums")
+    @Column
     private String trackingNums;
 
     @Getter
     @Setter
-    @Column(name = "itm_total")
+    @Column
     private BigDecimal total;
 
     @Getter
     @Setter
-    @Column(name = "itm_goods_total")
+    @Column
     private BigDecimal goodsTotal;
 
     @Getter
     @Setter
-    @Column(name = "itm_ship_total")
+    @Column
     private BigDecimal shipTotal;
 
     @Getter
     @Setter
-    @Column(name = "itm_rate")
+    @Column
     private BigDecimal rate;
 
     @Getter
     @Setter
-    @Column(name = "itm_void")
+    @Column
     private short isVoid;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderItemObj", fetch = FetchType.LAZY)

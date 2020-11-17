@@ -20,12 +20,12 @@ public class ProductsFilters implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "fil_id")
+    @Column
     private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "fil_title")
+    @Column
     private String title;
 
     @JoinColumn(name = "fil_product_category", referencedColumnName = "cat_id")

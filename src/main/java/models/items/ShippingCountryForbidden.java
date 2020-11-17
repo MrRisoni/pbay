@@ -17,13 +17,13 @@ public class ShippingCountryForbidden implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shf_id")
+    @Column
     private Integer id;
 
 
     @Getter
     @Setter
-    @Column(name = "shf_country_code")
+    @Column
     private String countryCode;
 
     @JoinColumn(name = "shf_selling_id", referencedColumnName = "sll_id")

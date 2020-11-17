@@ -22,27 +22,27 @@ public class Products implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "prod_id")
+    @Column
     private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "prod_title")
+    @Column
     private String title;
 
     @Getter
     @Setter
-    @Column(name = "prod_other_title")
+    @Column
     private String otherTitle;
 
     @Getter
     @Setter
-    @Column(name = "prod_descr")
+    @Column
     private String description;
 
     @Getter
     @Setter
-    @Column(name = "prod_preowned")
+    @Column
     private short isPreOwned;
 
     @JoinColumn(name = "prod_category_id", referencedColumnName = "cat_id")

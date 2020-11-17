@@ -22,42 +22,42 @@ public class BillingAddresses implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bla_id")
+    @Column
     private Long id;
 
     @Getter
     @Setter
-    @Column(name = "bla_city")
+    @Column
     private String city;
 
     @Getter
     @Setter
-    @Column(name = "bla_region")
+    @Column
     private String region;
 
     @Getter
     @Setter
-    @Column(name = "bla_street")
+    @Column
     private String streetNam;
 
     @Getter
     @Setter
-    @Column(name = "bla_street_no")
+    @Column
     private String streetNo;
 
     @Getter
     @Setter
-    @Column(name = "bla_code")
+    @Column
     private String code;
 
     @Getter
     @Setter
-    @Column(name = "bla_surname")
+    @Column
     private String surname;
 
     @Getter
     @Setter
-    @Column(name = "bla_name")
+    @Column
     private String name;
 
     @JoinColumn(name = "bla_country_id", referencedColumnName = "ctr_id")

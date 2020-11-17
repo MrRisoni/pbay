@@ -16,22 +16,22 @@ public class CurrencyRates implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column
     private Short id;
 
     @Getter
     @Setter
-    @Column(name="from_cur")
+    @Column
     private String fromCode;
 
     @Getter
     @Setter
-    @Column(name="to_cur ")
+    @Column
     private String toCode;
 
     @Getter
     @Setter
-    @Column(name="rate")
+    @Column
     private BigDecimal rate;
 
     public CurrencyRates() {

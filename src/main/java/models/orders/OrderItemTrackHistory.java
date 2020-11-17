@@ -19,12 +19,12 @@ public class OrderItemTrackHistory implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "itmh_id")
+    @Column
     private Long id;
 
     @Getter
     @Setter
-    @Column(name = "itmh_created_at")
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 

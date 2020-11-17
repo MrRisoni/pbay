@@ -19,17 +19,17 @@ public class ShippingCostsExceptions implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shcx_id")
+    @Column
     private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "shcx_country_code")
+    @Column
     private String countryCode;
 
     @Getter
     @Setter
-    @Column(name = "shcx_cost")
+    @Column
     private BigDecimal cost;
 
     @JoinColumn(name = "shcx_selling_id", referencedColumnName = "sll_id",updatable = false,insertable = false)
@@ -38,7 +38,7 @@ public class ShippingCostsExceptions implements Serializable {
 
     @Getter
     @Setter
-    @Column(name = "shc_selling_id")
+    @Column
     private Integer sellingObjFKey;
 
     public ShippingCostsExceptions() {

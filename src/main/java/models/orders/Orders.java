@@ -30,51 +30,50 @@ public class Orders implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ord_id")
-
+    @Column
     private Long id;
 
     @Getter
     @Setter
-    @Column(name = "ord_bank_transaction_id")
+    @Column
     private String bankTransactionId;
 
     @Getter
     @Setter
-    @Column(name = "ord_total")
+    @Column
     private BigDecimal total;
 
     @Getter
     @Setter
-    @Column(name = "ord_goods_total")
+    @Column
     private BigDecimal goodsTotal;
 
     @Getter
     @Setter
-    @Column(name = "ord_ship_total")
+    @Column
     private BigDecimal shipTotal;
 
     @Getter
     @Setter
-    @Column(name = "ord_fee")
+    @Column
     private BigDecimal fee;
 
     @Getter
     @Setter
     @CreationTimestamp
-    @Column(name = "ord_created")
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @Getter
     @Setter
 
-    @Column(name = "ord_success")
+    @Column
     private short isSuccess;
 
     @Getter
     @Setter
-    @Column(name = "ord_void")
+    @Column
     private short isVoid;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderObj", fetch = FetchType.LAZY)
