@@ -18,5 +18,5 @@ public class ListingDto {
     private short isAuction;
     private CurrencyDto currencyObj;
     private SellingDto sellingObj;
-
+    private int totalBids;
 }

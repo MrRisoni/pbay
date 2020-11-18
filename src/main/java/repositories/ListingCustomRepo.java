@@ -9,11 +9,12 @@ public class ListingCustomRepo {
 
     public static int getTotalBids24H(Long listingId)
     {
-        return   ( (Number) em.createNativeQuery(" SELECT COUNT(bid_id) AS totalBids FROM biddings " +
-        " WHERE bid_active = 1 AND bid_listing_id = :listingId " +
-        " AND DATEDIFF(CURRENT_DATE, DATE(bid_created_at)) <=2 " +
-        " AND DATEDIFF(CURRENT_DATE, DATE(bid_created_at)) >=0 ")
-                .setParameter("listingId",listingId).getSingleResult()).intValue();
+        List<Object> data= em.createNativeQuery(" SELECT COUNT(id) AS totalBids FROM biddings " +
+        " WHERE active = 1 AND listing_id = :listingId " )
+                .setParameter("listingId",listingId).getResultList();
+            return 0;
+
+
 
     }
 

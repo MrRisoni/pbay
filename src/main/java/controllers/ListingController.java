@@ -1,6 +1,7 @@
 package controllers;
 
 import dtos.ListingDto;
+import models.HibernateUtil;
 import models.items.Listings;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import repositories.ListingCustomRepo;
 import spring_repos.ListingRepo;
 
 import java.util.Optional;
@@ -36,7 +38,9 @@ public class ListingController {
             Optional<Listings> fetchedListing = listRepo.findById(itemId);
             Listings returnedListing = fetchedListing.orElse(null);
 
+            ListingCustomRepo.setEm(HibernateUtil.getEM());
             ListingDto listDto = modelMapper.map(returnedListing, ListingDto.class);
+            listDto.setTotalBids(ListingCustomRepo.getTotalBids24H(itemId));
             return new ResponseEntity<>(listDto, HttpStatus.OK);
         }
         catch (Exception ex)
