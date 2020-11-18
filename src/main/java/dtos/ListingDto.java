@@ -19,4 +19,5 @@ public class ListingDto {
     private String currency_code;
     private SellingDto sellingObj;
     private int totalBids;
+    private int soldLastDays;
 }

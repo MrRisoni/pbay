@@ -28,11 +28,6 @@ public class ListingController {
     @RequestMapping(value = "/api/listing/{itemId}", method = RequestMethod.GET)
     public ResponseEntity<ListingDto> getItemDetails(@PathVariable Long itemId)
     {
-     /*
-        rsp.put("item",listFound.orElse(null));
-        rsp.put("soldLastDays", ListingCustomRepo.itemsSoldLastDays(4L));
-        rsp.put("bids24h",ListingCustomRepo.getTotalBids24H(4L));
-        */
 
         try {
             Optional<Listings> fetchedListing = listRepo.findById(itemId);
@@ -41,6 +36,7 @@ public class ListingController {
             ListingCustomRepo.setEm(HibernateUtil.getEM());
             ListingDto listDto = modelMapper.map(returnedListing, ListingDto.class);
             listDto.setTotalBids(ListingCustomRepo.getTotalBids24H(itemId));
+            listDto.setSoldLastDays(ListingCustomRepo.itemsSoldLastDays(itemId));
             return new ResponseEntity<>(listDto, HttpStatus.OK);
         }
         catch (Exception ex)
@@ -50,3 +46,4 @@ public class ListingController {
         }
     }
 }
+

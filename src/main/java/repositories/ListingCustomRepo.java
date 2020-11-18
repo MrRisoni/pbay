@@ -25,18 +25,23 @@ public class ListingCustomRepo {
 
     public static int itemsSoldLastDays(Long listingId)
     {
-        List<Object> soldList = em.createNativeQuery("SELECT COUNT(O.ord_id) AS soldLastDays" +
-                " FROM  listings L " +
-                " JOIN selling S ON S.sll_id = L.lis_selling_id" +
-                " JOIN  order_items OI ON OI.itm_product_id = S.sll_id " +
-                " JOIN  orders O ON O.ord_id =  OI.itm_order_id" +
-                " WHERE L.lis_id = :listingId AND OI.itm_void = 0" +
-                " AND O.ord_success = 1" +
-                " AND DATEDIFF(CURRENT_DATE, DATE(O.ord_created)) <=2" +
-                " AND DATEDIFF(CURRENT_DATE, DATE(O.ord_created)) >=0")
+        List<Object> soldList = em.createNativeQuery("SELECT COUNT(O.id) AS soldLastDays " +
+                "  FROM  listings L  " +
+                "  JOIN selling S ON S.id = L.selling_id " +
+                "  JOIN  order_items OI ON OI.product_id = S.id  " +
+                "  JOIN  orders O ON O.id =  OI.order_id " +
+                "  WHERE L.id =:listingId AND OI.is_void = 0 " +
+                "  AND O.success = 1 " +
+                "  AND DATEDIFF(DAY,O.created_at,GETDATE()) <=2 " +
+                "  AND DATEDIFF(DAY, O.created_at,GETDATE()) >=0")
                 .setParameter("listingId",listingId).getResultList();
 
+        if (soldList.size() ==0) {
+            return 0;
+        }
+        else {
             return Integer.parseInt(soldList.get(0).toString());
+        }
     }
 
     public static void setEm(EntityManager em) {

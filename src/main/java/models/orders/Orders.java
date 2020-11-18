@@ -62,12 +62,12 @@ public class Orders implements Serializable {
     @Getter
     @Setter
 
-    @Column
+    @Column(name="success")
     private short isSuccess;
 
     @Getter
     @Setter
-    @Column
+    @Column(name="void")
     private short isVoid;
 
     @Getter
