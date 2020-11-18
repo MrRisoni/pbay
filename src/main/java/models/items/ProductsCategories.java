@@ -8,7 +8,7 @@ import java.util.Collection;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "products_categories")
+@Table(name = "product_categories")
 public class ProductsCategories implements Serializable {
 
     private static final long serialVersionUID = 1L;
