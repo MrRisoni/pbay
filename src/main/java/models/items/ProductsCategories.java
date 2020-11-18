@@ -1,22 +1,14 @@
 package models.items;
 
 import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import java.util.Collection;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Table(name = "products_categories")
+@Table(name = "product_categories")
 public class ProductsCategories implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,16 +16,12 @@ public class ProductsCategories implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "cat_id")
-    private Integer id;
+    @Column
+    private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "cat_title")
+    @Column
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryObj", fetch = FetchType.LAZY)
@@ -45,11 +33,11 @@ public class ProductsCategories implements Serializable {
     public ProductsCategories() {
     }
 
-    public ProductsCategories(Integer catId) {
+    public ProductsCategories(Long catId) {
         this.id = catId;
     }
 
-    public ProductsCategories(Integer catId, String catTitle) {
+    public ProductsCategories(Long catId, String catTitle) {
         this.id = catId;
         this.title = catTitle;
     }

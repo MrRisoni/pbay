@@ -1,21 +1,13 @@
 package models.sellers;
 
 import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.util.Collection;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "seller_review_categories")
 public class SellerReviewCategories implements Serializable {
 
@@ -24,16 +16,12 @@ public class SellerReviewCategories implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "swrc_id")
-    private Short id;
+    @Column
+    private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 25)
-    @Column(name = "swrc_title")
+    @Column
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryObj", fetch = FetchType.LAZY)
@@ -42,11 +30,11 @@ public class SellerReviewCategories implements Serializable {
     public SellerReviewCategories() {
     }
 
-    public SellerReviewCategories(Short swrcId) {
+    public SellerReviewCategories(Long swrcId) {
         this.id = swrcId;
     }
 
-    public SellerReviewCategories(Short swrcId, String swrcTitle) {
+    public SellerReviewCategories(Long swrcId, String swrcTitle) {
         this.id = swrcId;
         this.title = swrcTitle;
     }

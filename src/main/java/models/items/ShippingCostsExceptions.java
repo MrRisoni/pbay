@@ -3,19 +3,11 @@ package models.items;
 import lombok.Getter;
 import lombok.Setter;
 import models.sellers.Selling;
-
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "shipping_costs_exceptions")
 public class ShippingCostsExceptions implements Serializable {
 
@@ -24,46 +16,40 @@ public class ShippingCostsExceptions implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "shcx_id")
-    private Integer id;
+    @Column
+    private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "shcx_country_code")
+    @Column
     private String countryCode;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "shcx_cost")
+    @Column
     private BigDecimal cost;
 
-    @JoinColumn(name = "shcx_selling_id", referencedColumnName = "sll_id",updatable = false,insertable = false)
+    @JoinColumn(name = "selling_id", referencedColumnName = "id",updatable = false,insertable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling sellingObj;
 
     @Getter
     @Setter
-    @Column(name = "shc_selling_id")
+    @Column
     private Integer sellingObjFKey;
 
     public ShippingCostsExceptions() {
     }
 
-    public ShippingCostsExceptions(@NotNull BigDecimal cost) {
+    public ShippingCostsExceptions( BigDecimal cost) {
         this.cost = cost;
     }
 
-    public ShippingCostsExceptions(Integer shcxId) {
+    public ShippingCostsExceptions(Long shcxId) {
         this.id = shcxId;
     }
 
-    public ShippingCostsExceptions(Integer shcxId, String shcxCountryCode, BigDecimal shcxCost) {
+    public ShippingCostsExceptions(Long shcxId, String shcxCountryCode, BigDecimal shcxCost) {
         this.id = shcxId;
         this.countryCode = shcxCountryCode;
         this.cost = shcxCost;

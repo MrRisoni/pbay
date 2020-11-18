@@ -4,17 +4,11 @@ import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-import javax.validation.constraints.NotNull;
-
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "seller_reviews_categories_eval")
-
 public class SellerReviewsCategoriesEval implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -22,33 +16,30 @@ public class SellerReviewsCategoriesEval implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "srce_id")
-    private Integer id;
+    @Column
+    private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "srce_rating")
+    @Column
     private BigDecimal rating;
 
-    @JoinColumn(name = "srce_category_id", referencedColumnName = "swrc_id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private SellerReviewCategories categoryObj;
 
-    @JoinColumn(name = "srce_review_id", referencedColumnName = "srw_id")
+    @JoinColumn(name = "review_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private SellerReviews reviewObj;
 
     public SellerReviewsCategoriesEval() {
     }
 
-    public SellerReviewsCategoriesEval(Integer srceId) {
+    public SellerReviewsCategoriesEval(Long srceId) {
         this.id = srceId;
     }
 
-    public SellerReviewsCategoriesEval(Integer srceId, BigDecimal srceRating) {
+    public SellerReviewsCategoriesEval(Long srceId, BigDecimal srceRating) {
         this.id = srceId;
         this.rating = srceRating;
     }

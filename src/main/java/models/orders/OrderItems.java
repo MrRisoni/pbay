@@ -2,24 +2,15 @@ package models.orders;
 
 import lombok.Getter;
 import lombok.Setter;
-import models.general.Currencies;
 import models.sellers.Sellers;
 import models.sellers.Selling;
-
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "order_items")
 public class OrderItems implements Serializable {
 
@@ -28,79 +19,65 @@ public class OrderItems implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "itm_id")
+    @Column
     private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "itm_quantity")
+    @Column
     private short quantity;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @Size(min = 1, max = 225)
-    @Column(name = "itm_tracking_nums")
+    @Column
     private String trackingNums;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "itm_total")
+    @Column
     private BigDecimal total;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "itm_goods_total")
+    @Column
     private BigDecimal goodsTotal;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "itm_ship_total")
+    @Column
     private BigDecimal shipTotal;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "itm_rate")
+    @Column
     private BigDecimal rate;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "itm_void")
+    @Column
     private short isVoid;
+
+    @Getter
+    @Setter
+    @Column
+    private String currency_code;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderItemObj", fetch = FetchType.LAZY)
     private Collection<Reviews> reviewsCollection;
 
-    @JoinColumn(name = "itm_currency_id", referencedColumnName = "cur_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Currencies currencyObj;
-
-    @JoinColumn(name = "itm_order_id", referencedColumnName = "ord_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Orders orderObj;
 
-    @JoinColumn(name = "itm_product_id", referencedColumnName = "sll_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling itemObj;
 
-    @JoinColumn(name = "itm_seller_id", referencedColumnName = "sel_id")
+    @JoinColumn(name = "seller_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Sellers sellerObj;
 
-    @JoinColumn(name = "itm_status_id", referencedColumnName = "stat_id")
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private OrderStatuses statusObj;
 
@@ -132,14 +109,6 @@ public class OrderItems implements Serializable {
 
     public void setReviewsCollection(Collection<Reviews> reviewsCollection) {
         this.reviewsCollection = reviewsCollection;
-    }
-
-    public Currencies getCurrencyObj() {
-        return currencyObj;
-    }
-
-    public void setCurrencyObj(Currencies currencyObj) {
-        this.currencyObj = currencyObj;
     }
 
     public Orders getOrderObj() {

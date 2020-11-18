@@ -4,19 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import models.orders.Orders;
 import models.general.Countries;
-
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.util.Collection;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "shipping_addresses")
 public class ShippingAddresses implements Serializable {
 
@@ -25,74 +18,53 @@ public class ShippingAddresses implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "shp_id")
+    @Column
     private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 55)
-    @Column(name = "shp_city")
+    @Column
     private String city;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 55)
-    @Column(name = "shp_region")
+    @Column
     private String region;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 55)
-    @Column(name = "shp_street")
+    @Column
     private String street;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 8)
-    @Column(name = "shp_street_no")
+    @Column
     private String streetNo;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 9)
-    @Column(name = "shp_code")
+    @Column
     private String code;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 55)
-    @Column(name = "shp_surname")
+    @Column
     private String surname;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 55)
-    @Column(name = "shp_name")
+    @Column
     private String name;
 
-    @JoinColumn(name = "shp_user_id", referencedColumnName = "id")
+    @Getter
+    @Setter
+    @Column
+    private String country_code;
+
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users userObj;
 
-    @JoinColumn(name = "shp_country_id", referencedColumnName = "ctr_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-
-    private Countries countryObj;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shipAddressObj", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
@@ -104,7 +76,7 @@ public class ShippingAddresses implements Serializable {
         this.id = shpId;
     }
 
-    public ShippingAddresses(Long shpId, String shpCity, String shpRegion, String shpStreet, String shpStreetNo, String shpCode, String shpSurname, String shpName) {
+    public ShippingAddresses(Long shpId, String country_code,String shpCity, String shpRegion, String shpStreet, String shpStreetNo, String shpCode, String shpSurname, String shpName) {
         this.id = shpId;
         this.city = shpCity;
         this.region = shpRegion;
@@ -113,6 +85,7 @@ public class ShippingAddresses implements Serializable {
         this.code = shpCode;
         this.surname = shpSurname;
         this.name = shpName;
+        this.country_code = country_code;
     }
 
     public Users getUserObj() {
@@ -123,13 +96,6 @@ public class ShippingAddresses implements Serializable {
         this.userObj = userObj;
     }
 
-    public Countries getCountryObj() {
-        return countryObj;
-    }
-
-    public void setCountryObj(Countries countryObj) {
-        this.countryObj = countryObj;
-    }
 
     @XmlTransient
     public Collection<Orders> getOrdersCollection() {

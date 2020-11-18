@@ -4,8 +4,7 @@ import lombok.Data;
 
 @Data
 public class SellersDto {
-    private Integer id;
+    private Long id;
     private String title;
-    private CountryDto countryObj;
-
+    private String country_code;
 }

@@ -22,7 +22,5 @@ public class OrderDto {
     private short isVoid;
 
     private Collection<OrderItemDto> orderItemsCollection;
-    private CurrencyDto currencyObj;
-
-
+    private String currency_code;
 }

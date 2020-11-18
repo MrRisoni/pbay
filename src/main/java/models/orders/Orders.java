@@ -2,30 +2,20 @@ package models.orders;
 
 import lombok.Getter;
 import lombok.Setter;
-import models.general.Currencies;
 import models.general.Paymethods;
 import models.sellers.SellerReviews;
 import models.users.BillingAddresses;
 import models.users.ShippingAddresses;
 import models.users.Users;
-
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 
-
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "orders")
 public class Orders implements Serializable {
 
@@ -34,69 +24,56 @@ public class Orders implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ord_id")
-
+    @Column
     private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "ord_bank_transaction_id")
+    @Column
     private String bankTransactionId;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ord_total")
+    @Column
     private BigDecimal total;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ord_goods_total")
+    @Column
     private BigDecimal goodsTotal;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ord_ship_total")
+    @Column
     private BigDecimal shipTotal;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ord_fee")
+    @Column
     private BigDecimal fee;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
     @CreationTimestamp
-    @Column(name = "ord_created")
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ord_success")
+
+    @Column(name="success")
     private short isSuccess;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ord_void")
+    @Column(name="void")
     private short isVoid;
+
+    @Getter
+    @Setter
+    @Column
+    private String currency_code;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderObj", fetch = FetchType.LAZY)
     private Collection<SellerReviews> sellerReviewsCollection;
@@ -106,31 +83,25 @@ public class Orders implements Serializable {
 
     @Getter
     @Setter
-    @JoinColumn(name = "ord_currency_id", referencedColumnName = "cur_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Currencies currencyObj;
-
-    @Getter
-    @Setter
-    @JoinColumn(name = "ord_user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users userObj;
 
     @Getter
     @Setter
-    @JoinColumn(name = "ord_shipaddress_id", referencedColumnName = "shp_id")
+    @JoinColumn(name = "shipping_address_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ShippingAddresses shipAddressObj;
 
     @Getter
     @Setter
-    @JoinColumn(name = "ord_billaddress_id", referencedColumnName = "bla_id")
+    @JoinColumn(name = "billing_address_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private BillingAddresses billAddressObj;
 
     @Getter
     @Setter
-    @JoinColumn(name = "ord_paymethod_id", referencedColumnName = "pm_id")
+    @JoinColumn(name = "payment_method_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Paymethods payMethodObj;
 

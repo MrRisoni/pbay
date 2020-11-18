@@ -1,28 +1,18 @@
 package models.sellers;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
 import models.orders.OrderItems;
 import models.users.Users;
-import models.general.Countries;
 
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "sellers")
-
 public class Sellers implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,32 +20,28 @@ public class Sellers implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "sel_id")
-    private Integer id;
+    @Column
+    private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 125)
-    @Column(name = "sel_title")
+    @Column
     private String title;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 60)
-    @Column(name = "sel_ssn")
+    @Column
     private String ssn;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "sel_stars_avg")
+    @Column
     private BigDecimal avgStars;
+
+    @Getter
+    @Setter
+    @Column
+    private String country_code;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellerObj", fetch = FetchType.LAZY)
     private Collection<SellerReviews> sellerReviewsCollection;
@@ -66,26 +52,23 @@ public class Sellers implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellerObj", fetch = FetchType.LAZY)
     private Collection<Selling> sellingCollection;
 
-    @JoinColumn(name = "seller_usr_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users userObj;
-
-    @JoinColumn(name = "sel_country_id", referencedColumnName = "ctr_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Countries countryObj;
 
     public Sellers() {
     }
 
-    public Sellers(Integer selId) {
+    public Sellers(Long selId) {
         this.id = selId;
     }
 
-    public Sellers(Integer selId, String selTitle, String selSsn, BigDecimal selStarsAvg) {
+    public Sellers(Long selId, String selTitle, String selSsn, BigDecimal selStarsAvg, String country_code) {
         this.id = selId;
         this.title = selTitle;
         this.ssn = selSsn;
         this.avgStars = selStarsAvg;
+        this.country_code = country_code;
     }
 
     @XmlTransient
@@ -117,17 +100,5 @@ public class Sellers implements Serializable {
 
     public Users getUserObj() {
         return userObj;
-    }
-
-    public void setUserObj(Users userObj) {
-        this.userObj = userObj;
-    }
-
-    public Countries getCountryObj() {
-        return countryObj;
-    }
-
-    public void setCountryObj(Countries countryObj) {
-        this.countryObj = countryObj;
     }
 }

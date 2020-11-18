@@ -2,25 +2,18 @@ package models.items;
 
 import lombok.Getter;
 import lombok.Setter;
-import models.general.Currencies;
 import models.orders.Biddings;
 import models.sellers.Selling;
-
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "listings")
-
 public class Listings implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,59 +21,47 @@ public class Listings implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "lis_id")
+    @Column
     private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "lis_price")
+    @Column
     private BigDecimal price;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "lis_fee_eur")
+    @Column
     private BigDecimal feeEuro;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "lis_from")
+    @Column
     @Temporal(TemporalType.DATE)
     private Date activeFrom;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "lis_to")
+    @Column
     @Temporal(TemporalType.DATE)
     private Date activeUntil;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "lis_watching")
+    @Column
     private short numWatchers;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "lis_is_auction")
+    @Column
     private short isAuction;
 
-    @JoinColumn(name = "lis_currency_id", referencedColumnName = "cur_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Currencies currencyObj;
+    @Getter
+    @Setter
+    @Column
+    private String currency_code;
 
-    @JoinColumn(name = "lis_selling_id", referencedColumnName = "sll_id")
+    @JoinColumn(name = "selling_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Selling sellingObj;
 
@@ -102,14 +83,6 @@ public class Listings implements Serializable {
         this.activeUntil = lisTo;
         this.numWatchers = lisWatching;
         this.isAuction = lisIsAuction;
-    }
-
-    public Currencies getCurrencyObj() {
-        return currencyObj;
-    }
-
-    public void setCurrencyObj(Currencies currencyObj) {
-        this.currencyObj = currencyObj;
     }
 
     public Selling getSellingObj() {

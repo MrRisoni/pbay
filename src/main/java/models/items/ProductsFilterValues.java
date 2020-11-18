@@ -1,18 +1,12 @@
 package models.items;
 
 import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "products_filter_values")
 public class ProductsFilterValues implements Serializable {
 
@@ -21,34 +15,30 @@ public class ProductsFilterValues implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "pfv_id")
-    private Integer id;
+    @Column
+    private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 88)
-    @Column(name = "pfv_value")
+    @Column
     private String value;
 
-    @JoinColumn(name = "pfv_filter_id", referencedColumnName = "fil_id")
+    @JoinColumn(name = "filter_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ProductsFilters filterObj;
 
-    @JoinColumn(name = "pfv_product_id", referencedColumnName = "prod_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Products productObj;
 
     public ProductsFilterValues() {
     }
 
-    public ProductsFilterValues(Integer pfvId) {
+    public ProductsFilterValues(Long pfvId) {
         this.id = pfvId;
     }
 
-    public ProductsFilterValues(Integer pfvId, String pfvValue) {
+    public ProductsFilterValues(Long pfvId, String pfvValue) {
         this.id = pfvId;
         this.value = pfvValue;
     }

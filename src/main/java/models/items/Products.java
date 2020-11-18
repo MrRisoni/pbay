@@ -3,19 +3,12 @@ package models.items;
 import lombok.Getter;
 import lombok.Setter;
 import models.sellers.Selling;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Collection;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "products")
 public class Products implements Serializable {
 
@@ -24,43 +17,30 @@ public class Products implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "prod_id")
-    private Integer id;
+    @Column
+    private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "prod_title")
+    @Column
     private String title;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 80)
-    @Column(name = "prod_other_title")
+    @Column
     private String otherTitle;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Size(min = 1, max = 65535)
-    @Column(name = "prod_descr")
+    @Column
     private String description;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "prod_preowned")
-    private short isPreOwned;
+    @Column
+    private short preowned;
 
-    @JoinColumn(name = "prod_category_id", referencedColumnName = "cat_id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ProductsCategories categoryObj;
 
@@ -73,16 +53,24 @@ public class Products implements Serializable {
     public Products() {
     }
 
-    public Products(Integer prodId) {
+    public Products(Long prodId) {
         this.id = prodId;
     }
 
-    public Products(Integer prodId, String prodTitle, String prodOtherTitle, String prodDescr, short prodPreowned) {
+    public Products(Long prodId, String prodTitle, String prodOtherTitle, String prodDescr, short prodPreowned) {
         this.id = prodId;
         this.title = prodTitle;
         this.otherTitle = prodOtherTitle;
         this.description = prodDescr;
-        this.isPreOwned = prodPreowned;
+        this.preowned = prodPreowned;
+    }
+
+    public ProductsCategories getCategoryObj() {
+        return categoryObj;
+    }
+
+    public void setCategoryObj(ProductsCategories categoryObj) {
+        this.categoryObj = categoryObj;
     }
 
     @XmlTransient

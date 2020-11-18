@@ -4,16 +4,11 @@ import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.util.Collection;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "products_filters")
 public class ProductsFilters implements Serializable {
 
@@ -22,19 +17,15 @@ public class ProductsFilters implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "fil_id")
-    private Integer id;
+    @Column
+    private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 55)
-    @Column(name = "fil_title")
+    @Column
     private String title;
 
-    @JoinColumn(name = "fil_product_category", referencedColumnName = "cat_id")
+    @JoinColumn(name = "product_category_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ProductsCategories categoryObj;
 
@@ -44,11 +35,11 @@ public class ProductsFilters implements Serializable {
     public ProductsFilters() {
     }
 
-    public ProductsFilters(Integer filId) {
+    public ProductsFilters(Long filId) {
         this.id = filId;
     }
 
-    public ProductsFilters(Integer filId, String filTitle) {
+    public ProductsFilters(Long filId, String filTitle) {
         this.id = filId;
         this.title = filTitle;
     }

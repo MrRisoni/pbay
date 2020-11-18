@@ -4,20 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import models.items.*;
 import models.orders.OrderItems;
-
 import java.io.Serializable;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.util.Collection;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "selling")
 public class Selling implements Serializable {
 
@@ -26,24 +18,18 @@ public class Selling implements Serializable {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "sll_id")
-    private Integer id;
+    @Column
+    private Long id;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "sll_quantity")
+    @Column
     private int quantity;
 
     @Getter
     @Setter
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 80)
-    @Column(name = "sll_mailer_co")
-    private String sllMailerCo;
+    @Column
+    private String mailer_company;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellingObj", fetch = FetchType.LAZY)
     private Collection<ShippingCostsExceptions> shippingCostsExceptionsCollection;
@@ -57,11 +43,11 @@ public class Selling implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemObj", fetch = FetchType.LAZY)
     private Collection<OrderItems> orderItemsCollection;
 
-    @JoinColumn(name = "sll_product_id", referencedColumnName = "prod_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Products productObj;
 
-    @JoinColumn(name = "sll_seller_id", referencedColumnName = "sel_id")
+    @JoinColumn(name = "seller_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Sellers sellerObj;
 
@@ -71,14 +57,14 @@ public class Selling implements Serializable {
     public Selling() {
     }
 
-    public Selling(Integer sllId) {
+    public Selling(Long sllId) {
         this.id = sllId;
     }
 
-    public Selling(Integer sllId, int sllQuantity, String sllMailerCo) {
+    public Selling(Long sllId, int sllQuantity, String sllMailerCo) {
         this.id = sllId;
         this.quantity = sllQuantity;
-        this.sllMailerCo = sllMailerCo;
+        this.mailer_company = sllMailerCo;
     }
 
     @XmlTransient
