@@ -17,7 +17,7 @@ public class SellerReviewsCategoriesEval implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @Getter
     @Setter
@@ -35,11 +35,11 @@ public class SellerReviewsCategoriesEval implements Serializable {
     public SellerReviewsCategoriesEval() {
     }
 
-    public SellerReviewsCategoriesEval(Integer srceId) {
+    public SellerReviewsCategoriesEval(Long srceId) {
         this.id = srceId;
     }
 
-    public SellerReviewsCategoriesEval(Integer srceId, BigDecimal srceRating) {
+    public SellerReviewsCategoriesEval(Long srceId, BigDecimal srceRating) {
         this.id = srceId;
         this.rating = srceRating;
     }

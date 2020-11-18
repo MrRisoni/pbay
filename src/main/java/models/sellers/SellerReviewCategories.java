@@ -17,7 +17,7 @@ public class SellerReviewCategories implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Short id;
+    private Long id;
 
     @Getter
     @Setter
@@ -30,11 +30,11 @@ public class SellerReviewCategories implements Serializable {
     public SellerReviewCategories() {
     }
 
-    public SellerReviewCategories(Short swrcId) {
+    public SellerReviewCategories(Long swrcId) {
         this.id = swrcId;
     }
 
-    public SellerReviewCategories(Short swrcId, String swrcTitle) {
+    public SellerReviewCategories(Long swrcId, String swrcTitle) {
         this.id = swrcId;
         this.title = swrcTitle;
     }

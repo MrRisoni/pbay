@@ -18,7 +18,7 @@ public class Products implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @Getter
     @Setter
@@ -53,16 +53,24 @@ public class Products implements Serializable {
     public Products() {
     }
 
-    public Products(Integer prodId) {
+    public Products(Long prodId) {
         this.id = prodId;
     }
 
-    public Products(Integer prodId, String prodTitle, String prodOtherTitle, String prodDescr, short prodPreowned) {
+    public Products(Long prodId, String prodTitle, String prodOtherTitle, String prodDescr, short prodPreowned) {
         this.id = prodId;
         this.title = prodTitle;
         this.otherTitle = prodOtherTitle;
         this.description = prodDescr;
         this.preowned = prodPreowned;
+    }
+
+    public ProductsCategories getCategoryObj() {
+        return categoryObj;
+    }
+
+    public void setCategoryObj(ProductsCategories categoryObj) {
+        this.categoryObj = categoryObj;
     }
 
     @XmlTransient

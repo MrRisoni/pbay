@@ -16,7 +16,7 @@ public class Continents implements Serializable {
     @Setter
     @Id
     @Column
-    private Short id;
+    private Long id;
 
     @Getter
     @Setter
@@ -34,11 +34,11 @@ public class Continents implements Serializable {
     public Continents() {
     }
 
-    public Continents(Short conId) {
+    public Continents(Long conId) {
         this.id = conId;
     }
 
-    public Continents(Short conId, String conCode, String conTitle) {
+    public Continents(Long conId, String conCode, String conTitle) {
         this.id = conId;
         this.code = conCode;
         this.title = conTitle;

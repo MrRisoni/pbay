@@ -17,7 +17,7 @@ public class ProductsCategories implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @Getter
     @Setter
@@ -33,11 +33,11 @@ public class ProductsCategories implements Serializable {
     public ProductsCategories() {
     }
 
-    public ProductsCategories(Integer catId) {
+    public ProductsCategories(Long catId) {
         this.id = catId;
     }
 
-    public ProductsCategories(Integer catId, String catTitle) {
+    public ProductsCategories(Long catId, String catTitle) {
         this.id = catId;
         this.title = catTitle;
     }

@@ -17,7 +17,7 @@ public class ShippingCostsExceptions implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @Getter
     @Setter
@@ -45,11 +45,11 @@ public class ShippingCostsExceptions implements Serializable {
         this.cost = cost;
     }
 
-    public ShippingCostsExceptions(Integer shcxId) {
+    public ShippingCostsExceptions(Long shcxId) {
         this.id = shcxId;
     }
 
-    public ShippingCostsExceptions(Integer shcxId, String shcxCountryCode, BigDecimal shcxCost) {
+    public ShippingCostsExceptions(Long shcxId, String shcxCountryCode, BigDecimal shcxCost) {
         this.id = shcxId;
         this.countryCode = shcxCountryCode;
         this.cost = shcxCost;

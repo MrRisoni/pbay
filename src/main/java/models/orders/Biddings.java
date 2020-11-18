@@ -19,7 +19,7 @@ public class Biddings implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @Getter
     @Setter
@@ -58,11 +58,11 @@ public class Biddings implements Serializable {
     public Biddings() {
     }
 
-    public Biddings(Integer bidId) {
+    public Biddings(Long bidId) {
         this.id = bidId;
     }
 
-    public Biddings(Integer bidId, BigDecimal bidPrice, BigDecimal bidPriceEur, Date bidCreatedAt, short bidActive) {
+    public Biddings(Long bidId, BigDecimal bidPrice, BigDecimal bidPriceEur, Date bidCreatedAt, short bidActive) {
         this.id = bidId;
         this.bidPrice = bidPrice;
         this.bidPriceEur = bidPriceEur;

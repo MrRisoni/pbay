@@ -18,7 +18,7 @@ public class ProductsFilters implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @Getter
     @Setter
@@ -35,11 +35,11 @@ public class ProductsFilters implements Serializable {
     public ProductsFilters() {
     }
 
-    public ProductsFilters(Integer filId) {
+    public ProductsFilters(Long filId) {
         this.id = filId;
     }
 
-    public ProductsFilters(Integer filId, String filTitle) {
+    public ProductsFilters(Long filId, String filTitle) {
         this.id = filId;
         this.title = filTitle;
     }

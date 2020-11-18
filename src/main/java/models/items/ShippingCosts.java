@@ -18,7 +18,7 @@ public class ShippingCosts implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @Getter
     @Setter
@@ -44,11 +44,11 @@ public class ShippingCosts implements Serializable {
         this.cost = cost;
     }
 
-    public ShippingCosts(Integer shcId) {
+    public ShippingCosts(Long shcId) {
         this.id = shcId;
     }
 
-    public ShippingCosts(Integer shcId, String shcContinentCode, BigDecimal shcCost) {
+    public ShippingCosts(Long shcId, String shcContinentCode, BigDecimal shcCost) {
         this.id = shcId;
         this.continentCode = shcContinentCode;
         this.cost = shcCost;

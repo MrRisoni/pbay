@@ -15,7 +15,7 @@ public class OrderItemDto {
     private BigDecimal shipTotal;
     private BigDecimal rate;
     private short isVoid;
-    private CurrencyDto currencyObj;
+    private String currency_code;
     private SellingDto itemObj;
     private OrderStatusDto statusObj;
     private Collection<OrderItemTrackHistoryDto> orderItemTrackHistoryCollection;

@@ -18,7 +18,7 @@ public class Paymethods implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Short id;
+    private Long id;
 
     @Getter
     @Setter
@@ -32,11 +32,11 @@ public class Paymethods implements Serializable {
     public Paymethods() {
     }
 
-    public Paymethods(Short pmId) {
+    public Paymethods(Long pmId) {
         this.id = pmId;
     }
 
-    public Paymethods(Short pmId, String pmTitle) {
+    public Paymethods(Long pmId, String pmTitle) {
         this.id = pmId;
         this.title = pmTitle;
     }

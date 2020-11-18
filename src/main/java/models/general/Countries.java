@@ -20,7 +20,7 @@ public class Countries implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Short id;
+    private Long id;
 
     @Getter
     @Setter
@@ -39,11 +39,11 @@ public class Countries implements Serializable {
     public Countries() {
     }
 
-    public Countries(Short id) {
+    public Countries(Long id) {
         this.id = id;
     }
 
-    public Countries(Short id, String ctrTitle, String ctrCode) {
+    public Countries(Long id, String ctrTitle, String ctrCode) {
         this.id = id;
         this.title = ctrTitle;
         this.code = ctrCode;

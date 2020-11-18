@@ -1,11 +1,10 @@
 package models.sellers;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
 import models.orders.OrderItems;
 import models.users.Users;
-import models.general.Countries;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -22,7 +21,7 @@ public class Sellers implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @Getter
     @Setter
@@ -60,11 +59,11 @@ public class Sellers implements Serializable {
     public Sellers() {
     }
 
-    public Sellers(Integer selId) {
+    public Sellers(Long selId) {
         this.id = selId;
     }
 
-    public Sellers(Integer selId, String selTitle, String selSsn, BigDecimal selStarsAvg, String country_code) {
+    public Sellers(Long selId, String selTitle, String selSsn, BigDecimal selStarsAvg, String country_code) {
         this.id = selId;
         this.title = selTitle;
         this.ssn = selSsn;

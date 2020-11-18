@@ -17,7 +17,7 @@ public class OrderStatuses implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Short id;
+    private Long id;
 
     @Getter
     @Setter
@@ -33,11 +33,11 @@ public class OrderStatuses implements Serializable {
     public OrderStatuses() {
     }
 
-    public OrderStatuses(Short statId) {
+    public OrderStatuses(Long statId) {
         this.id = statId;
     }
 
-    public OrderStatuses(Short statId, String statTitle) {
+    public OrderStatuses(Long statId, String statTitle) {
         this.id = statId;
         this.title = statTitle;
     }

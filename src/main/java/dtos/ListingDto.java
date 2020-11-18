@@ -16,7 +16,7 @@ public class ListingDto {
     private Date activeUntil;
     private short numWatchers;
     private short isAuction;
-    private CurrencyDto currencyObj;
+    private String currency_code;
     private SellingDto sellingObj;
     private int totalBids;
 }

@@ -15,7 +15,7 @@ public class ListingWatching implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @Getter
     @Setter
@@ -30,11 +30,11 @@ public class ListingWatching implements Serializable {
     public ListingWatching() {
     }
 
-    public ListingWatching(Integer lwiId) {
+    public ListingWatching(Long lwiId) {
         this.id = lwiId;
     }
 
-    public ListingWatching(Integer lwiId, long lwiUserUd, long lwiListingId) {
+    public ListingWatching(Long lwiId, long lwiUserUd, long lwiListingId) {
         this.id = lwiId;
         this.lwiUserUd = lwiUserUd;
         this.lwiListingId = lwiListingId;

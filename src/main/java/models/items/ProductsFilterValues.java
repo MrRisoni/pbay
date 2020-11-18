@@ -16,7 +16,7 @@ public class ProductsFilterValues implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @Getter
     @Setter
@@ -34,11 +34,11 @@ public class ProductsFilterValues implements Serializable {
     public ProductsFilterValues() {
     }
 
-    public ProductsFilterValues(Integer pfvId) {
+    public ProductsFilterValues(Long pfvId) {
         this.id = pfvId;
     }
 
-    public ProductsFilterValues(Integer pfvId, String pfvValue) {
+    public ProductsFilterValues(Long pfvId, String pfvValue) {
         this.id = pfvId;
         this.value = pfvValue;
     }

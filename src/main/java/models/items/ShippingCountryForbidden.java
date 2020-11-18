@@ -16,7 +16,7 @@ public class ShippingCountryForbidden implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
 
     @Getter
@@ -31,11 +31,11 @@ public class ShippingCountryForbidden implements Serializable {
     public ShippingCountryForbidden() {
     }
 
-    public ShippingCountryForbidden(Integer shfId) {
+    public ShippingCountryForbidden(Long shfId) {
         this.id = shfId;
     }
 
-    public ShippingCountryForbidden(Integer shfId, String shfCountryCode) {
+    public ShippingCountryForbidden(Long shfId, String shfCountryCode) {
         this.id = shfId;
         this.countryCode = shfCountryCode;
     }

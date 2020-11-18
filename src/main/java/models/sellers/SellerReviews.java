@@ -20,7 +20,7 @@ public class SellerReviews implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @Getter
     @Setter
@@ -56,11 +56,11 @@ public class SellerReviews implements Serializable {
     public SellerReviews() {
     }
 
-    public SellerReviews(Integer srwId) {
+    public SellerReviews(Long srwId) {
         this.id = srwId;
     }
 
-    public SellerReviews(Integer srwId, short srwOpinion, String srwComment, Date srwCreatedAt) {
+    public SellerReviews(Long srwId, short srwOpinion, String srwComment, Date srwCreatedAt) {
         this.id = srwId;
         this.opinion = srwOpinion;
         this.comment = srwComment;

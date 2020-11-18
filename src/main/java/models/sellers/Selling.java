@@ -19,7 +19,7 @@ public class Selling implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @Getter
     @Setter
@@ -57,11 +57,11 @@ public class Selling implements Serializable {
     public Selling() {
     }
 
-    public Selling(Integer sllId) {
+    public Selling(Long sllId) {
         this.id = sllId;
     }
 
-    public Selling(Integer sllId, int sllQuantity, String sllMailerCo) {
+    public Selling(Long sllId, int sllQuantity, String sllMailerCo) {
         this.id = sllId;
         this.quantity = sllQuantity;
         this.mailer_company = sllMailerCo;

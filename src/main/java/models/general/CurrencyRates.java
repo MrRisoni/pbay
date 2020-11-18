@@ -15,7 +15,7 @@ public class CurrencyRates implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Short id;
+    private Long id;
 
     @Getter
     @Setter
@@ -35,7 +35,7 @@ public class CurrencyRates implements Serializable {
     public CurrencyRates() {
     }
 
-    public CurrencyRates(Short id) {
+    public CurrencyRates(Long id) {
         this.id = id;
     }
 }

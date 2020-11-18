@@ -15,7 +15,7 @@ public class Currencies implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Short id;
+    private Long id;
 
     @Getter
     @Setter
@@ -25,11 +25,11 @@ public class Currencies implements Serializable {
     public Currencies() {
     }
 
-    public Currencies(Short curId) {
+    public Currencies(Long curId) {
         this.id = curId;
     }
 
-    public Currencies(Short curId, String curCode) {
+    public Currencies(Long curId, String curCode) {
         this.id = curId;
         this.code = curCode;
     }
